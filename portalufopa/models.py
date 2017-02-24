@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 
-from datetime import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -195,7 +194,7 @@ class Evento(Content):
     telefone_contato = models.CharField(max_length=150, blank=True, null=True)
 
 class Agenda(Content):
-    data_at = models.DateTimeField(default=datetime.now())
+    data_at = models.DateTimeField()
     local = models.CharField(max_length=150)
     
 '''def save_object(signal, instance, sender, **kwargs):
