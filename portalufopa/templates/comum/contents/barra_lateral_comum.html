@@ -1,0 +1,40 @@
+{% load portal_tags %}
+
+<div class="col-sm-3 informes">
+  <div id="lateral">
+    <div class="dgdp comum-titulo">
+      <h2>DGDP</h2>
+      <p class="hidden-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis nisl nec leo gravida, a accumsan magna vehicula. Aliquam erat volutpat. hendrerit.</p>
+    </div>
+    <div class="dsqv">
+      <h2>DSQV</h2>
+      <p class="hidden-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis nisl nec leo gravida, a accumsan magna vehicula. Aliquam erat volutpat. hendrerit.</p>
+    </div>
+    <div id="ferramentas">
+      {% has_list_object_sessao 'ferramentas-de-gestao' as ferramentas_gestao %}
+      {% if ferramentas_gestao %}
+      <h2 class="titulo comum-titulo">FERRAMENTAS DE GESTÃO</h2>
+      <div id="utilitarios">
+      	{% for obj in ferramentas_gestao %}
+        <a class="btn btn-lg btn-utilitarios " href="{{obj.path_url}}" role="button">{{obj.titulo}}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+      
+      <h2 class="titulo titulo-2 comum-titulo">ADMISSÃO DE PESSOAL</h2>
+      <div id="utilitarios">
+        <a class="btn btn-lg btn-utilitarios " href="#" role="button">Editais</a>
+        <a class="btn btn-lg btn-utilitarios " href="#" role="button">Convocação</a>
+        <a class="btn btn-lg btn-utilitarios " href="#" role="button">Atividades de Acolhimento</a>
+      </div>
+    </div>
+    <div id="proc-sel">
+      <h2 class="titulo comum-titulo">MAIS</h2>
+      <div>
+        <a class="btn btn-lg btn-utilitarios psr" href="#" role="button">Regular</a>
+        <a class="btn btn-lg btn-utilitarios psei" href="#" role="button">Especial Indígena</a>
+        <a class="btn btn-lg btn-utilitarios pseq" href="#" role="button">Especial Quilombola</a>
+      </div>  
+    </div>          
+  </div>  
+</div>

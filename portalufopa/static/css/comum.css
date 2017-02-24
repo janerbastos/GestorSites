@@ -1,0 +1,443 @@
+
+@font-face{
+    font-family:roboto;
+    src: url("../fonts/Roboto-Regular.ttf");
+    font-weight:400;
+}
+body{
+    font-size:100%;
+    background:;
+    font-family:roboto,sans-serif;
+}
+
+/*inicio B Brasil*/
+#barra-brasil {
+    background: #56918e url("../img/bbrasil.png") no-repeat scroll center bottom;
+    min-width: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+#barra-brasil .barra {
+    background: rgba(0, 0, 0, 0) url("../img/bbrasil.gif") repeat-x scroll 0 bottom;
+    display: block;
+    height: 28px;
+    margin: 0 auto;
+    max-width: 1050px;
+}
+#barra-brasil .barra ul {
+    float: right;
+    margin: 0;
+    padding: 0;
+    width: 319px;
+}
+#barra-brasil .barra ul li {
+    float: left;
+    list-style-type: none;
+    padding-left: 25px;
+}
+#barra-brasil .imformacao {
+    background: #56918e url("../img/ai.png") no-repeat scroll 0 4px;
+    display: block;
+    height: 28px;
+    text-indent: -1000px;
+    width: 161px;
+
+}
+#barra-brasil .brasil {
+    background: #56918e url("../img/brasil.png") no-repeat scroll 0 4px;
+    display: block;
+    height: 28px;
+    text-indent: -1000px;
+    width: 108px;
+}
+/*fim B Brasil*/
+/* Acessibilidade */
+#acessibilidade{
+    background: #eee;
+    font-size:1.1em;
+}
+#acessibilidade a{
+    color:#00656D;
+}
+/*Inicio topo*/
+#topo{
+    margin: 0;    
+    background: #00656D  url('../img/topo.jpg')no-repeat center center;          
+}
+#logo {
+    margin: 1em auto;
+    width: 65%;
+}
+
+#topo-titulo{
+    margin: .5em 0 0 -2em;
+}
+#topo-titulo h2, #topo-titulo h3,#topo-titulo h5{
+    color: #fff;
+    font-family:  "Open Sans", sans-serif;
+    text-transform: uppercase; 
+    font-weight: 400; 
+}
+#topo-titulo h2{
+    font-weight: 900;
+    font-size: 4.8em;
+    margin: 0.8em 0 0;
+    float:left;
+}
+#topo-titulo h3{
+    font-size: 1.4em; 
+    margin: 1.714em 0 -2.8572em;
+}
+#topo-titulo h5{
+    font-size: 2.1em;
+    float:left;
+    margin: 2em 0 0 1em;
+    width:22em;
+}
+#topo-titulo a{
+    color: #fff;
+    text-decoration: none;
+    float:right;
+    margin-right: -2em;
+} 
+.courses-searching{
+    background: rgba(0, 0, 0, 0.8) none repeat scroll 0 0;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 99999;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.2, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+.search-active .courses-searching{
+    transform: scale(1,1);
+    opacity: 1;
+    visibility: visible;
+}
+.courses-searching form{
+    bottom: 0;
+    height: 50px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 1;
+    filter: alpha(opacity=100);
+    z-index: 999999999;
+}
+.search-popup-bg{
+    cursor: url("../img/close.png"), progress;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.courses-searching form input[type='text']{
+    background: #fff none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 0;
+    color: #999;
+    float: left;
+    font-size: 15px;
+    height: 50px;
+    line-height: 40px;
+    margin: 0;
+    padding-left: 20px;
+    width: calc(100% - 50px);
+}   
+.courses-searching form button{
+    background: #7dcbb5 none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 0;
+    color: #fff;
+    float: left;
+    font-size: 2em;
+    line-height: 50px;
+    transition: all 0.2s ease-in-out 0s;
+    width: 50px; 
+} 
+.container{
+    margin: 0 auto;
+}
+/*Fim topo*/
+nav{
+   background:#65A896; 
+}
+nav a{
+    color:#fff;
+    font-size:1.6em;
+    font-weight:400;
+}
+.nav.navbar-nav > li a:hover {
+    background:#7DCBB5;
+    color:#00656D;
+}
+.navbar-nav > li > a {
+    padding: 9px 25px;
+}
+.titulo {
+    font-size:2em;
+    font-weight:600;
+    color:#3F7169;
+    border-bottom: 4px solid #7DCBB5;
+    text-transform: uppercase;
+}
+.destaque{
+    padding:2em 1.5em;
+}
+#destaque{
+    margin:0;
+}
+.informes ul li{
+    border-bottom: 1px dotted #ddd;
+    padding:10px 0px;
+}
+.nano {
+  height:35em;
+}
+.nano-content{
+    display-list: none;
+    padding-left: 0;
+}
+.nano-content a{
+    color:#656565;
+    text-decoration: none;
+}
+.informes ul li h3{
+    font-size: 1.717em;
+    line-height: 140%;
+    margin-top:.5em;
+}
+.data{
+    color: #778D94;
+    font-size: 1.2em;
+}
+.mais{
+    color: #666;
+    font-size: 12px;
+    text-decoration: underline;
+    display: inline-block;
+    padding: 10px;
+}
+#utilitarios{
+    margin-top:-10px;
+}
+.btn-utilitarios{
+    border-radius:0px;
+    width:100%;
+    background:#D6eae4;
+    color:#656565;
+    margin-bottom:.2em;
+}
+#utilitarios a:hover{
+    background:#C5e8de;
+}
+.btn-lg, .btn-group-lg > .btn {
+  padding: 16px 16px;
+}
+.conteudo-proppit{
+    padding-left:30px;
+}
+.conteudo-proppit h2{
+    color:#00656D;
+    font-size:2.4em;
+    font-weight:bold;
+    margin-bottom:1.2em;
+    text-transform:uppercase;
+}
+.conteudo-proppit p{
+    font-size:1.8em;
+    color:#53656B;
+}
+.links-botoes{
+    margin:4em 0 0;
+}
+.rodape{
+    background:#65a997;
+    height: 25em;
+    margin-top:5em;
+}
+.rodape ul{
+    list-style:none;
+}
+.rodape a{
+    color :#fff;
+    text-decoration:none;
+    font-size:1.2em;
+}
+.rodape a:hover{
+    color :#00656D;
+}
+.conteudo-rodape h4{
+    color:#00656D;
+    font-size:1.8em;
+}
+.links-rodape li{
+    padding: .2em 0;
+}
+#redes-sociais a{
+    padding: 0 .5em;
+}
+#copy{
+    background:#56918e;
+    color:#fff;
+    padding:1em 0;
+}
+#copy p{
+  margin:0;
+}
+
+/*pagina mapa site*/
+#mapa-site .navTreeLevel2{
+  margin-left: 1.5em;  
+}
+#mapa-site .navTreeLevel3{
+  margin-left: 2.5em;
+}
+
+
+/* alto contraste*/
+.contraste,.contraste #acessibilidade a, .contraste #acessibilidade, .contraste { 
+    background:#000;
+    color:#fff !important;
+}
+.contraste #topo h1,.contraste #topo h2, .contraste #mapa-site a {
+    color:#fff;
+}
+.contraste #topo{
+    background: #555 url('../img/topo-cont.jpg')no-repeat center center;
+}
+.contraste .barra-topo{
+    background:#fff ;
+}
+
+.contraste img {
+    -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+
+
+
+/* 
+@media (max-width: 767px) { 
+#topo{
+    background: #00656D url('../img/topo3.jpg')no-repeat center center; 
+}
+#logo {
+    margin: .5em auto;
+    width:30%;
+}
+#redes-sociais a {
+    margin: 0;
+}
+#topo-titulo h1{
+    font-size: 3.5em;
+}
+#topo-titulo h2{
+    font-size: 1.5em; 
+    margin: -1em 0 -1em;
+}
+#topo-titulo {
+    margin: 0 -2em -2em;
+}
+.comum-todos i {
+    margin-left: -1.3em;
+    margin-right: 0.2em;
+}
+.direita {
+    right: 0;
+}
+#comum .titulo {
+    font-size: 1.8em;
+    padding: 1em 0.5em 0.5em;
+}
+.titulo i {
+    margin-top: 0em;
+}
+.comum-todos ul{
+    padding-left: 2.5em; 
+}
+#comum a {
+    font-size: 1.45em;
+}
+#comum .mais {
+    margin-top: 1em;
+}
+.endereco {
+    padding: 0 1em;
+}
+.endereco p {
+    font-size: 1.2em;
+    letter-spacing: 1px;
+}
+
+}
+@media (min-width: 480px) and (max-width: 767px) {
+#logo {
+    margin: .5em auto;
+    width:20%;
+}
+
+}
+@media (min-width: 768px) and (max-width: 991px) {
+#acessibilidade .container{
+    padding:0;
+    width:100%;
+}
+#acessibilidade .col-sm-5{
+    width:37%;
+    padding: 0 0 0 .8em;
+}
+#acessibilidade .col-sm-7{
+    width:60%;
+    padding: 0 0 0 1em;
+}
+#acessibilidade .nav.nav-pills a {
+    padding:1em .5em;
+}
+#logo{
+    margin: 3.4em 0;
+}
+#topo-titulo h2 {
+    font-size: 1.9em;
+    margin: 2.5em 0 -1em 0.1em;
+}
+#topo-titulo h1 {
+    font-size: 4.5em;
+}
+#topo-titulo {
+ margin:0 0 -1em -3.5em;
+}
+#redes-sociais {
+    font-size: 1em;
+    margin-left: 0em;
+    margin-top: 1em;
+    width: 20%;
+    left: 3.5em;
+}
+#comum .titulo {
+    padding: 0 0.2em 0.3em 0.5em;
+}
+
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    #acessibilidade .container{
+    padding:0;
+    width:100%;
+}
+}
+@media  (max-width: 1199px) {
+#topo{
+    background-size:100% 100%;
+}
+} */

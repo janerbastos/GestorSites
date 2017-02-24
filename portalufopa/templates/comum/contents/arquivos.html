@@ -1,0 +1,10 @@
+{% load portal_tags %}
+
+<div class="col-sm-9 conteudo-comum">
+	{% has_breadcrumbs %}
+	<div class="conteudo-comum-progep col-sm-12"> 
+    	<h2 class="titulos-comum">{{object.titulo}}</h2>
+    </div>
+    {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
+	<p style="margin-top: 2em;"><a href="{{object.arquivo.url}}" target="_blank">Baixar arquivo</a></p>
+</div>

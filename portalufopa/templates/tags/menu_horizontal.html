@@ -1,0 +1,71 @@
+{% load portal_tags %}
+<nav>
+  <div class="container">
+    <div class="navbar-header col-sm-12">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand visible-xs" href="{{site.get_absolute_url}}">{{site.url|upper}}</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="{{site.get_absolute_url}}">Início</a></li>
+        {% for i in menu %}
+        	{% if not i.excluir_nav %}
+        		{% if i.tipo == 'ATPasta' %}
+        			<li class="dropdown">
+                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{i.titulo}} <span class="caret"></span></a>
+                    	<ul class="dropdown-menu multi-level dropdown-menu1">
+                    		{% has_sub_menu i 3 as item_menu %}
+                    		{% for ii in item_menu %}
+                    			{% if not ii.excluir_nav %}
+                    				{% if ii.tipo == 'ATPasta' %}
+                    					<li class="dropdown-submenu ">
+	                            			<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ii.titulo}} </a>
+	                            			<ul class="dropdown-menu ">
+	                            				{% has_sub_menu ii 4 as item_sub_menu %}
+	                            				{% for iii in item_sub_menu %}
+	                            					{% if not iii.excluir_nav %}
+	                            						{% if iii.tipo == 'ATLink' %}
+	                            							{% has_content_by_portal_catalog iii as link %}
+	                    									<li><a href="{{link.link}}" target={{link.target}}>{{iii.titulo}}</a></li>
+	                    								{% else %}
+	                    									<li><a href="{{iii.path_url}}">{{iii.titulo}}</a></li>
+	                    								{% endif %}
+	                    							{% endif %}
+	                    						{% endfor %}
+	                    					</ul>
+	                    				</li>
+                    				{% else %}
+                    					{% if not ii.excluir_nav %}
+                    						{% if ii.tipo == 'ATLink' %}
+                    							{% has_content_by_portal_catalog ii as link %}
+                    							<li><a href="{{link.link}}" target="{{link.target}}">{{ii.titulo}}</a></li>
+                    						{% else %}
+                    							<li><a href="{{ii.path_url}}">{{ii.titulo}}</a></li>
+                    						{% endif %}
+                    					{% endif %}
+                    				{% endif %}
+                    			{% endif %}
+                    		{% endfor %}
+                    	</ul>
+                    </li>
+        		{% else %}
+        			{% if not i.excluir_nav %}
+        				{% if i.tipo == 'ATLink' %}
+        					{% has_content_by_portal_catalog i as link %}
+        					<li>{{link}}<a href="{{link.link}}" target="{{link.target}}">{{i.titulo}}</a></li>
+        				{% else %}
+        					<li><a href="{{i.path_url}}">{{i.titulo}}</a></li>
+        				{% endif %}
+        			{% endif %}
+        		{% endif %}
+        	{% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</nav>

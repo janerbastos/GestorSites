@@ -1,0 +1,16 @@
+{% extends 'manage/base.html' %}
+
+{% block container %}
+
+	{% if list_sites %}
+		{% for s in list_sites %}
+			<h3><a href="{{s.get_absolute_url}}">{{s.titulo}}</a> <a href="{% url 'manage_main:edit_site' s.url %}"> <i class="fa fa-pencil" aria-hidden="true"></i></a></h3>
+			<p>{{s.descricao}}</p>
+		{% endfor %}
+	{% else %}
+		<p>nenhum site cadastrado</p>
+	{% endif %}
+	
+	<p><a href="{% url 'manage_main:new_site' %}">Cadastra novo site</a></p>
+
+{% endblock container %}

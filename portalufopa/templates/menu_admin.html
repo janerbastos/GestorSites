@@ -1,0 +1,97 @@
+{% load portal_tags %}
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      {% if action == 'view' or action == 'edit' %}
+      <ul class="nav navbar-nav">
+      	{% if object.tipo == 'ATPasta' %}
+      		<li {% if action == 'list' %}class="active"{% endif %}><a href="{% has_action_view_edit 'folder_contents' %}">Conteudo <span class="sr-only">(current)</span></a></li>
+      	{% endif %}
+        <li {% if action == 'view' %}class="active"{% endif %}><a href="{% has_action_view_edit 'view' %}">Visão <span class="sr-only">(current)</span></a></li>
+        <li {% if action == 'edit' %}class="active"{% endif %}><a href="{% has_action_view_edit 'edit' %}">Editar</a></li>
+      </ul>
+      {% endif %}
+      
+      {% if action == 'index' or action == 'list' %}
+      <ul class="nav navbar-nav">
+        <li {% if action == 'list' %}class="active"{% endif %}><a href="{% has_action_view_edit 'folder_contents' %}">Conteudo <span class="sr-only">(current)</span></a></li>
+      	<li {% if action == 'index' %}class="active"{% endif %}><a href="{% has_action_view_edit 'view' %}">Visão <span class="sr-only">(current)</span></a></li>
+      </ul>
+      {% endif %}
+      
+      <ul class="nav navbar-nav navbar-right">
+      	{% if object.tipo == 'ATPasta' or not object %}
+	      	{% if action == 'view' or action == 'list' or action == 'index' %}
+		      	{% if object %}
+			      	<li class="dropdown ">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Exibição <span class="caret"></span></a>
+			          <ul class="dropdown-menu">
+			            <li class="{% if not object.visao_padrao %}active{% endif %}"><a href="select_default_page/"> Visão Padrão</a></li>
+			            <li class="{% if object.visao_padrao == 'sumaria' %}active{% endif %}"><a href="select_default_page/?view=sumaria"> Visão Sumária</a></li>
+			            {% if object_view %}
+			            	{% if not object_view == 'sumaria' %}
+			            		<li class="active"><a href="#">Item: {{object_view.titulo}}</a></li>
+			            	{% endif %}
+			            {% endif %}
+			            <li><a href="#" data-toggle="modal" data-target="#run_modal"> {% if object.content %}Altera item usado como visão padrão...{% else %}Selecionar um item como visão padrão...{% endif %}</a></li>
+			          </ul>
+			        </li>
+			    {% endif %}
+		        <li class="dropdown ">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adicionar item... <span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+		            <li><a href="{% format_menu_admin_content 'pasta' %}">{% has_icon_content 'pasta' %} Pasta</a></li>
+		            <li><a href="{% format_menu_admin_content 'noticia' %}">{% has_icon_content 'noticia' %} Noticia</a></li>
+		            <li><a href="{% format_menu_admin_content 'informe' %}">{% has_icon_content 'informe' %} Informe</a></li>
+		            <li><a href="{% format_menu_admin_content 'pagina' %}">{% has_icon_content 'pagina' %} Pagina</a></li>
+		            <li><a href="{% format_menu_admin_content 'evento' %}">{% has_icon_content 'evento' %} Evento</a></li>
+		            <li><a href="{% format_menu_admin_content 'agenda' %}">{% has_icon_content 'agenda' %} Agenda</a></li>
+		            <li role="separator" class="divider"></li>
+		            <li><a href="{% format_menu_admin_content 'link' %}">{% has_icon_content 'link' %} Link</a></li>
+		            <li><a href="{% format_menu_admin_content 'imagem' %}">{% has_icon_content 'imagem' %} Imagem</a></li>
+		            <li><a href="{% format_menu_admin_content 'banner' %}">{% has_icon_content 'banner' %} Banner</a></li>
+		            <li><a href="{% format_menu_admin_content 'arquivo' %}">{% has_icon_content 'arquivo' %} Arquivo</a></li>
+		          </ul>
+		        </li>
+		    {% endif %}
+		{% endif %}
+	    {% if action == 'view' %}
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Estado: <span class="{% has_workflow_color object.workflow %}">{{object.workflow}}</span><span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	          	{% if object.workflow == 'Privado' %}
+	            <li><a href="content_status_modify/?workflow_action=publicar">Publicar</a></li>
+	            <li><a href="content_status_modify/?workflow_action=enviar_publicar">Enviar para publicação</a></li>
+	            {% endif %}
+	            {% if object.workflow == 'Publicado' %}
+	            <li><a href="content_status_modify/?workflow_action=rejeitar">Enviar de volta</a></li>
+	            <li><a href="content_status_modify/?workflow_action=retirar">Retirar</a></li>
+	            {% endif %}
+	            
+	            {% if object.workflow == 'Revisao pendente' %}
+	            <li><a href="content_status_modify/?workflow_action=publicar">Publicar</a></li>
+	            <li><a href="content_status_modify/?workflow_action=rejeitar">Enviar de volta</a></li>
+	            <li><a href="content_status_modify/?workflow_action=retirar">Retirar</a></li>
+	            {% endif %}
+	          </ul>
+	        </li>
+		{% endif %}
+		
+		{% if action == 'sessions_manage' or action == 'index' %}
+			{% has_list_sessions_site as sessions %}
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Sessões: <span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	          	{% for obj in sessions %}
+	          		<li><a href="{% format_menu_session obj.sessao %}">{{obj.titulo}}</a></li>
+	          	{% endfor%}
+	          </ul>
+	        </li>
+		{% endif %}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+                           

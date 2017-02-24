@@ -1,0 +1,28 @@
+{% load portal_tags %}
+
+	{% has_select_item_menu menu as content_rais %}
+	
+	{% if content_rais %}
+	<div class="col-sm-3">
+		<ul class="links-rodape" >
+		{% for i in content_rais %}
+		        <li><a href="{{i.path_url}}">{{i.titulo}}</a></li>
+		{% endfor %}
+		</ul>
+	</div>
+	{% endif %}
+	
+	{% for i in menu %}
+		{% if i.tipo == 'ATPasta' and i.excluir_nav == False %}
+			<div class="col-sm-3">
+				<h4>{{i.titulo|upper}}</h4>
+				<ul class="links-rodape" >
+					{% has_list_object footer_url=i.path_url as itens %}
+					{% for ii in itens %}
+						<li><a href="{{ii.path_url}}">{{ii.titulo}}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+	{% endfor %}
+	

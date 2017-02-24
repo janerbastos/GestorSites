@@ -1,0 +1,144 @@
+{% extends 'comum/index.html' %}
+{% load bootstrap portal_tags staticfiles %}
+
+{% block static_file_top %}
+
+<script type="text/javascript" src="{% static 'js/ckeditor/ckeditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/datetimepicker/moment.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/datetimepicker/locales.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/datetimepicker/bootstrap-datetimepicker.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/datetimepicker/bootstrap-datetimepicker.min.css' %}" />
+
+<script src="{% static 'js/ajax.js' %}"></script>
+
+<script type="text/javascript">
+function clicked() {
+	window.history.back();
+}
+
+//Drop and Down
+$( function() {
+    $( "#ordenador" ).sortable({
+      axis: 'y',
+      opacity: 0.8,
+      
+      update: function(event, ui){
+    	  var ordem = $(this).sortable('toArray');
+    	  ordenador("{{site.url}}", ordem)
+      },
+    
+      over: function(event, ui) {
+    	  
+      },
+      
+      out: function(event, ui) {
+    	  
+	  },
+    });
+});
+</script>
+{% endblock static_file_top %}
+
+{% block titulo %}
+	{{block.super}} - {% if object %} {{object.titulo}} {% else %} Cadastrando novo conteúdo {% endif %}
+{% endblock titulo%}
+
+{% block container %}
+
+	<section id="conteudo" class="container" >
+		
+		{% if form %}
+			<form method="post" enctype="multipart/form-data" id="form">
+				{% csrf_token %}
+				{{ form|bootstrap }}
+				<div class="form-group col-sm-12">
+					<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-save"></i>&nbsp;Gravar</button>
+					<button type="button" id="_cancelar_" class="btn btn-danger" name="_cancelar_" onclick="clicked()"><i class="fa fa-fw fa-times"></i>&nbsp;Cancelar</button>
+				</div>
+			</form>
+		{% endif %}
+		
+		{% if action == 'list' %}
+			{% has_list_pastas %}
+		{% endif %}
+		
+		{% if object %}
+			{% if object.tipo == 'ATPasta' %}
+				{% include 'comum/contents/pastas.html' %}
+				{% include 'comum/contents/barra_lateral_comum.html' %}
+			{% endif %}
+			
+			{% if object.tipo == 'ATPagina'%}
+				{% include 'comum/contents/paginas.html' %}
+				{% include 'comum/contents/barra_lateral_comum.html' %}
+			{% endif %}
+			
+			{% if object.tipo == 'ATNoticia' %}
+				{% include 'comum/contents/noticias.html' %}
+				{% include 'comum/contents/barra_lateral_comum.html' %}
+			{% endif %}
+			
+			{% if object.tipo == 'ATInforme' %}
+				{% include 'comum/contents/informes.html' %}
+				{% include 'comum/contents/barra_lateral_comum.html' %}
+			{% endif %}
+			
+			{% if object.tipo == 'ATBanner' %}
+				{% include 'comum/contents/banners.html' %}
+				{% include 'comum/contents/barra_lateral_comum.html' %}
+			{% endif %}
+			
+			{% if object.tipo == 'ATImagem' %}
+				{% include 'comum/contents/imagens.html' %}
+				{% include 'comum/contents/barra_lateral_comum.html' %}
+			{% endif %}
+			
+			{% if object.tipo == 'ATArquivo' %}
+				{% include 'comum/contents/arquivos.html' %}
+				{% include 'comum/contents/barra_lateral_comum.html' %}
+			{% endif %}
+			
+			{% if object.tipo == 'ATLink' %}
+				{% include 'comum/contents/links.html' %}
+				{% include 'comum/contents/barra_lateral_comum.html' %}
+			{% endif %}
+			
+			{% if object.tipo == 'ATAgenda' %}
+				{% include 'comum/contents/agendas.html' %}
+				{% include 'comum/contents/barra_lateral_comum.html' %}
+			{% endif %}
+			
+			{% if object.tipo == 'ATEvento' %}
+				{% include 'comum/contents/eventos.html' %}
+				{% include 'comum/contents/barra_lateral_comum.html' %}
+			{% endif %}
+			
+		{% endif %}
+	
+</section>
+{% endblock container %}
+
+{% block static_file_button %}
+	
+	<script type="text/javascript">
+		
+		CKEDITOR.config.extraPlugins = 'simple-image-browser';
+		CKEDITOR.config.simpleImageBrowserURL = '/{{site.url}}/image_browse_url/';
+		CKEDITOR.replace('id_corpo_texto');
+	
+        $(function () {
+            $('#id_inicio_at').datetimepicker({
+            	locale: 'pt-br'
+            });
+            
+			$('#id_termino_at').datetimepicker({
+				locale: 'pt-br'
+            });
+			
+			$('#id_data_at').datetimepicker({
+				locale: 'pt-br'
+            });
+        });
+    </script>
+
+{% endblock static_file_button %}

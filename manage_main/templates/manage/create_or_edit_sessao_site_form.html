@@ -1,0 +1,38 @@
+{% extends 'manage/index.html' %}
+{% load bootstrap %}
+
+{% block container %}
+
+	<form method="post" id="form">
+		{% csrf_token %}
+		{{ form|bootstrap }}
+		<div class="form-group col-sm-12">
+			<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-save"></i>&nbsp;Gravar</button>
+			<button type="button" id="_cancelar_" class="btn btn-danger" name="_cancelar_" onclick="clicked()"><i class="fa fa-fw fa-times"></i>&nbsp;Cancelar</button>
+		</div>
+	</form>
+	
+	{% if lista_sessoes %}
+		
+		<table class="table">
+		<tbody>
+			<tr>
+			<th>Nome da sessão</th><th>Identificador</th><th>Tipo do conteúdo</th><th>Quantidade</th>
+			<td>&nbsp;</td>
+			</tr>
+		</tbody>
+		{% for item in lista_sessoes %}
+			<tr>
+				<td>{{item.titulo}}</td><td>{{item.sessao}}</td><td>{{item.get_tipo_display}}</td><td>{{item.quantidade}}</td>
+				<td>
+					<a href="{% url 'manage_main:new_edit_sessao_site' site.url item.sessao %}"><i class="fa fa-edit" aria-hidden="true"></i></a>&nbsp;&nbsp;
+					<a href="{% url 'manage_main:new_edit_sessao_site' site.url item.sessao %}?action=excluir"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+				</td>
+			</tr>
+		{% endfor %}
+		</table>
+	{% else %}
+		<p>Nenhuma sessão registrada para esse site</p>
+	{% endif %}
+
+{% endblock container %}

@@ -1,0 +1,30 @@
+<div class="navbar-wrapper">
+<div class="container">
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<p class="navbar-text">Modulo de configuração</p>
+			
+			<ul class="nav navbar-nav navbar-right">
+				<li {% if action == 'open' %}class='active'{% endif %}><a href="{% url 'manage_main:open_site' site.url %}">Início</a></li>
+				<li><a href="{{ site.get_absolute_url }}" target="_blank">View</a></li>
+				<li class="dropdown ">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configurar... <span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+				    <li {% if action == 'edit' %}class='active'{% endif %}><a href="{% url 'manage_main:edit_site' site.url %}">Básico</a></li>
+				    <li {% if action == 'edit_endereco' %}class='active'{% endif %}><a href="{% url 'manage_main:edit_site' site.url 'endereco' %}">Endereço</a></li>
+				    <li {% if action == 'edit_redes_sociais' %}class='active'{% endif %}><a href="{% url 'manage_main:edit_site' site.url 'redes_sociais' %}">Redes Sociais</a></li>
+				    <li {% if action == 'edit_desenvolvedor' %}class='active'{% endif %}><a href="{% url 'manage_main:edit_site' site.url 'desenvolvedor' %}">Desenvolvedor</a></li>
+				    <li {% if action == 'edit_estatistica' %}class='active'{% endif %}><a href="{% url 'manage_main:edit_site' site.url 'estatistica' %}">Estatistica</a></li>
+				  	<li role="separator" class="divider"></li>
+				  	<li {% if action == 'edit_sessao' %}class='active'{% endif %}><a href="{% url 'manage_main:new_edit_sessao_site' site.url %}">Sessões</a></li>
+				  	<li {% if action == 'edit_tag' %}class='active'{% endif %}><a href="{% url 'manage_main:new_edit_tag_site' site.url %}">Tags</a></li>
+				  </ul>
+				</li>
+			</ul>
+	    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+</div>
+</div>
+                           

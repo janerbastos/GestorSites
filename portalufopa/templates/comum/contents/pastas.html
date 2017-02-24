@@ -1,0 +1,87 @@
+{% load portal_tags %}
+
+<div class="col-sm-9 conteudo-comum">
+	{% has_breadcrumbs %}
+    
+    {% if not object_view %}
+		<div class="conteudo-comum-progep col-sm-12"> 
+	    	<h2 class="titulos-comum">{{object.titulo}}</h2>
+	    </div>
+	    {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
+		{% has_list_pastas %}
+	{% else %}
+		{% if object_view == 'sumaria' %}
+			<div class="progep-titulos"><h2 class="titulos-comum">{{object.titulo}}</h2></div>
+			{% include 'comum/contents/list_view_sumaria.html' %}
+		{% else %}
+			
+			<div class="conteudo-comum-progep col-sm-12"> 
+		    	<h2 class="titulos-comum">{{object_view.titulo}}</h2>
+		    </div>
+		    
+		    {% if object_view.workflow == 'Publicado' %}
+		    	<p>{{ object_view.public_at }}</p>
+		    {% else %}
+		    	<p>Aguardando publicação</p>
+		    {% endif %}
+		    
+		    {% if object_view.descricao %}
+		    	<p class="descricao">{{object_view.descricao}}</p>
+		    {% endif %}
+		    
+		    {% has_ifinlist "ATPagina,ATNoticia,ATEvento" object_view.tipo as if_corpo_do_texto %}
+		    {% if if_corpo_do_texto %}
+		    {% if object_view.corpo_texto %}{% autoescape off %}{{object_view.corpo_texto }}{% endautoescape %} {% endif %}
+		    {% endif %}
+		    
+		    {% has_ifinlist "ATNoticia,ATInforme,ATImagem,ATBanner" object_view.tipo as if_imagem %}
+		    {% if if_imagem %}
+			    {% if object_view.imagem %}
+			    	<img src="{{ object_view.imagem.url }}" width="700">
+			    	<p>{{object_view.legenda}}</p>
+			    {% endif %}
+			{% endif %}
+			
+			{% has_ifinlist "ATLink,ATBanner" object_view.tipo as if_link %}
+			{% if if_link %}
+				{% if object_view.link %}
+					<p>Link: <a href="{{object_view.link}}">{{object_view.link}}</a></p>
+				{% endif %}
+			{% endif %}
+		    
+		    {% if object_view.tipo == 'ATAgenda' %}
+		    	<p>Data e hora do evento {{object_view.data_at}}</p>
+		    	<p>Local {{object_view.local}}</p>
+		    {% endif %}
+		    
+		    {% if object_view == 'ATEvento' %}
+		    	<p>Inicio evento {{object_view.inicio_at}} </p>
+		    	<p>Termino evento {{object_view.temino_at}} </p>
+		    	
+		    	{% if object_view.participante %}
+		    		<p>Participantes {{object_view.participante}} </p>
+		    	{% endif %}
+		    	
+		    	{% if object_view.url_evento %}
+		    		<p>Página Web <a href="{{object_view.url_evento}}">{{object_view.url_evento}}</a></p>
+		    	{% endif %}
+		    	
+		    	{% if object_view.contato %}
+		    		<p>Contato(s) {{object_view.contato}}</p>
+		    	{% endif %}
+		    	
+		    	{% if object_view.email %}
+		    		<p>E-Mail {{object_view.email}}</p>
+		    	{% endif %}
+		    	
+		    	{% if object_view.telefone_contato %}
+		    		<p>Telefone {{object_view.telefone_contato}}</p>
+		    	{% endif %}
+		    	
+		    {% endif %}
+		    
+	    {% endif %}
+	{% endif %}
+	
+	{% include 'm_pagina_padrao.html' %}
+</div>

@@ -1,0 +1,30 @@
+{% extends 'comum/index.html' %}
+{% load bootstrap portal_tags staticfiles %}
+
+{% block container %}
+	<div id="pag-comum">
+		<p>Gerenciamento de sessão.</p>
+		
+		<h1>{{object}}</h1>
+		<h3>Conteúdos vinculados <a href="#" data-target="#run_modal" data-toggle="modal"><i class="fa fa-plus-square" aria-hidden="true"></i></a></h3>
+		{% if list_sessions %}
+		{% format_menu_session object.sessao as menu %}
+		<div class="col-sm-12" style="border: 1px solid #ccc;">
+			<p><ul>
+				{% for i in list_sessions %}
+					<li>
+						<p>
+							<a href="{{menu}}&excluir={{i.id}}" title="Excluir da sessão"><i class="fa fa-trash" aria-hidden="true"></i></a>
+							&nbsp;&nbsp;<a href="{{i.path_url}}edit" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+							&nbsp;&nbsp;{{ i.titulo }}
+						</p>
+					</li>
+				{% endfor %}
+			</ul></p>
+		</div>
+		{% endif %}
+	</div>
+	
+	{% include 'm_manage_sessao.html' %}
+	
+{% endblock container %}

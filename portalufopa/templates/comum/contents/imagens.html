@@ -1,0 +1,10 @@
+{% load portal_tags %}
+
+<div class="col-sm-9 conteudo-comum">
+	{% has_breadcrumbs %}
+	<div class="conteudo-comum-progep col-sm-12"> 
+    	<h2 class="titulos-comum">{{object.titulo}}</h2>
+    </div>
+    {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
+    <img alt="{{object.titulo}}" src="{{object.imagem.url}}" width="500px" height="400px">
+</div>

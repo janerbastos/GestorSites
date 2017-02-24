@@ -1,0 +1,11 @@
+{% extends 'manage/index.html' %}
+{% load bootstrap %}
+
+{% block main_menu %}
+   	{% include 'manage/main_menu.html' %}
+{% endblock main_menu %}
+
+{% block container %}
+	<h1>{{ site.titulo }}</h1>
+	<p>{{site.descricao}}</p>
+{% endblock container %}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+{% load staticfiles portal_tags %}
+
+{% has_site as site %}
+{% has_session as action %}
+{% if object.visao_padrao %}{% has_visao_padrao object.visao_padrao as object_view %}{% endif %}
+
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>{{site.titulo}}</title>
+	<link rel="shortcut icon" href="{% if site.favicon %} {{site.favicon.url}} {% else %} {% static 'img/favicon.png' %} {% endif %}" type="image/x-icon"/>
+    <!-- <link href="staticcss/normalize.css" rel="stylesheet"> -->
+    
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/jquery.nanoscroller.min.js' %}"></script>
+    
+    <link rel="stylesheet" href="{% static 'css/nanoscroller.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/comum.css' %}">
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static '/fonts/Roboto-Regular.ttf' %}" type="text">
+	{% block static_file_top %}{% endblock static_file_top %}
+	{% if site.banner_topo %}<style type="text/css">#topo{background: #00656D  url('{{site.banner_topo.url}}')no-repeat center center;}</style>{% endif %}
+</head>
+
+<body>
+
+{% block barra_governo %}
+<div class="container-fluid"> 
+    <div id="barra-brasil" class="row">
+      <div class="barra">
+        <ul>
+         <li>
+           <a class="imformacao" title="Acesso à informação" href="http://www.acessoainformacao.gov.br"></a>
+         </li>
+         <li>
+           <a class="brasil" title="Portal de Estado do Brasil" href="http://www.brasil.gov.br"></a>
+         </li>
+        </ul>
+      </div>
+    </div>
+</div>
+{% endblock barra_governo %}
+
+{% block acessibilidade %}
+<!-- Acessibilidade -->
+<div id='acessibilidade' class="hidden-xs"> 
+     <div class="container">
+       <div class="row">
+         <div class="col-sm-7">
+             <ul class="nav nav-pills">
+             <li>
+               <a accesskey="1" href="#destaque" id="link-informe">Ir para o conteúdo <span>[1]</span></a>
+             </li>
+             <li>
+               <a accesskey="2" href="#menu" id="link-nav">Ir para o menu <span>[2]</span></a>
+             </li>
+             <li>
+               <a accesskey="3" href="#busca" id="link-busca">Ir para a busca <span>[3]</span></a>
+             </li>
+             <li>
+               <a accesskey="4" href="#sociais" id="link-rodape">Ir para o rodapé <span>[4]</span></a>
+             </li>
+           </ul>
+         </div>
+         <div class="col-sm-5">
+           <ul class="nav nav-pills pull-right">
+           	 <li><a accesskey="+" href="#" class="res-font">A</a></li> 
+             <li><a accesskey="+" href="#" class="dec-font">A-</a></li> 
+             <li><a accesskey="+" href="#" class="inc-font">A+</a></li> 
+             <li><a accesskey="5" class="ativa-contraste" href="#" id="is-normal-contrast">Alto contraste</a></li> 
+             <li><a accesskey="6" href="#" id="link-navegacao">Mapa do site</a></li>
+             <li><a href="#" id="acessar">Acessar</a></li>
+           </ul>
+         </div>
+       </div>
+     </div>
+</div> 
+{% endblock acessibilidade %}
+
+<!-- TOPO-->
+{% block header %}
+<header id="topo">
+    <div class="row container">
+          <div class="col-sm-2 ">
+            <a id="portal-logo" href="{{site.get_absolute_url}}" title="{{site.titulo}}">
+              <img id="logo" src="{% if site.logo %} {{site.logo.url}} {% else %} {% static 'img/brasao.png' %} {% endif %}" class="img-responsive" title="{{site.titulo}}" alt="Link para {{site.titulo}}"/>
+            </a>
+          </div>
+          <div class="col-sm-10" id="topo-titulo">
+            <h3>UNIVERSIDADE FEDERAL DO OESTE DO PARÁ</h3></br>
+            <h2 id="portal-titulo">{{site.url|title}}</h2><h5>{{site.titulo}}</h5>
+            <a id="busca" href="#" class="btn-search" title="Buscar por">
+              <i class="fa-2x fa fa-search" aria-hidden="true"></i>
+            </a>
+          </div>
+          <!-- Sessão Pesquisa -->
+          <div class="col-sm-12">         
+           <div class="courses-searching" id="search-wrapper">
+            <div class="search-popup-bg"></div>
+            <form action="#_" method="get" class="col-sm-6">
+              <input type="text" autocomplete="off" class="thim-s form-control courses-search-input" placeholder="Buscar por" name="s" value="" id="txt-search">
+              <input type="hidden" name="ref" value="course">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+           </div>
+          </div>
+          <!-- end pesquisa -->
+    </div>   
+</header>
+{% endblock header %}
+
+<!-- Sessão de menu principal horizontal -->
+{% block menu_horizontal %}
+	{% has_menu_horizontal %}
+{% endblock menu_horizontal %}
+
+{% if user.is_authenticated %}{% if action != 'create' %}<br/>{% include 'menu_admin.html' %}{% endif %}{% endif %}
+<!-- end menu principal horizontal -->
+
+<!-- Sessão de conteúdo Principal da pagina -->
+<div class="container">
+	<div class="row">
+	{% block container %}
+	
+	{% endblock container %}
+	</div>
+</div>
+<!-- end conteúdo Principal da pagina -->
+
+<!-- Sessão do site que delimita o rodapé -->
+<footer class="rodape">
+	{% block footer %}
+
+	{% endblock footer %}
+</footer>
+	
+	<script src="{% static 'js/comum.js' %}"></script>
+	{% block static_file_button %}{% endblock static_file_button %}
+	
+</body>
+</html>

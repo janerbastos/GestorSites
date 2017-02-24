@@ -1,0 +1,15 @@
+{% load portal_tags %}
+
+<div class="col-sm-9 conteudo-comum">
+	{% has_breadcrumbs %}
+	<div class="conteudo-comum-progep col-sm-12"> 
+    	<h2 class="titulos-comum">{{object.titulo}}</h2>
+    </div>
+    {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
+    
+    <p>Abertura: {{object.inicio_at }} </p>
+    <p>Termino: {{object.termino_at }} </p>
+    <p>Local: {{object.local }} </p>
+    
+    {% autoescape off %}{{object.corpo_texto }}{% endautoescape %}
+</div>
