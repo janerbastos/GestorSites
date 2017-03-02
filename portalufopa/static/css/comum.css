@@ -379,8 +379,15 @@ ul{
 }
 #menu ul{
     padding: 0;
-}/**/
-/*
+}
+
+/* menu admin*/
+#menu-admin{
+    font-family: 'Roboto';
+    font-size: 1.5em;
+}
+/* menu admin*/
+
 #faixa{
     height: 4px;
     width: 100%;
