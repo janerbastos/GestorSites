@@ -18,6 +18,8 @@ from .comum.utils import TYPE_NAME, get_url_request, CREATE_OBJECT, \
 from .models import PortalCatalog, Pagina, Pasta, Noticia, Imagem, Link, \
     Banner, Arquivo, Evento, Agenda, Informe
 
+from django.db.models import Q 
+
 
 # Create your views here.
 def __workflowObject(request):
@@ -298,6 +300,17 @@ def __add_item_session(request):
     
     return render(request, template, context)
     
+def __search(request):
+    template = 'comum/search.html'
+    _result = None
+    if request.POST:
+        _search = request.POST['search']
+        _result = PortalCatalog.objects.filter(Q(titulo__startswith=_search)|Q(descricao__startswith=_search))
+    context = {
+        'search' : _result
+        }
+    return render(request, template, context)
+
 def index(request, url=None):
     
     if request.path == '/':
@@ -359,6 +372,12 @@ def index(request, url=None):
     if 'sessions_manage' in _url_site:
         if len(_url_site) >= 2:
             return __add_item_session(request)
+        else:
+            raise Http404('Operação não permitida.')
+    
+    if 'search' in _url_site:
+        if len(_url_site) >= 2:
+            return __search(request)
         else:
             raise Http404('Operação não permitida.')
     
