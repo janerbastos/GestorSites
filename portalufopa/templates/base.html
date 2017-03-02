@@ -103,8 +103,8 @@
           <div class="col-sm-12">         
            <div class="courses-searching" id="search-wrapper">
             <div class="search-popup-bg"></div>
-            <form action="#_" method="get" class="col-sm-6">
-              <input type="text" autocomplete="off" class="thim-s form-control courses-search-input" placeholder="Buscar por" name="s" value="" id="txt-search">
+            <form action="/{{site.url}}/search/" method="post" class="col-sm-6">  {% csrf_token %}
+              <input type="text" autocomplete="off" class="thim-s form-control courses-search-input" placeholder="Buscar por" name="search" value="" id="txt-search">
               <input type="hidden" name="ref" value="course">
               <button type="submit"><i class="fa fa-search"></i></button>
             </form>
