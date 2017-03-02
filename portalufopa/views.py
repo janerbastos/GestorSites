@@ -5,26 +5,25 @@ import json
 from django.http.response import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.template.exceptions import TemplateDoesNotExist
+from django.db.models import Q
 
-from portalufopa.comum.utils import ORGANIZADOR_CONTENT, IMAGE_BROWSE_URL,\
-    get_content_by_portal_catalog
+from portalufopa.comum.utils import get_content_by_portal_catalog
 from portalufopa.models import Sessao
 
 from .comum import agendas
-from .comum import paginas, pastas, noticias, imagens, links, banners, arquivos, eventos_, informes
-from .comum.utils import TYPE_NAME, get_url_request, CREATE_OBJECT, \
-    EDIT_OBJECT, FOLDER_CONTENTS, CONTENT_STATUS_MODIFY, \
-    WORKFLOW_ACTION, WORKFLOW, SELECT_DEFAULT_PAGE
-from .models import PortalCatalog, Pagina, Pasta, Noticia, Imagem, Link, \
-    Banner, Arquivo, Evento, Agenda, Informe
-
-from django.db.models import Q 
+from .comum import paginas, pastas, noticias, imagens, links, banners, arquivos, informes, eventos
+from .models import PortalCatalog, Pagina, Pasta, Noticia, Imagem, Link, Banner, Arquivo, Evento, Agenda, Informe
+from .comum.contents import reescrever_url, get_url_id_content, get_site_url_id,\
+    TYPE_NAME, WORKFLOW_ACTION, WORKFLOW
+from portalufopa.comum.contents import fraguiment_url
 
 
 # Create your views here.
 def __workflowObject(request):
-    _p = PortalCatalog.objects.filter(site__url=get_url_request(request)[0])
-    _url = request.path.replace('/content_status_modify', '')
+    _site_url = get_site_url_id(request)
+    
+    _p = PortalCatalog.objects.filter(site__url=_site_url)
+    _url = reescrever_url(request)
     _workflow = request.GET['workflow_action']
     if _workflow in WORKFLOW_ACTION:
         
@@ -52,7 +51,7 @@ def __workflowObject(request):
             arquivos.workflow(request, _p, WORKFLOW[_workflow])
         
         if _p.tipo == 'ATEvento':
-            eventos_.workflow(request, _p, WORKFLOW[_workflow])
+            eventos.workflow(request, _p, WORKFLOW[_workflow])
             
         if _p.tipo == 'ATAgenda':
             agendas.workflow(request, _p, WORKFLOW[_workflow])
@@ -68,50 +67,52 @@ def __workflowObject(request):
 def __createObject(request):
     request.session['action'] = 'create'
     type_name = ''
-    p = PortalCatalog.objects.filter(site__url=get_url_request(request)[0])
+    
+    _site_url = get_site_url_id(request)
+    
+    p = PortalCatalog.objects.filter(site__url=_site_url)
     
     if 'type_name' in request.GET:
         type_name = request.GET['type_name'].lower()
     else:
-        raise Http404('Nenhum tipo de objejo foi informado.')
-    
-    _url = request.path.replace('createObject', '%s')
+        raise Http404('Tipo de objejo não foi informado.')
     
     try:
-        _object = p.get(path_url=request.path.replace('createObject/', ''))
+        _path_url = reescrever_url(request)
+        _object = p.get(path_url=_path_url)
     except PortalCatalog.DoesNotExist:
         _object = PortalCatalog()
         
     if type_name in TYPE_NAME:
         if type_name=='pagina' and (_object.tipo in ['ATPasta', '']):
-            return paginas.create(request, _url)
+            return paginas.create(request)
         
         if type_name=='pasta' and (_object.tipo in ['ATPasta', '']):
-            return pastas.create(request, _url)
+            return pastas.create(request)
         
         if type_name=='noticia' and (_object.tipo in ['ATPasta', '']):
-            return noticias.create(request, _url)
+            return noticias.create(request)
         
         if type_name=='imagem' and (_object.tipo in ['ATPasta', '']):
-            return imagens.create(request, _url)
+            return imagens.create(request)
         
         if type_name=='link' and (_object.tipo in ['ATPasta', '']):
-            return links.create(request, _url)
+            return links.create(request)
         
         if type_name=='banner' and (_object.tipo in ['ATPasta', '']):
-            return banners.create(request, _url)
+            return banners.create(request)
         
         if type_name=='arquivo' and (_object.tipo in ['ATPasta', '']):
-            return arquivos.create(request, _url)
+            return arquivos.create(request)
         
         if type_name=='evento' and (_object.tipo in ['ATPasta', '']):
-            return eventos_.create(request, _url)
+            return eventos.create(request)
         
         if type_name=='agenda' and (_object.tipo in ['ATPasta', '']):
-            return agendas.create(request, _url)
+            return agendas.create(request)
         
         if type_name=='informe' and (_object.tipo in ['ATPasta', '']):
-            return informes.create(request, _url)
+            return informes.create(request)
         
         raise Http404('Não é permitido esse tipo de operação.')
     else:
@@ -120,46 +121,48 @@ def __createObject(request):
     return redirect('portal:index')
 
 def __updateObject(request):
-    p = PortalCatalog.objects.filter(site__url=get_url_request(request)[0])
+    _site_url = get_site_url_id(request)
+    p = PortalCatalog.objects.filter(site__url=_site_url)
     request.session['action'] = 'edit'
     try:
-        _object = p.get(path_url=request.path.replace('/edit', ''))
+        _content_url = get_url_id_content(request)
+        _object = p.get(url=_content_url)
         if _object.tipo == 'ATPagina':
-            return paginas.edit(request, _object.path_url)
+            return paginas.edit(request)
         
         if _object.tipo == 'ATPasta':
-            return pastas.edit(request, _object.path_url)
+            return pastas.edit(request)
         
         if _object.tipo == 'ATNoticia':
-            return noticias.edit(request, _object.path_url)
+            return noticias.edit(request)
         
         if _object.tipo == 'ATImagem':
-            return imagens.edit(request, _object.path_url)
+            return imagens.edit(request)
         
         if _object.tipo == 'ATLink':
-            return links.edit(request, _object.path_url)
+            return links.edit(request)
         
         if _object.tipo == 'ATBanner':
-            return banners.edit(request, _object.path_url)
+            return banners.edit(request)
         
         if _object.tipo == 'ATArquivo':
-            return arquivos.edit(request, _object.path_url)
+            return arquivos.edit(request)
         
         if _object.tipo == 'ATEvento':
-            return eventos_.edit(request, _object.path_url)
+            return eventos.edit(request)
         
         if _object.tipo == 'ATAgenda':
-            return agendas.edit(request, _object.path_url)
+            return agendas.edit(request)
         
         if _object.tipo == 'ATInforme':
-            return informes.edit(request, _object.path_url)
+            return informes.edit(request)
         
     except PortalCatalog.DoesNotExist:
         raise Http404('Página não encontrada.')
 
 def __listObject(request):
     request.session['action'] = 'list'
-    _url = request.path.replace('/folder_contents', '')
+    _url = reescrever_url(request)
     template = '%s/documents.html' % 'comum'
     context = {
         'url' : _url
@@ -168,9 +171,9 @@ def __listObject(request):
         
 def __view(request):
     request.session['action'] = 'view'
-    _url_site = get_url_request(request)
-    _path_url = request.path
-    _site_url = get_url_request(request)[0]
+    _site_url = get_site_url_id(request)
+    _path_url = reescrever_url(request)
+    
     p = PortalCatalog.objects.filter(site__url=_site_url)
     _object = None
     try:
@@ -208,18 +211,19 @@ def __view(request):
     except PortalCatalog.DoesNotExist:
         raise Http404('Pagina não encontrada.')
     
+    template = '%s/documents.html' % 'comum'
     context = {
         'object' : _object,
         }
     
-    return render(request, 'comum/documents.html', context)
+    return render(request, template, context)
 
 def __organizador_content(request):
-    _url_site = get_url_request(request)[0]
+    _site_url = get_site_url_id(request)
     object_post = request.body
     response_data = {}
     itens = json.loads(object_post)['objects']
-    _lista = PortalCatalog.objects.filter(site__url=_url_site)
+    _lista = PortalCatalog.objects.filter(site__url=_site_url)
     nova_orden = 1
     for i in itens:
         o = _lista.get(id=i)
@@ -230,7 +234,7 @@ def __organizador_content(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json",)
 
 def __image_browse_url(request):
-    _url_site = get_url_request(request)[0]
+    _url_site = get_site_url_id(request)
     _list_imagens = Imagem.objects.filter(site__url=_url_site)
     data_json = []
     for img in _list_imagens:
@@ -239,10 +243,10 @@ def __image_browse_url(request):
     return HttpResponse(json.dumps(data_json), content_type="application/text")
        
 def __select_default_page(request):
-    new_url = request.path.replace('/select_default_page', '')
-    _url = new_url.strip('/').split('/')[-1]
-    _url_site = get_url_request(request)[0]
-    _object = Pasta.objects.filter(site__url = _url_site).get(url=_url)    
+    new_url = reescrever_url(request)
+    _content_url = get_url_id_content(request)
+    _site_url = get_site_url_id(request)
+    _object = Pasta.objects.filter(site__url = _site_url).get(url=_content_url)    
     
     if 'view' in request.GET:
         _view = request.GET['view']
@@ -268,16 +272,14 @@ def __select_default_page(request):
     return redirect(new_url)
 
 def __add_item_session(request):
-    _url_site = get_url_request(request)[0]
+    _site_url = get_site_url_id(request)
     request.session['action'] = 'sessions_manage'
-    template = 'sessions.html'
-    
     
     if not 'type' in request.GET:
         raise Http404('Operação não permitida.')
 
     _session = request.GET['type']
-    _objsct_session = Sessao.objects.filter(site__url=_url_site).get(sessao=_session)
+    _objsct_session = Sessao.objects.filter(site__url=_site_url).get(sessao=_session)
     
     if 'excluir' in request.GET:
         _item_excluir = request.GET['excluir']
@@ -293,13 +295,14 @@ def __add_item_session(request):
     
     _list_sessions = _objsct_session.conteudo.all()
     
+    template = 'sessions.html'
     context = {
             'object' : _objsct_session,
             'list_sessions' : _list_sessions,
         }
     
     return render(request, template, context)
-    
+
 def __search(request):
     template = 'comum/search.html'
     _result = None
@@ -320,68 +323,71 @@ def index(request, url=None):
     context={
         'object' : None,
         }
-    _url_site = get_url_request(request)
+    _site_url = get_site_url_id(request)
     
-    template = '%s/index.html' % _url_site[0]
+    template = '%s/index.html' % _site_url
     
-    if CREATE_OBJECT in _url_site:
-        if CREATE_OBJECT in _url_site[-1]:
+    _fragment_url = fraguiment_url(request)
+    
+    if 'createObject' in _fragment_url:
+        if 'createObject' in _fragment_url[-1]:
             return __createObject(request)
         else:
             raise Http404('Tipo de objeto reservado para o sistema')
     
-    if FOLDER_CONTENTS in _url_site:
-        if FOLDER_CONTENTS in _url_site[-1]:
-            if len(_url_site) >= 2:
+    if 'folder_contents' in _fragment_url:
+        if 'folder_contents' in _fragment_url[-1]:
+            if len(_fragment_url) >= 2:
                 return __listObject(request)
             else:
                 raise Http404('Operação não permitida')
         else:
             raise Http404('Operação não permitida')
     
-    if CONTENT_STATUS_MODIFY in _url_site:
+    if 'content_status_modify' in _fragment_url:
         if 'workflow_action' in request.GET:
             return __workflowObject(request)
         else:
             raise Http404('Operação não permitida.')
         
-    if SELECT_DEFAULT_PAGE in _url_site:
-        if len(_url_site) > 2:
+    if 'select_default_page' in _fragment_url:
+        if len(_fragment_url) > 2:
             return __select_default_page(request)
         else:
             raise Http404('Operação não permitida.')
-        
-    if EDIT_OBJECT in _url_site:
-        if EDIT_OBJECT in _url_site[-1]:
+    
+    
+    if 'edit' in _fragment_url:
+        if 'edit' == _fragment_url[-1]:
             return __updateObject(request)
         else:
             raise Http404('Tipo de objeto reservado para o sistema')
     
-    if ORGANIZADOR_CONTENT in _url_site:
-        if len(_url_site) >= 2 and request.is_ajax():
+    if 'organizador_content' in _fragment_url:
+        if len(_fragment_url) >= 2 and request.is_ajax():
             return __organizador_content(request)
         else:
             raise Http404('Operação não permitida.')
     
-    if IMAGE_BROWSE_URL in _url_site:
-        if len(_url_site) >= 2 and request.is_ajax():
+    if 'image_browse_url' in _fragment_url:
+        if len(_fragment_url) >= 2 and request.is_ajax():
             return __image_browse_url(request)
         else:
             raise Http404('Operação não permitida.')
         
-    if 'sessions_manage' in _url_site:
-        if len(_url_site) >= 2:
+    if 'sessions_manage' in _fragment_url:
+        if len(_fragment_url) >= 2:
             return __add_item_session(request)
         else:
             raise Http404('Operação não permitida.')
     
-    if 'search' in _url_site:
-        if len(_url_site) >= 2:
+    if 'search' in _fragment_url:
+        if len(_fragment_url) >= 2:
             return __search(request)
         else:
             raise Http404('Operação não permitida.')
     
-    if len(_url_site) > 1:
+    if len(_fragment_url) > 1:
         return __view(request)
     
     try:

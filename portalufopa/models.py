@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+from datetime import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -82,11 +83,25 @@ class PortalUrl(models.Model):
     def __unicode__(self):
         return self.url
 
+class Portlet(models.Model):
+    portlet = models.CharField(max_length=150)
+    tipo = models.CharField(max_length=15, choices=CHOOSE_TIPO_CONTENT, null=True, blank=True)
+    titulo = models.CharField(max_length=150)
+    quantidade = models.PositiveIntegerField(default=0)
+    conteudo = models.ManyToManyField('PortalCatalog', related_name='lista_portlets')
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
+    object_referencia = models.CharField(max_length=15, null=True, blank=True)
+    ordem = models.PositiveIntegerField()
+    posicao = models.CharField(max_length=10)
+    
+    def __unicode__(self):
+        return self.titulo
+
 class Sessao(models.Model):
-    sessao = models.CharField('Identificador da sessão', max_length=150)
-    titulo = models.CharField('Título da sessão', max_length=150)
-    tipo = models.CharField('Tipo de conteúdo', max_length=15, choices=CHOOSE_TIPO_CONTENT, null=True, blank=True)
-    quantidade = models.PositiveIntegerField('Quantidades exibidos', default=0)
+    sessao = models.CharField(max_length=150)
+    titulo = models.CharField(max_length=150)
+    tipo = models.CharField(max_length=15, choices=CHOOSE_TIPO_CONTENT, null=True, blank=True)
+    quantidade = models.PositiveIntegerField(default=0)
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
     conteudo = models.ManyToManyField('PortalCatalog', related_name='lista_conteudos')
     

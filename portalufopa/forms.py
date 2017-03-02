@@ -5,6 +5,7 @@ from django.forms import models
 from .models import Arquivo, Evento, Agenda
 from .models import Site, Pagina, Noticia, Link, Imagem, Banner, \
     Pasta, Informe
+from portalufopa.models import Portlet
 
 
 class SiteForm(models.ModelForm):
@@ -184,4 +185,17 @@ class AgendaForm(models.ModelForm):
             'data_at' : 'Data da programação',
             'local' : 'Local do programação',
             'excluir_nav' : 'Excluir da navagação',
+            }
+        
+class Portletform(models.ModelForm):
+    
+    class Meta:
+        model = Portlet
+        fields = (
+            'titulo', 'tipo', 'quantidade'
+            )
+        labels = {
+            'titulo' : 'Titulo do portlet',
+            'tipo' : 'Tipo de contúdo',
+            'quantidade' : 'Quantidade a ser exibido',
             }

@@ -7,11 +7,14 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http.response import Http404
 from django.utils.html import format_html
 
-from portalufopa.comum.utils import get_url_request, WORKFLOW_COLOR, ICONS,\
+from portalufopa.comum.utils import WORKFLOW_COLOR, ICONS,\
     get_content_by_tipo
 
 from ..comum.utils import CONTENT_BY_TYPE
 from ..models import Site, PortalCatalog, Sessao
+from portalufopa.comum.contents import get_site_url_id, reescrever_url,\
+    fraguiment_url
+from string import strip
 
 
 register = template.Library()
@@ -21,9 +24,10 @@ def has_site(context):
     ''' Função responsável por retorna os dados do site, passando como parametro a url rais do site
         param = @site
     '''
-    site = get_url_request(context.request)[0]
+    _site_url = get_site_url_id(context.request)
+    
     try:
-        return Site.objects.get(url=site)
+        return Site.objects.get(url=_site_url)
     except ObjectDoesNotExist:
         raise Http404('Site não encontrado.')
 
@@ -52,7 +56,6 @@ def has_list_objects_pasta(context, **kwargs):
     url = context.request.path
     lista = []
     nivel = len(url.strip('/').split('/'))+1
-    
     _p = PortalCatalog.objects.filter(path_url__startswith=url).exclude(path_url=url).order_by('ordenador')
     if 'excluir' in kwargs:
         _p = _p.exclude( tipo=kwargs['excluir'])
@@ -103,10 +106,16 @@ def has_list_object(context, **kwargs):
         content_type = kwargs['tipo']
         _list_object =  PortalCatalog.objects.filter(site__url=_site.url, tipo=content_type)
     
+    if 'list' in kwargs:
+        _list = kwargs['list']
+        if _list_object:
+            _itens = _list.values_list('id', flat=True)
+            _list_object = _list_object.exclude(id__in = _itens)
+    
     if 'footer_url' in kwargs:
         content_footer = kwargs['footer_url']
         _list_object =  PortalCatalog.objects.filter(site__url=_site.url, path_url__startswith=content_footer).exclude(tipo='ATPasta').order_by('titulo')
-        
+       
     return _list_object
 
 @register.simple_tag()
@@ -146,7 +155,7 @@ def has_sub_menu(obj, posicao):
 @register.simple_tag(takes_context=True)
 def has_action_view_edit(context, action):
     _new_url = ''
-    _url_aux = get_url_request(context.request)
+    _url_aux = fraguiment_url(context.request)
     _url_default = context.request.path
     
     if action in ['edit', 'folder_contents']:
@@ -155,12 +164,7 @@ def has_action_view_edit(context, action):
         else:
             _new_url = _url_default
     elif action == 'view':
-        if 'edit' in _url_aux:
-            _new_url = _url_default.replace('/edit', '')
-        elif 'folder_contents' in _url_aux:
-            _new_url = _url_default.replace('/folder_contents', '')
-        else:
-            _new_url = _url_default
+        _new_url = reescrever_url(context.request)
             
     return _new_url
 
@@ -187,10 +191,11 @@ def has_workflow_color(workflow):
 @register.simple_tag(takes_context=True)
 def has_breadcrumbs(context):
     _html = "<ol class='breadcrumb'>"
-    _url = get_url_request(context.request)
-    _p = PortalCatalog.objects.filter(site__url=_url[0],)
+    _site_url = get_site_url_id(context.request)
+    _p = PortalCatalog.objects.filter(site__url=_site_url,)
     aux = '/'
     count = 0
+    _url = reescrever_url(context.request).strip('/').split('/')
     for i in _url:
         
         if i not in ['folder_contents', 'createObject', 'edit'] :
