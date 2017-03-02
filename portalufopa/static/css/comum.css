@@ -285,46 +285,53 @@ ul{
     transition: all 0.2s ease-in-out 0s;
 
 } 
-/*
-#acessibilidade{
-    font-size: 12px;
+
+/*}*/
+#menu{
+    text-transform: uppercase;
+    background: #fff;
 }
 
-#acessibilidade a{
-    font-weight: normal !important;
+.navegacao{
+    padding-right: 0;
 }
-#acessibilidade li:hover a{
-    background: transparent;
-    cursor: pointer;
-}
-#acessibilidade a span{
-    background:  #9BB93B;
-    display: inline-block;
-    border-radius: 3px;
-    padding: 2px 4px;
-    margin-left: 4px;
-    color: #fff;
-}*/
 
-/*#topo{
-    background:#0C2625 url("../img/topo.png") no-repeat center center;
-    height: 13.15em;
+.navbar{
+    border: none;
+    margin-bottom: 0;
+    background: #fff;
 }
-#topo .col-md-2{
-    padding-left:0;
+.navbar-toggle{
+    background: #ccc;
 }
-#logomarca{
-    padding:1.6em 0em;
+.navbar-toggle .icon-bar {
+    background: #000;
 }
-.titulo-ufopa{
-    font-size:2.05em;
+#menu li a{
+    font-size: 1.286em;
+    color: #53636B;
+    background:#fff;
     font-weight:bold;
-    color:#fff;
-    text-align:right;
-    margin-top:2.3em;
-    margin-bottom:2px;
-}*/
-
+    padding: 15px 6.98px;
+}
+#menu li.active a, #menu li a:hover, #menu li a:focus, .nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    color: #fff;
+    background: #9BB93B;
+}
+.caret {
+    margin-left: 0px;
+}
+.caret2{
+    font-size: 10px !important;
+}
+.dropdown-menu a{
+    padding: 7.5px 10px !important;
+    font-weight: 400 !important;
+}
+.dropdown-menu {
+    font-size:  .935em;
+    font-weight:400;
+}
 .dropdown-submenu {
     position: relative;
 }
@@ -366,50 +373,7 @@ ul{
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }
-#menu{
-    text-transform: uppercase;
-    background: #fff;
-}
-.navegacao{
-    padding-right: 0;
-}
 
-.navbar{
-    border: none;
-    margin-bottom: 0;
-    background: #fff;
-}
-.navbar-toggle{
-    background: #ccc;
-}
-.navbar-toggle .icon-bar {
-    background: #000;
-}
-#menu li a{
-    font-size: 1.286em;
-    color: #53636B;
-    background:#fff;
-    font-weight:bold;
-    padding: 15px 6.98px;
-}
-#menu li.active a, #menu li a:hover, #menu li a:focus, .nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
-    color: #fff;
-    background: #9BB93B;
-}
-.caret {
-    margin-left: 0px;
-}
-.caret2{
-    font-size: 10px !important;
-}
-.dropdown-menu a{
-    padding: 7.5px 10px !important;
-    font-weight: 400 !important;
-}
-.dropdown-menu {
-    font-size:  .935em;
-    font-weight:400;
-}
 #faixa{
     height: 4px;
     width: 100%;
