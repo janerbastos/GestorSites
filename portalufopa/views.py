@@ -7,12 +7,11 @@ from django.shortcuts import render, redirect
 from django.template.exceptions import TemplateDoesNotExist
 from django.db.models import Q
 
-from portalufopa.comum.utils import get_content_by_portal_catalog
-from portalufopa.models import Sessao
+from .comum.utils import get_content_by_portal_catalog
 
 from .comum import agendas
 from .comum import paginas, pastas, noticias, imagens, links, banners, arquivos, informes, eventos
-from .models import PortalCatalog, Pagina, Pasta, Noticia, Imagem, Link, Banner, Arquivo, Evento, Agenda, Informe
+from .models import PortalCatalog, Pagina, Pasta, Noticia, Imagem, Link, Banner, Arquivo, Evento, Agenda, Informe, Sessao
 from .comum.contents import reescrever_url, get_url_id_content, get_site_url_id,\
     TYPE_NAME, WORKFLOW_ACTION, WORKFLOW
 from portalufopa.comum.contents import fraguiment_url
