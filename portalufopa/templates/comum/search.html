@@ -1,0 +1,14 @@
+{% extends 'comum/index.html' %}
+
+{% load portal_tags staticfiles %}
+
+{% block container %}
+
+<section id="conteudo" class="container" >
+	<h2>Resutado da busca no site</h2>
+	{% for item in search %}
+		<a href="{{item.path_url}}"><h3>{{item.titulo}}</h3></a>	
+	{% endfor %}
+</section>
+
+{% endblock container %}
