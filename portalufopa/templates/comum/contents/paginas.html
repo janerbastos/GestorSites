@@ -2,10 +2,10 @@
 
 <div class="col-sm-9 conteudo-comum">
 	{% has_breadcrumbs %}
-	<div class="conteudo-comum-progep col-sm-12"> 
+	<div class="col-sm-6 conteudo-comum-titulos"> 
     	<h2 class="titulos-comum">{{object.titulo}}</h2>
     </div>
-    {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
+    <!-- {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %} -->
     {% autoescape off %}{{object.corpo_texto }}{% endautoescape %}
-    {% if object.imagem %}<img src="{{object.imagem}}" >{% endif %}
+    {% if object.imagem %}<img class="img-responsive center-block" src="{{object.imagem}}" >{% endif %}
 </div>

@@ -386,71 +386,170 @@ ul{
     font-family: 'Roboto';
     font-size: 1.5em;
 }
-/* menu admin*/
+/* fim menu admin*/
+/* conteudo */
+.conteudo-comum .linha-inicio{
+    margin-top: 1em;
+    padding: .8em;
+    font-size: 15px;
+    color:#467F7B;
+    font-weight: bold;
+    background: #E7F1F3;
+}
+.conteudo-comum .linha-inicio ol{
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.conteudo-comum .linha-inicio a{
+    color:#467F7B;
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: 400;
+} 
+.conteudo-comum{
+    top: 1em;
+} 
+.conteudo-comum-titulos{
+    padding: 0;
+}
 
-#faixa{
-    height: 4px;
-    width: 100%;
-    background:#184139;
+.titulos-comum{
+    font-size: 27px;
+    color: #467F7B;
+    border-bottom: 5px solid #84ACBA;
+    padding-left: 0;
 }
-#destaque, #noticias, #agenda, #rodape, #links, #banners{
-    margin: 30px 0;
-}
-.text-private{
-    color:red !important;
-}
-.text-para-publicacao{
-    color:orange !important;
-}
+.conteudo-comum img{
+    margin: 3em auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    
+} 
+.conteudo-comum p{
+    font-size: 16px;
+    font-weight: 400;
+    color: #595959;
+    text-indent: 2em;
+    clear: left;
+} 
+.comum-titulo{
+    margin-top: 2em;
+} 
+    /*conteúdo comum*/
 
-#redes-sociais .col-sm-3{
-    margin-bottom:2em;
-}
-#rodape{
-    background: #333;
-    color: #cdcdcd;
-    margin-bottom: 0px;
-}
-.topo-rodape{
-    padding: 20px 0px;
-    border-bottom: 1px solid #666;
-    font-size: 1.125em;
 
+/* fim conteudo*/
+/* inicio rodape*/
+.rodape{
+    background:#53656B ;
+    height: auto;
+    margin-top:5em;
+    font-size: 1.2em;
 }
-.topo-rodape a{
-    color: #ddd;
+.rodape li{
+    padding:.2em;
+    list-style:none;
+}
+.rodape li a {
+    color: #fff;
+    font-weight:600;
+}
+.rodape .col-sm-3{
+    margin-top:2em;
+}
+.rodape  h4{
+    color:#fff;
 }
 .conteudo-rodape{
-    font-size: 0.86em;
     margin: 20px 0px;
-}
-.conteudo-rodape a{
-    color: #cdcdcd;
-
 }
 .conteudo-rodape a:hover{
     color: #cdcdcd;
     text-decoration: underline; 
 }
+#redes-sociais a{
+    color:#fff;
+    text-decoration: none; 
+}
+
 #copy{
     background: #2d2d2d;
     padding: 20px 0px;
+    color: #fff;
 }
 #copy p{
     padding: 0px;
     margin: 2px;
-    font-size: 12px;
 }
 
-.callout {
-    border-left: 5px solid #eee;
-    border-radius: 3px;
-    padding: 0px;
-    margin-bottom: 2px;
+/* fim rodape */
+
+
+
+/************ Páginas Notíciasssss ********** */
+/*
+.progep-titulos {
+  display: flex;
 }
-.callout.callout-info {
-    border-color: #0097bc;
+#conteudo-progep .titulos-comum{
+   margin-bottom: 30px;
+   text-transform: uppercase;
 }
+#conteudo-progep .feed-post{
+     border-top: 1px solid #c7C7C7; 
+}
+#conteudo-progep .feed-post-body {
+  overflow: hidden;
+  padding:1.5em 0;
+  width: 100%;
+}
+#conteudo-progep .feed-post-body a:hover{
+    text-decoration: none;
+}
+#conteudo-progep .feed-post-figure-link {
+  float: left;
+  margin: 0 1rem 0 0;
+  border-radius: 4px;
+  display:block;
+}
+#conteudo-progep .conteudo-comum img {
+  margin-bottom: 0em;
+  margin-top: 0em;
+}
+#conteudo-progep .conteudo-comum p {
+  color: #3e787f;
+  font-size: 25px;
+  font-weight: bold;
+  text-indent: 0em;
+}
+
+/************ Páginas arquivos ********** */
+/*
+#conteudo-progep .titulo-arquivo{
+    padding: 0;
+    margin-left: -10px;
+    font-size: 16px;
+    color: #595959;
+}
+#conteudo-progep .list-group-item a {
+    color: #595959;
+}
+
+/************ Páginas comum2 ********** */
+/*
+.conteudo-comum h4{
+    color: #3e787f;
+    font-weight: 400;
+}
+.conteudo-siglas{
+    font-size: 10px;
+    color: #3e787f;
+}
+*/
+
 /**
 CONTRASTE
 **/
@@ -529,168 +628,6 @@ body.contraste a, .contraste .titulo, .contraste .data, .contraste #buscar{
 
 
 
-
-/*
-nav{
-   background:#65A896; 
-}
-nav a{
-    color:#fff;
-    font-size:1.6em;
-    font-weight:400;
-}
-.nav.navbar-nav > li a:hover {
-    background:#758287;
-    color:#00656D;
-}
-.navbar-nav > li > a {
-    padding: 9px 25px;
-}
-.titulo {
-    font-size:2em;
-    font-weight:600;
-    color:#3F7169;
-    border-bottom: 4px solid #7DCBB5;
-    text-transform: uppercase;
-}
-.destaque{
-    padding:2em 1.5em;
-}
-#destaque{
-    margin:0;
-}
-.informes ul li{
-    border-bottom: 1px dotted #ddd;
-    padding:10px 0px;
-}
-.nano {
-  height:35em;
-}
-.nano-content{
-    display-list: none;
-    padding-left: 0;
-}
-.nano-content a{
-    color:#656565;
-    text-decoration: none;
-}
-.informes ul li h3{
-    font-size: 1.717em;
-    line-height: 140%;
-    margin-top:.5em;
-}
-.data{
-    color: #778D94;
-    font-size: 1.2em;
-}
-.mais{
-    color: #666;
-    font-size: 12px;
-    text-decoration: underline;
-    display: inline-block;
-    padding: 10px;
-}
-#utilitarios{
-    margin-top:-10px;
-}
-.btn-utilitarios{
-    border-radius:0px;
-    width:100%;
-    background:#D6eae4;
-    color:#656565;
-    margin-bottom:.2em;
-}
-#utilitarios a:hover{
-    background:#C5e8de;
-}
-.btn-lg, .btn-group-lg > .btn {
-  padding: 16px 16px;
-}
-.conteudo-proppit{
-    padding-left:30px;
-}
-.conteudo-proppit h2{
-    color:#00656D;
-    font-size:2.4em;
-    font-weight:bold;
-    margin-bottom:1.2em;
-    text-transform:uppercase;
-}
-.conteudo-proppit p{
-    font-size:1.8em;
-    color:#53656B;
-}
-.links-botoes{
-    margin:4em 0 0;
-}
-.rodape{
-    background:#65a997;
-    height: 25em;
-    margin-top:5em;
-}
-.rodape ul{
-    list-style:none;
-}
-.rodape a{
-    color :#fff;
-    text-decoration:none;
-    font-size:1.2em;
-}
-.rodape a:hover{
-    color :#00656D;
-}
-.conteudo-rodape h4{
-    color:#00656D;
-    font-size:1.8em;
-}
-.links-rodape li{
-    padding: .2em 0;
-}
-#redes-sociais a{
-    padding: 0 .5em;
-}
-#copy{
-    background:#56918e;
-    color:#fff;
-    padding:1em 0;
-}
-#copy p{
-  margin:0;
-}
-
-#mapa-site .navTreeLevel2{
-  margin-left: 1.5em;  
-}
-#mapa-site .navTreeLevel3{
-  margin-left: 2.5em;
-}
-*/
-/*pagina mapa site
-
-/* alto contraste
-.contraste,.contraste #acessibilidade a, .contraste #acessibilidade, .contraste { 
-    background:#000;
-    color:#fff !important;
-}
-.contraste #topo h1,.contraste #topo h2, .contraste #mapa-site a {
-    color:#fff;
-}
-.contraste #topo{
-    background: #555 url('../img/topo-cont.jpg')no-repeat center center;
-}
-.contraste .barra-topo{
-    background:#fff ;
-}
-
-.contraste img {
-    -webkit-filter: grayscale(100%);
-        -moz-filter: grayscale(100%);
-        -ms-filter: grayscale(100%);
-        -o-filter: grayscale(100%);
-    filter: grayscale(100%);
-}
-
-*/
 
 
 /* 
@@ -805,4 +742,28 @@ nav a{
 #topo{
     background-size:100% 100%;
 }
-} */
+} 
+#faixa{
+    height: 4px;
+    width: 100%;
+    background:#184139;
+}
+#destaque, #noticias, #agenda, #rodape, #links, #banners{
+    margin: 30px 0;
+}
+.text-private{
+    color:red !important;
+}
+.text-para-publicacao{
+    color:orange !important;
+}
+.callout {
+    border-left: 5px solid #eee;
+    border-radius: 3px;
+    padding: 0px;
+    margin-bottom: 2px;
+}
+.callout.callout-info {
+    border-color: #0097bc;
+}
+*/

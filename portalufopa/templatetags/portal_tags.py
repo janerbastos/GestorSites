@@ -190,7 +190,7 @@ def has_workflow_color(workflow):
 
 @register.simple_tag(takes_context=True)
 def has_breadcrumbs(context):
-    _html = "<ol class='breadcrumb'>"
+    _html = " <div class='linha-inicio'> <ol>"
     _site_url = get_site_url_id(context.request)
     _p = PortalCatalog.objects.filter(site__url=_site_url,)
     aux = '/'
@@ -203,10 +203,10 @@ def has_breadcrumbs(context):
             if count < len(_url)-1:
                 aux += i + '/'
                 if count == 0:
-                    _html += "<li><a href='%s'>Inicio</a></li>" % aux
+                    _html += "<li><a href='%s'>Inicio</a>&nbsp;-&nbsp;</li>" % aux
                 else:
                     text_link = _p.get(path_url=aux)
-                    _html += "<li><a href='%s'>%s</a></li>" % (aux, text_link.titulo)
+                    _html += "<li><a href='%s'>%s</a>&nbsp;-&nbsp;</li>" % (aux, text_link.titulo)
                 
                 count += 1
             else:
@@ -215,7 +215,7 @@ def has_breadcrumbs(context):
                 _html += "<li class='active'>%s</li>" % text_link.titulo
         else:
             _html += "<li class='active'>[...]</li>"
-    _html += "</ol>"
+    _html += "</ol> </div>"
     
     return format_html(_html)
 
