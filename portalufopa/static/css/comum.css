@@ -442,6 +442,87 @@ ul{
 
 
 /* fim conteudo*/
+
+/* início barra lateral comum*/
+
+.barra-lateral ul{
+    padding:0;
+}
+.barra-lateral a{
+    font-size:1.6em;
+    color:#3F7169;
+}
+.barra-lateral li{
+    list-style:none;
+    border-bottom: 2px dotted #778D94;
+    padding:1em 0 2em;
+}
+.barra-lateral span, .mais{
+    color:#778D94;
+    padding:.5em 0;
+}
+.titulo {
+    font-size:2em;
+    font-weight:700;
+    color:#3F7169;
+    border-bottom: 4px solid #54656B;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+.dsqv:hover, .dgdp:hover{
+    background:#ccd1d2;
+}
+.dgdp p, .dsqv p {
+    padding:1em 1em 1.62em 1em; 
+    font-size:1.5em;
+    font-weight:300;
+    margin-bottom:0;
+    color: #54656b;
+}
+.dgdp, .dsqv{
+    background: #e8f2f4;
+}
+.dgdp h2{
+    font-size:1.7em;
+    font-weight:700;
+    color:#467f7c;
+    padding:.5em;
+    margin:0;
+}
+.dsqv h2{
+    font-size:1.7em;
+    font-weight:700;
+    color:#467f7c;
+    padding:.5em;
+    margin:0;
+    margin-top:2px;
+}
+#ferramentas{
+    padding:0;
+}
+.btn-lg, .btn-group-lg > .btn {
+  padding: 17px 16px;
+}
+.titulo-2{
+    margin-top:1em;
+}
+
+.btn-utilitarios{
+    border-radius:0px;
+    width:100%;
+    background:#BaD9DD;
+    color:#4A4949;
+    margin-bottom:.2em;
+    font-size: 2em;
+    padding: 17px 10px;
+}
+
+.btn-utilitarios:hover{
+    background:#A5C4C8;
+}
+/* fim barra lateral comum*/
+
+
 /* inicio rodape*/
 .topo-rodape{
     padding: 20px 0px;
