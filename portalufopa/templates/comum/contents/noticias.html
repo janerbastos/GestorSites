@@ -2,13 +2,13 @@
 
 <div class="col-sm-9 conteudo-comum">
 	{% has_breadcrumbs %}
-	<div class="conteudo-comum-progep col-sm-12"> 
-    	<h2 class="titulos-comum col-sm-12">{{object.titulo}}</h2>
+	<div class="col-sm-6 conteudo-comum-titulos"> 
+    	<h2 class="titulos-comum">{{object.titulo}}</h2>
     </div>
-    <!-- {% if object.public_at %}<p>{{object.public_at}}</p>{% endif %}
+    {% if object.public_at %}<p>{{object.public_at}}</p>{% endif %}
     {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
     {% autoescape off %}{{object.corpo_texto }}{% endautoescape %}
-     -->
+    
     {% if object.imagem %}
     	<img src="{{object.imagem.url}}" width="500">
     	<p>{{object.legenda }}</p>

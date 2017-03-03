@@ -443,8 +443,21 @@ ul{
 
 /* fim conteudo*/
 /* inicio rodape*/
+.topo-rodape{
+    padding: 20px 0px;
+    border-bottom: 1px solid #666;
+    font-size: 1.5em;
+
+}
+.topo-rodape a{
+    color: #ddd;
+    text-decoration: none;
+}
+#logo-footer{
+    width: 7.5%;
+}
 .rodape{
-    background:#53656B ;
+    background:#333 ;
     height: auto;
     margin-top:5em;
     font-size: 1.2em;
@@ -469,10 +482,6 @@ ul{
 .conteudo-rodape a:hover{
     color: #cdcdcd;
     text-decoration: underline; 
-}
-#redes-sociais a{
-    color:#fff;
-    text-decoration: none; 
 }
 
 #copy{

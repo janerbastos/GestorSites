@@ -4,6 +4,7 @@
 	
 	{% if content_rais %}
 	<div class="col-sm-3">
+		<h4>{{site.titulo|upper}}</h4>
 		<ul class="links-rodape" >
 		{% for i in content_rais %}
 		        <li><a href="{{i.path_url}}">{{i.titulo}}</a></li>

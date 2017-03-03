@@ -113,30 +113,36 @@
 
 {% block footer %}
 	<div class="container">
+    <div class="row topo-rodape">
+          <div class="col-sm-6">
+            <a href="{{site.get_absolute_url}}" title="{{site.titulo}}">
+              <img id="logo-footer" src="{% if site.logo %} {{site.logo.url}} {% else %} {% static 'img/brasao.png' %} {% endif %}" class="img-responsive" title="{{site.titulo}}" alt="Link para {{site.titulo}}"/>
+            </a>
+          </div>
+          <div class="col-sm-6 text-right">
+            {% if site.facebook_link %}
+            <a target="_blank" href="{{ site.facebook_link }}" title="Facebook">
+               <i class="fa-2x fa fa-facebook-square hidden-xs" aria-hidden="true"></i>
+            </a>
+            {% endif %}
+            
+            {% if site.twitter_link %}
+            <a target="_blank" href="{{ site.twitter_link }}" title="Twitter">
+              <i class="fa-2x fa fa-twitter-square hidden-xs" aria-hidden="true"></i>
+            </a>
+            {% endif %}
+            
+            {% if site.youtube_link %}
+            <a target="_blank" href="{{ site.youtube_link }}" title="youtube">
+              <i class="fa-2x fa fa-youtube-square hidden-xs" aria-hidden="true"></i>
+            </a>
+            {% endif %}
+          </div>
+        </div>
 	  <div class="row conteudo-rodape">
 	    
 	    {% has_menu_footer %}
-	    
-	    <div class="col-sm-3 " id="redes-sociais">
-	      <h4>Redes Sociais</h4>
-	      {% if site.facebook_link %}
-	      <a target="_blank" href="{{ site.facebook_link }}" title="Facebook">
-	         <i class="fa-2x fa fa-facebook-square hidden-xs" aria-hidden="true"></i>
-	      </a>
-	      {% endif %}
-	      
-	      {% if site.twitter_link %}
-	      <a target="_blank" href="{{ site.twitter_link }}" title="Twitter">
-	        <i class="fa-2x fa fa-twitter-square hidden-xs" aria-hidden="true"></i>
-	      </a>
-	      {% endif %}
-	      
-	      {% if site.youtube_link %}
-	      <a target="_blank" href="{{ site.youtube_link }}" title="youtube">
-	        <i class="fa-2x fa fa-youtube-square hidden-xs" aria-hidden="true"></i>
-	      </a>
-	      {% endif %}
-	    </div>
+
 	  </div>
   </div>
   <div id="copy">
