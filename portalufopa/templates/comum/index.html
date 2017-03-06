@@ -39,26 +39,36 @@
 	<!-- end banner rotativo destaque -->
 
 	<!-- Sessão de informes em destaques -->
-	{% has_list_object_by_type 'informe' 10 as destaque_informes %}
-    <div class="col-sm-3 informes">
-      <h2 class="titulo">INFORMES</h2>
-        <div class="nano">
-          <ul class="nano-content">
-            {% if destaque_informes %}
-          		{% for obj in destaque_informes %}
-          			<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-                	<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
-          		{% endfor %}
-          	{% else %}
-	            <li>
-	                <span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
-	                <h3><a href="" title="">Nenhum informe cadastrado até o momento</a></h3>
-	            </li>
-            {% endif %}
-          </ul>
+	
+      <div class="col-sm-3 informes">
+        <!-- <div class="dgdp comum-titulo">
+          <h2>DGDP</h2>
+          <p class="hidden-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis nisl nec leo gravida, a accumsan magna vehicula. Aliquam erat volutpat. hendrerit.</p>
         </div>
-        <a class="mais pull-right" href="" title="mais informes">mais informes</a>
-    </div>
+        <div class="dsqv">
+          <h2>DSQV</h2>
+          <p class="hidden-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis nisl nec leo gravida, a accumsan magna vehicula. Aliquam erat volutpat. hendrerit.</p>
+        </div> -->
+        
+        {% has_list_object_by_type 'informe' 10 as destaque_informes %}
+        <h2 class="titulo">INFORMES</h2>
+          <div class="nano">
+            <ul class="nano-content">
+              {% if destaque_informes %}
+            		{% for obj in destaque_informes %}
+            			<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+                  	<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
+            		{% endfor %}
+            	{% else %}
+  	            <li>
+  	                <span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
+  	                <h3><a href="" title="">Nenhum informe cadastrado até o momento</a></h3>
+  	            </li>
+              {% endif %}
+            </ul>
+          </div>
+          <a class="mais pull-right" href="" title="mais informes">mais informes</a>
+      </div>
     <!-- end informes destaque -->
   </div>
   <!-- end conteudo de destaque -->

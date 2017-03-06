@@ -443,6 +443,45 @@ ul{
     margin: 2em 0 0 0;
     padding: 0;
 }
+.informes{
+    padding-right:  0;
+}
+.informes ul li{
+    border-bottom: 1px dotted #ddd;
+    padding:10px 0px;
+}
+.informes h2:first-child{
+    margin-top: 0;
+}
+.informes ul li h3{
+    font-size: 1.717em;
+    line-height: 140%;
+    margin-top:.5em;
+}
+
+.nano {
+  height:34em;
+}
+.nano-content{
+    display-list: none;
+    padding-left: 0;
+}
+.nano-content a{
+    color:#595959;
+    text-decoration: none;
+}
+
+.data{
+    color: #778D94;
+    font-size: 1.2em;
+}
+.mais{
+    color: #666;
+    font-size: 12px;
+    text-decoration: underline;
+    display: inline-block;
+    padding: 10px;
+}
 
 /* fim conteudo*/
 
