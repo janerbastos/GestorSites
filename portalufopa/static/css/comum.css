@@ -439,12 +439,17 @@ ul{
     margin-top: 2em;
 } 
     /*conteúdo comum*/
-
+#destaque{
+    margin: 2em 0 0 0;
+    padding: 0;
+}
 
 /* fim conteudo*/
 
 /* início barra lateral comum*/
-
+.barra-lateral{
+    padding: 0;
+}
 .barra-lateral ul{
     padding:0;
 }
