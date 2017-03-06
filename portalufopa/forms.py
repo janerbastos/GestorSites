@@ -5,7 +5,8 @@ from django.forms import models
 from .models import Arquivo, Evento, Agenda
 from .models import Site, Pagina, Noticia, Link, Imagem, Banner, \
     Pasta, Informe
-from portalufopa.models import Portlet
+from portalufopa.models import Portlet, Tag
+from django import forms
 
 
 class SiteForm(models.ModelForm):
@@ -41,11 +42,16 @@ class PaginaForm(models.ModelForm):
             }
 
 class NoticiaForm(models.ModelForm):
-       
+    
+    def __init__(self, site, *args, **kwargs):
+        super(NoticiaForm, self).__init__(*args, **kwargs)
+        query_set_tags = Tag.objects.filter(site__url=site)
+        self.fields['tag'] = forms.CharField(label='Tags.', required=False, widget=forms.Select(choices=[('', '')]+[(o.tag, o.titulo) for o in query_set_tags]))
+        
     class Meta:
         model = Noticia
         fields = (
-            'titulo', 'descricao', 'corpo_texto', 'imagem', 'legenda', 'tag', 'excluir_nav'
+            'titulo', 'descricao', 'corpo_texto', 'imagem', 'legenda', 'excluir_nav'
             )
         labels = {
             'titulo' : 'Título da notícia',
@@ -53,7 +59,6 @@ class NoticiaForm(models.ModelForm):
             'corpo_texto' : 'Corpo da notícia',
             'imagem' : 'Imagem da notícia',
             'legenda' : 'Legenda da imagem',
-            'tag' : 'Tag',
             'excluir_nav' : 'Excluir da navagação',
             }
         
