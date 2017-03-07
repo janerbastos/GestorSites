@@ -55,7 +55,7 @@ def save_in_portal_catalog(instance, url=None):
         portal.tipo = instance.tipo
         portal.dono = instance.dono
         
-    if portal.workflow == 'publicar' and portal.public_at==None:
+    if portal.workflow == 'Publicado' and portal.public_at==None:
         portal.public_at = date.today()
     
     portal.url = instance.url
@@ -65,3 +65,4 @@ def save_in_portal_catalog(instance, url=None):
     portal.workflow = instance.workflow
     portal.excluir_nav = instance.excluir_nav
     portal.save()
+    
