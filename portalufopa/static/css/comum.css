@@ -285,7 +285,7 @@ ul{
     transition: all 0.2s ease-in-out 0s;
     font-size: 1.6em;
 }
-.form-group span{
+#search-wrapper .form-group span{
     color: #fff;
     font-size: 12px;
 } 
