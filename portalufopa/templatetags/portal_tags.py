@@ -14,7 +14,6 @@ from ..comum.utils import CONTENT_BY_TYPE
 from ..models import Site, PortalCatalog, Sessao
 from portalufopa.comum.contents import get_site_url_id, reescrever_url,\
     fraguiment_url
-from string import strip
 
 
 register = template.Library()
@@ -91,9 +90,9 @@ def has_list_object_by_type(context, item, quantidade):
     content_type = CONTENT_BY_TYPE[item]
     _site = context['site']
     if quantidade == 0:
-        _list_object =  PortalCatalog.objects.filter(site__url=_site.url, tipo=content_type)
+        _list_object =  PortalCatalog.objects.filter(site__url=_site.url, tipo=content_type).order_by('-public_at')
     else:
-        _list_object =  PortalCatalog.objects.filter(site__url=_site.url, tipo=content_type)[:quantidade]
+        _list_object =  PortalCatalog.objects.filter(site__url=_site.url, tipo=content_type).order_by('-public_at')[:quantidade]
     
     return _list_object
 
