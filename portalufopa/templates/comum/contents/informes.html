@@ -2,10 +2,22 @@
 
 <div class="col-sm-9 conteudo-comum">
 	{% has_breadcrumbs %}
-	<div class="col-sm-6 conteudo-comum-titulos"> 
-    	<h2 class="titulos-comum">{{object.titulo}}</h2>
-    </div>
-    {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
-    {% autoescape off %}{{object.corpo_texto }}{% endautoescape %}
-    {% if object.imagem %}<img src="{{object.imagem}}" >{% endif %}
+	<h2>{{object.titulo}}</h2>
+    <div class="conteudo-noticia">
+        {% if object.public_at %}<p>{{object.public_at}}</p>{% endif %}
+        {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
+        {% autoescape off %}{{object.corpo_texto }}{% endautoescape %}
+        
+        {% if object.imagem %}
+        <div class="media">
+            <div class="media-body media-body-1">
+                <i><h3 class="media-heading">{{object.legenda }}</h3></i>
+            </div>  
+            <div class="media-left media-middle">
+                <img src="{{object.imagem.url}}" width="500" class="media-object img-responsive">
+
+            </div>  
+        </div>
+        {% endif %}
+      </div> 
 </div>
