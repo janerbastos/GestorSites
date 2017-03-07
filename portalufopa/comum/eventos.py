@@ -31,6 +31,7 @@ def create(request):
 
     context = {
         'form' : form,
+        'editor' : True,
         }
     
     return render(request, TEMPLATE, context)
@@ -48,6 +49,7 @@ def edit(request):
         return redirect(_url)
     context = {
         'form' : form,
+        'editor' : True,
         }
     
     return render(request, TEMPLATE, context)

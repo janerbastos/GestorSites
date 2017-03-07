@@ -32,6 +32,7 @@ def create(request):
 
     context = {
         'form' : form,
+        'editor' : True,
         }
     
     return render(request, TEMPLATE, context)
@@ -41,7 +42,7 @@ def edit(request):
     _site_url = get_site_url_id(request)
     _content_url = get_url_id_content(request)
     _object = Noticia.objects.filter(site__url=_site_url).get(url=_content_url)
-    form = NoticiaForm(request.POST or None, instance=_object)
+    form = NoticiaForm(_site_url, request.POST or None, instance=_object)
     if form.is_valid():
         model = form.save(commit=False)
         model.update_at = date.today()
@@ -52,6 +53,7 @@ def edit(request):
         return redirect(_url)
     context = {
         'form' : form,
+        'editor' : True,
         }
     
     return render(request, TEMPLATE, context)

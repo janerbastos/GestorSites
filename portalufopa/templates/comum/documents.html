@@ -48,6 +48,7 @@ $( function() {
 	<section id="conteudo" class="container" >
 		
 		{% if form %}
+			
 			<form method="post" enctype="multipart/form-data" id="form">
 				{% csrf_token %}
 				{{ form|bootstrap }}
@@ -56,6 +57,7 @@ $( function() {
 					<button type="button" id="_cancelar_" class="btn btn-danger" name="_cancelar_" onclick="clicked()"><i class="fa fa-fw fa-times"></i>&nbsp;Cancelar</button>
 				</div>
 			</form>
+			{{ object }}
 		{% endif %}
 		
 		{% if action == 'list' %}
@@ -113,6 +115,7 @@ $( function() {
 				{% include 'comum/contents/barra_lateral_comum.html' %}
 			{% endif %}
 			
+			
 		{% endif %}
 	
 </section>
@@ -120,6 +123,8 @@ $( function() {
 
 {% block static_file_button %}
 	
+	
+	{% if form and editor %}
 	<script type="text/javascript">
 		
 		CKEDITOR.config.extraPlugins = 'simple-image-browser';
@@ -140,5 +145,6 @@ $( function() {
             });
         });
     </script>
+    {% endif %}
 
 {% endblock static_file_button %}

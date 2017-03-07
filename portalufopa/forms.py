@@ -51,7 +51,7 @@ class NoticiaForm(models.ModelForm):
     class Meta:
         model = Noticia
         fields = (
-            'titulo', 'descricao', 'corpo_texto', 'imagem', 'legenda', 'excluir_nav'
+            'titulo', 'descricao', 'corpo_texto', 'imagem', 'legenda', 'tag', 'excluir_nav'
             )
         labels = {
             'titulo' : 'Título da notícia',
