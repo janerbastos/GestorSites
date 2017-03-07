@@ -105,9 +105,7 @@
             <div class="search-popup-bg"></div>
             <form action="/{{site.url}}/search/" method="post" class="col-sm-6">  {% csrf_token %}
               <div class="form-group">
-                <label>
-                  <input type="checkbox"> <span>Buscar nesse site.</span>
-                </label>
+                <label><input type="checkbox" name="search_all_sites" checked="checked"> <span>Buscar somente nesse site.</span></label>
                 <input type="text" autocomplete="off" class="thim-s form-control courses-search-input" placeholder="Buscar por" name="search" value="" id="txt-search">
                 <input type="hidden" name="ref" value="course">
                 <button type="submit"><i class="fa fa-search"></i></button>

@@ -308,6 +308,12 @@ def __search(request):
     if request.POST:
         _search = request.POST['search']
         _result = PortalCatalog.objects.filter(Q(titulo__startswith=_search)|Q(descricao__startswith=_search))
+        if 'search_all_sites' in request.POST:
+            _site_url = get_site_url_id(request)
+            _result = _result.filter(site__url=_site_url)
+        
+        _result = _result.filter(workflow='Publicado')
+        
     context = {
         'search' : _result
         }
