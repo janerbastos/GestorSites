@@ -33,6 +33,7 @@ def create(request):
 
     context = {
         'form' : form,
+        'editor' : True,
         }
     
     return render(request, TEMPLATE, context)
@@ -52,6 +53,7 @@ def edit(request):
         return redirect(_url)
     context = {
         'form' : form,
+        'editor' : True,
         }
     
     return render(request, TEMPLATE, context)
@@ -61,6 +63,7 @@ def workflow(request, portal_catalog, _workflow):
     _o = Informe.objects.filter(site__url=_site_url).get(url=portal_catalog.url)
     _o.workflow = _workflow
     if _o.workflow == 'Publicado' and _o.public_at==None:
+        print _workflow
         _o.public_at = date.today()
     _o.save() 
     save_in_portal_catalog(_o)
