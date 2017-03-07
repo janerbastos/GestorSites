@@ -2,16 +2,29 @@
 
 <div class="col-sm-9 conteudo-comum">
 	{% has_breadcrumbs %}
-	<div class="col-sm-6 conteudo-comum-titulos"> 
-    	<h2 class="titulos-comum">{{object.titulo}}</h2>
-    </div>
-    {% if object.public_at %}<p>{{object.public_at}}</p>{% endif %}
-    {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
-    {% autoescape off %}{{object.corpo_texto }}{% endautoescape %}
-    
-    {% if object.imagem %}
-    	<img src="{{object.imagem.url}}" width="500">
-    	<p>{{object.legenda }}</p>
-    {% endif %}
+    	<h2>{{object.titulo}}</h2>
+        <div class="tag2 tag"> <a href=""> <span>PESQUISA E INOVAÇÃO</span> </a></div>
+            <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a> 
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+                </script>
+        <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"           data-action="like" data-size="small" data-show-faces="false" data-share="false">
+        </div>
+    <div class="conteudo-noticia">
+        {% if object.public_at %}<p>{{object.public_at}}</p>{% endif %}
+        {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
+        {% autoescape off %}{{object.corpo_texto }}{% endautoescape %}
+        
+        {% if object.imagem %}
+        <div class="media">
+            <div class="media-body media-body-1">
+                <i><h3 class="media-heading">{{object.legenda }}</h3></i>
+            </div>  
+            <div class="media-left media-middle">
+                <img src="{{object.imagem.url}}" width="500" class="media-object img-responsive">
+
+            </div>  
+        </div>
+        {% endif %}
+      </div>            
     
 </div>
