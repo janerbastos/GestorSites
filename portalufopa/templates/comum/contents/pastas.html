@@ -11,7 +11,7 @@
 		{% has_list_pastas %}
 	{% else %}
 		{% if object_view == 'sumaria' %}
-			<div class="progep-titulos"><h2 class="titulos-comum">{{object.titulo}}</h2></div>
+			<div class="col-sm-6 conteudo-comum-titulos"><h2 class="titulos-comum">{{object.titulo}}</h2></div>
 			{% include 'comum/contents/list_view_sumaria.html' %}
 		{% else %}
 			

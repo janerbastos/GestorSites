@@ -7,16 +7,16 @@
 		{% if obj.tipo == 'ATNoticia' %}
 			{% has_content_by_portal_catalog obj as content %}
 			{% if content.imagem %}
-				<a href="{{obj.path_url}}" class="feed-post-figure-link">
+				<a href="{{obj.path_url}}" class="feed-post-figure-link ">
 				   <img src="{{content.imagem.url}}" alt="Foto:" width="200">
 				</a>
 			{% endif %}
 	    {% endif %}
-		<span class="data text-right">{% if obj.public_at %} {{obj.public_at}} {% else %} Aguardando publicação {% endif %}</span>
+		<span class="feed-post-time-label data text-right">{% if obj.public_at %} {{obj.public_at}} {% else %} Aguardando publicação {% endif %}</span>
 		<a href="{{ obj.path_url }}" class="feed-post-link gui-image-hover gui-color-primary-link">
-		  <p class="feed-post-body-title  gui-color-primary">{{ obj.titulo }}</p>
+		  <p class="feed-post-body-title gui-color-primary">{{ obj.titulo }}</p>
 		</a>
-		{% if obj.descricao %}<p>{{ obj.descricao }}</p>{% endif %}
+		<!-- {% if obj.descricao %}<p>{{ obj.descricao }}</p> -->{% endif %}
 	</div>
 </div>
 {% endfor %}         
