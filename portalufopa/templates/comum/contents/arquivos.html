@@ -5,6 +5,14 @@
 	<div class="col-sm-6 conteudo-comum-titulos"> 
     	<h2 class="titulos-comum">{{object.titulo}}</h2>
     </div>
-    {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
-	<p style="margin-top: 2em;"><a href="{{object.arquivo.url}}" target="_blank">Baixar arquivo</a></p>
+    <ul class="list-group">
+        <li class="list-group-item row">
+        	<a href="{{object.arquivo.url}}" target="_blank">
+            	<i class="fa fa-3x fa-file-text-o col-sm-1" aria-hidden="true"></i>
+            	<p class="col-sm-9 titulo-arquivo" >{{object.titulo}}</p>
+            	<p class="text-right" > Baixar arquivo</p> 
+            </a>          
+        </li>
+    
+	
 </div>

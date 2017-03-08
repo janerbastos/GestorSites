@@ -290,7 +290,7 @@ ul{
     font-size: 12px;
 } 
 
-
+/*inicio menu*/
 #menu{
     text-transform: uppercase;
     background: #758287;
@@ -529,13 +529,26 @@ ul{
     display: inline-block;
     padding: 10px;
 }
-
+/* arquivos*/
+.list-group{
+  clear: left;
+}
+.list-group-item {
+  margin:0;
+}
+.list-group-item a{
+  display: inline-flex;
+  width: 100%;
+}
+.list-group-item  p{
+  margin: 0;
+}
 /* fim conteudo*/
 /* visão padrão*/
 #ordenador{
-    clear: left;
-    font-size: 1.8em;
-    padding: 1em 0;
+  clear: left;
+  font-size: 1.8em;
+  padding: 1em 0;
 }
 #ordenador li{
     padding: .25em 0;
