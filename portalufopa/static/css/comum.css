@@ -391,11 +391,12 @@ ul{
 /* conteudo */
 
 .conteudo-comum .linha-inicio{
-    margin-top: 1em;
-    padding: 0;
+    margin-top: .8em;
+    padding: .9em;     /* ufopa padding : 0*/
     font-size: 14px;
     color:#467F7B;
     font-weight: bold;
+    background: #E7F1F3;     /*ufopa #fff*/
 }
 .conteudo-comum .linha-inicio ol{
     display: flex;
@@ -484,6 +485,19 @@ ul{
 .comum-titulo{
     margin-top: 2em;
 } 
+.conteudo-comum  blockquote {
+  border-left: 5px solid #53636b;
+}
+.conteudo-comum hr{
+  border-bottom: 3px solid #53636B;
+}
+.conteudo-comum cite{
+    font-size: 1.34em;
+    font-weight: 600;
+}
+.conteudo-comum p > cite:only-of-type{
+    text-align: center;  
+}
     /*conteúdo comum*/
 #destaque{
     margin: 2em 0 0 0;
@@ -575,6 +589,7 @@ ul{
   position: relative;
   margin: 0rem 0 2rem;
   padding: 2em 0;
+  clear: left;
 }
 
 .feed-post-figure-link {
@@ -607,7 +622,8 @@ ul{
   padding-top: 0;
   word-wrap: break-word;
   clear: none;
-  font-size: 2em;
+  font-size: 2.3em;
+  font-weight: bold;
 }
 
 .gui-color-primary {
