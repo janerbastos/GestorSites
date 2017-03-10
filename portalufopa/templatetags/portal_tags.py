@@ -88,7 +88,7 @@ def has_session(context):
 
 @register.simple_tag(takes_context=True)
 def has_list_object_by_type(context, item, quantidade):
-    content_type = CONTENT_BY_TYPE[item]
+    content_type = CONTENT_BY_TYPE[item.replace('AT', '').lower()]
     _site = context['site']
     if quantidade == 0:
         _list_object =  PortalCatalog.objects.filter(site__url=_site.url, tipo=content_type).order_by('-public_at')
