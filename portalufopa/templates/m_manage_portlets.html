@@ -1,0 +1,46 @@
+{% load portal_tags %}
+
+<script type="text/javascript">
+	$(function(){
+		$("#txtBusca").keyup(function(){
+			var texto = $(this).val();
+			
+			$("#ulItens li").css("display", "block");
+			$("#ulItens li").each(function(){
+				if($(this).text().toUpperCase().indexOf(texto.toUpperCase()) < 0)
+				   $(this).css("display", "none");
+			});
+		});
+	});
+</script>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="run_modal">
+  <div class="modal-dialog" role="document">
+    <form method="POST" > {% csrf_token %}
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Lista de Conteúdos</h4>
+      </div>
+      
+      <div class="form-group">
+      	<input type="text" id="txtBusca" class="form-control" placeholder="Digite aqui um valor para filtrar...">
+      </div>
+      
+      <div class="modal-body">
+        <p>Por favor, selecione qual item será exibido no portlet</p>
+        {% has_list_object tipo=portlet.tipo list=portlet.conteudo.all as conteudo %}
+        <ul id="ulItens">
+        {% for i in conteudo %}
+        	<li><input type="checkbox" value="{{i.id}}" name="content"> <span>{{i.titulo}}</span></li>
+        {% endfor %}
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </div><!-- /.modal-content -->
+    </form>
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
