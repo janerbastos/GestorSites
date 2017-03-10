@@ -295,7 +295,7 @@ def __add_item_session(request):
     
     _list_sessions = _objsct_session.conteudo.all()
     
-    template = 'sessions.html'
+    template = 'comum/sessions.html'
     context = {
             'object' : _objsct_session,
             'list_sessions' : _list_sessions,
@@ -321,6 +321,8 @@ def __search(request):
     return render(request, template, context)
 
 def __portlet(request):
+    
+    request.session['action'] = 'portlet'
     
     if 'create' in request.GET:
         return portlets.create(request)
