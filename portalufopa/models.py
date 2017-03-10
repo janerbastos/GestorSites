@@ -36,6 +36,11 @@ CHOOSE_TIPO_CONTENT = (
         ('ATEvento', 'Eventos'),
         ('ATAgenda', 'Agendas'),
     )
+
+CHOOSE_LAYOUT = (
+        ('', 'Padrão'),
+        ('layout_01', 'Modelo sem título'),
+    )
     
 class Site(models.Model):
     url = models.SlugField(max_length=150, unique=True)
@@ -88,9 +93,11 @@ class Portlet(models.Model):
     quantidade = models.PositiveIntegerField(default=0)
     conteudo = models.ManyToManyField('PortalCatalog', related_name='lista_portlets')
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
-    object_referencia = models.CharField(max_length=15, null=True, blank=True)
+    layout = models.CharField(max_length=30, null=True, blank=True, choices=CHOOSE_LAYOUT)
     ordem = models.PositiveIntegerField()
-    posicao = models.CharField(max_length=10)
+    posicao = models.CharField(max_length=10, default='rigth')
+    categoria = models.CharField(max_length=20, default='content')
+    origem = models.CharField(max_length=20, default='dafault')
     
     def __unicode__(self):
         return self.titulo
@@ -165,35 +172,43 @@ class PortalCatalog(Content):
 
 class Pagina(Content):
     corpo_texto = models.TextField(default=None, null=True, blank=True)
+    portlet = models.ManyToManyField('Portlet', related_name='portlet_pagina')
 
 class Noticia(Content):
     corpo_texto = models.TextField(default=None, null=True, blank=True)
     imagem = models.ImageField(upload_to=content_file_imagem, blank=True, default=None)
     legenda = models.CharField(max_length=255, blank=True, null=True)
     tag = models.CharField(max_length=100, blank=True, null=True)
+    portlet = models.ManyToManyField('Portlet', related_name='portlet_noticia')
     
 class Informe(Content):
     corpo_texto = models.TextField(default=None, null=True, blank=True)
     imagem = models.ImageField(upload_to=content_file_imagem, blank=True, default=None)
     legenda = models.CharField(max_length=255, blank=True, null=True)
+    portlet = models.ManyToManyField('Portlet', related_name='portlet_informe')
     
 class Link(Content):
     link = models.URLField(max_length=255)
     target = models.CharField(max_length=30, choices=CHOOSE_TARGTE)
+    portlet = models.ManyToManyField('Portlet', related_name='portlet_link')
     
 class Imagem(Content):
     imagem = models.ImageField(upload_to=content_file_imagem)
+    portlet = models.ManyToManyField('Portlet', related_name='portlet_imagem')
     
 class Banner(Content):
     imagem = models.ImageField(upload_to=content_file_imagem)
     link = models.URLField(max_length=255)
     target = models.CharField(max_length=30, choices=CHOOSE_TARGTE)
+    portlet = models.ManyToManyField('Portlet', related_name='portlet_banner')
 
 class Pasta(Content):
     visao_padrao = models.CharField(max_length=255, null=True, blank=True)
+    portlet = models.ManyToManyField('Portlet', related_name='portlet_pasta')
 
 class Arquivo(Content):
     arquivo = models.FileField(upload_to=content_file_documento)
+    portlet = models.ManyToManyField('Portlet', related_name='portlet_arquivo')
         
 class Evento(Content):
     local = models.CharField(max_length=150, null=True, blank=True, )
@@ -205,18 +220,12 @@ class Evento(Content):
     contato = models.CharField(null=True, blank=True, max_length=150)
     email = models.EmailField(blank=True, null=True)
     telefone_contato = models.CharField(max_length=150, blank=True, null=True)
+    portlet = models.ManyToManyField('Portlet', related_name='portlet_evento')
 
 class Agenda(Content):
     data_at = models.DateTimeField()
     local = models.CharField(max_length=150)
-    
-'''def save_object(signal, instance, sender, **kwargs):
-    if instance.id == None:
-        pass
+    portlet = models.ManyToManyField('PortalCatalog', related_name='portlet_agenda')
 
-signals.pre_save.connect(save_object, sender=Pagina)
-signals.pre_save.connect(save_object, sender=Noticia)
-signals.pre_save.connect(save_object, sender=Link)
-signals.pre_save.connect(save_object, sender=Imagem)
-signals.pre_save.connect(save_object, sender=Banner)'''
+
 
