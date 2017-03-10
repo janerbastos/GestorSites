@@ -1,0 +1,116 @@
+{% extends 'comum/index.html' %}
+{% load bootstrap portal_tags staticfiles %}
+
+{% block static_file_top %}
+<script src="{% static 'js/ajax.js' %}"></script>
+<script type="text/javascript">
+	function clicked() {
+		window.history.back();
+	}
+</script>
+
+{% endblock static_file_top %}
+
+{% block container %}
+	<section class="container" >
+		<h2>Gerenciamento de Portlets.</h2>
+		<div class="col-sm-9 conteudo-comum" >
+		{% has_breadcrumbs %}
+		
+		{% if form %}
+			<form method="post" enctype="multipart/form-data" id="form" style="margin-top: 20px;">
+				{% csrf_token %}
+				{{ form|bootstrap }}
+				<div class="form-group col-sm-12">
+					<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-save"></i>&nbsp;Gravar</button>
+					<button type="button" id="_cancelar_" class="btn btn-danger" name="_cancelar_" onclick="clicked()"><i class="fa fa-fw fa-times"></i>&nbsp;Cancelar</button>
+				</div>
+			</form>	
+		{% else %}
+			{% if portlet %}
+				<h3>{{portlet}} <a href="#" data-target="#run_modal" data-toggle="modal" ><i class="fa fa-plus-circle" aria-hidden="true"></i></a></h3>
+				{% has_list_object_portlet portlet as result_portlets %}
+				
+				{% if result_portlets %}
+					<ul>
+					{% for p in result_portlets %}
+						<li style="padding-bottom: 5px; font-size: 1.5em;"><a href="?portlet={{portlet.portlet}}&excluir={{p.id}}"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a> {{p.titulo}}</li>
+					{% endfor %}
+					</ul>
+				{% else %}
+					<p> Nenhum item informado </p>
+				{% endif %}
+				
+			{% else %}
+			<ul style="margin-top: 20px; font-size: 2em;">
+				<li><a href="?create=noticia">{% has_icon_content 'noticia' %} Noticias</a></li>
+				<li><a href="?create=informe">{% has_icon_content 'informe' %} Informes</a></li>
+				<li><a href="?create=evento">{% has_icon_content 'evento' %} Eventos</a></li>
+				<li><a href="?create=agenda">{% has_icon_content 'agenda' %} Agendas</a></li>
+				<li><a href="?create=destaque"><i class="fa fa-bars" aria-hidden="true"></i> Destaque</a></li>
+			</ul>
+			{% endif %}
+			
+			<p style="text-indent: 0"><a href="{% has_formata_url %}" class="btn btn-danger">Fechar</a></p>
+		{% endif %}
+		
+		</div>
+		
+		<div class="col-sm-3 barra-lateral">
+		  <div id="lateral">
+		    
+		    {% has_portlets as portlets %}
+		    
+		    {% for i in portlets %}
+		    	<h2 class="titulo">{{i.titulo}}
+		    	</h2>
+		    	<p style="text-align: right;">
+		    		{% if i.categoria == 'destaque' %}<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>{% endif %}
+		    		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+		    		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+		    	</p>
+		    	{% if i.categoria != 'destaque' %}
+			    	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
+			    	<div class="nano">
+			            <ul class="nano-content">
+			              {% if list_objects %}
+			            		{% for obj in list_objects %}
+			            			<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+			                  		<h3 style="font-size: 14px;"><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
+			            		{% endfor %}
+			            	{% else %}
+			  	            <li>
+			  	                <span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
+			  	                <h3 style="font-size: 14px;"><a href="" title="">Nenhum conteúdo encontrado</a></h3>
+			  	            </li>
+			              {% endif %}
+			            </ul>
+	          		</div>
+	          		<a class="mais pull-right" href="" title="mais informes">{% has_text_mais_tipo i.tipo %}</a>
+	          	{% else %}
+	          		{% if portlet %}
+		          		{% has_list_object_portlet portlet as result_portlets %}
+					
+						{% if result_portlets %}
+							<ul>
+								{% for p in result_portlets %}
+									<li>{{p.titulo}}</li>
+								{% endfor %}
+							</ul>
+						{% else %}
+							<p> Nenhum item informado </p>
+						{% endif %}
+					{% endif %}
+          		{% endif %}
+		    	
+		    {% endfor %}
+		
+		  </div>  
+		</div>
+	</section>
+	
+	{% if portlet %}
+		{% include 'm_manage_portlets.html' %}
+	{% endif %}
+	
+{% endblock container %}
