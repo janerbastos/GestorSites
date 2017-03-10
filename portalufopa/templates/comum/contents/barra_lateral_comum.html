@@ -1,40 +1,52 @@
 {% load portal_tags %}
 
 <div class="col-sm-3 barra-lateral">
-  <div id="lateral">
-    <div class="dgdp comum-titulo">
-      <h2>DGDP</h2>
-      <p class="hidden-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis nisl nec leo gravida, a accumsan magna vehicula. Aliquam erat volutpat. hendrerit.</p>
-    </div>
-    <div class="dsqv">
-      <h2>DSQV</h2>
-      <p class="hidden-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis nisl nec leo gravida, a accumsan magna vehicula. Aliquam erat volutpat. hendrerit.</p>
-    </div>
-    <div id="ferramentas">
-      {% has_list_object_sessao 'ferramentas-de-gestao' as ferramentas_gestao %}
-      {% if ferramentas_gestao %}
-      <h2 class="titulo comum-titulo">FERRAMENTAS DE GESTÃO</h2>
-      <div id="utilitarios">
-      	{% for obj in ferramentas_gestao %}
-        <a class="btn btn-lg btn-utilitarios " href="{{obj.path_url}}" role="button">{{obj.titulo}}</a>
-        {% endfor %}
-      </div>
-      {% endif %}
-      
-      <!-- <h2 class="titulo titulo-2 comum-titulo">ADMISSÃO DE PESSOAL</h2>
-      <div id="utilitarios">
-        <a class="btn btn-lg btn-utilitarios " href="#" role="button">Editais</a>
-        <a class="btn btn-lg btn-utilitarios " href="#" role="button">Convocação</a>
-        <a class="btn btn-lg btn-utilitarios " href="#" role="button">Atividades de Acolhimento</a>
-      </div> -->
-    </div>
-    <!-- <div id="proc-sel">
-      <h2 class="titulo comum-titulo">MAIS</h2>
-      <div>
-        <a class="btn btn-lg btn-utilitarios psr" href="#" role="button">Regular</a>
-        <a class="btn btn-lg btn-utilitarios psei" href="#" role="button">Especial Indígena</a>
-        <a class="btn btn-lg btn-utilitarios pseq" href="#" role="button">Especial Quilombola</a>
-      </div>  
-    </div>   -->        
-  </div>  
+	<div id="lateral">
+	  
+	  {% has_portlets as portlets %}
+	  
+	  {% for i in portlets %}
+	  	<h2 class="titulo">{{i.titulo}}
+	  	</h2>
+	  	<p style="text-align: right;">
+	  		{% if i.categoria == 'destaque' %}<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>{% endif %}
+	  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+	  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+	  	</p>
+	  	{% if i.categoria != 'destaque' %}
+		   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
+		   	<div class="nano">
+				<ul class="nano-content">
+					{% if list_objects %}
+						{% for obj in list_objects %}
+							<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+				      		<h3 style="font-size: 14px;"><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
+						{% endfor %}
+					{% else %}
+					  	<li>
+							<span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
+							<h3 style="font-size: 14px;"><a href="" title="">Nenhum conteúdo encontrado</a></h3>
+					    </li>
+				    {% endif %}
+				</ul>
+			</div>
+			<a class="mais pull-right" href="" title="mais informes">{% has_text_mais_tipo i.tipo %}</a>
+	     {% else %}
+	     	{% with conteudos=i.conteudo.all %}
+				{% if conteudos %}
+					<ul>
+						{% for p in conteudos %}
+							<li><span class="data">{% if p.public_at %}{{p.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+				      		<h3 style="font-size: 14px;"><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
+						{% endfor %}
+					</ul>
+				{% else %}
+						<p> Nenhum item informado.</p>
+				{% endif %}
+			
+			{% endwith %}
+			
+	     {% endif %}
+	  {% endfor %}
+	</div>  
 </div>
