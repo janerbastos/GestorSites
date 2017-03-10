@@ -94,7 +94,7 @@ class Portlet(models.Model):
     conteudo = models.ManyToManyField('PortalCatalog', related_name='lista_portlets')
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
     layout = models.CharField(max_length=30, null=True, blank=True, choices=CHOOSE_LAYOUT)
-    ordem = models.PositiveIntegerField()
+    ordem = models.PositiveIntegerField(default=0)
     posicao = models.CharField(max_length=10, default='rigth')
     categoria = models.CharField(max_length=20, default='content')
     origem = models.CharField(max_length=20, default='dafault')
