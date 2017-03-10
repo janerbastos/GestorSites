@@ -38,6 +38,19 @@ WORKFLOW_COLOR = {
     'Revisao pendente': 'text-warning',
     }
 
+MAIS_CONTENTS = {
+    'pasta' : 'mais pastas',
+    'pagina': 'mais paginas',
+    'noticia' : 'mais notícias',
+    'imagem' : 'mais imagens',
+    'link' : 'mais links',
+    'banner' : 'mais banners',
+    'arquivo' : 'mais aquivos',
+    'evento' : 'mais eventos',
+    'agenda' : 'mais agenda',
+    'informe' : 'mais informes',
+    }
+
 
 def get_content_by_portal_catalog(_portal_catalog):
     
