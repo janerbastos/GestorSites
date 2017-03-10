@@ -87,18 +87,19 @@
 	          		</div>
 	          		<a class="mais pull-right" href="" title="mais informes">{% has_text_mais_tipo i.tipo %}</a>
 	          	{% else %}
-	          		{% if portlet %}
+	          		{% with conteudos=i.conteudo.all %}
 						{% if conteudos %}
 							<ul>
 								{% for p in conteudos %}
-									<li>{{p.titulo}}</li>
+									<li><span class="data">{% if p.public_at %}{{p.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+						      		<h3 style="font-size: 14px;"><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
 								{% endfor %}
 							</ul>
 						{% else %}
-							<p> Nenhum item informado aqui </p>
+								<p> Nenhum item informado.</p>
 						{% endif %}
-						
-					{% endif %}
+					
+					{% endwith %}
           		{% endif %}
 		    	
 		    {% endfor %}
