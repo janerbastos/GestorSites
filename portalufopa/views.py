@@ -15,6 +15,7 @@ from .models import PortalCatalog, Pagina, Pasta, Noticia, Imagem, Link, Banner,
 from .comum.contents import reescrever_url, get_url_id_content, get_site_url_id,\
     TYPE_NAME, WORKFLOW_ACTION, WORKFLOW
 from portalufopa.comum.contents import fraguiment_url
+from portalufopa.comum import portlets
 
 
 # Create your views here.
@@ -319,6 +320,29 @@ def __search(request):
         }
     return render(request, template, context)
 
+def __portlet(request):
+    
+    if 'create' in request.GET:
+        return portlets.create(request)
+    
+    if 'edit' in request.GET:
+        return portlets.edit(request)
+    
+    if 'delete' in request.GET:
+        return portlets.delete(request)
+    
+    if 'portlet' in request.GET:
+        return portlets.add_item_portlet(request)
+    
+    template = 'comum/portlets.html'
+    
+    context = {
+        
+        }
+    
+    return render(request, template, context)
+    
+
 def index(request, url=None):
     
     if request.path == '/':
@@ -333,6 +357,12 @@ def index(request, url=None):
     template = '%s/index.html' % _site_url
     
     _fragment_url = fraguiment_url(request)
+    
+    if '@@manage-portlets' in _fragment_url:
+        if len(_fragment_url) >= 1:
+            return __portlet(request)
+        else:
+            raise Http404('Operação não permitida.')
     
     if 'createObject' in _fragment_url:
         if 'createObject' in _fragment_url[-1]:
