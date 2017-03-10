@@ -192,7 +192,19 @@ class AgendaForm(models.ModelForm):
             'excluir_nav' : 'Excluir da navagação',
             }
         
-class Portletform(models.ModelForm):
+class PortletForm(models.ModelForm):
+    
+    class Meta:
+        model = Portlet
+        fields = (
+            'titulo', 'quantidade'
+            )
+        labels = {
+            'titulo' : 'Titulo do portlet',
+            'quantidade' : 'Quantidade a ser exibido',
+            }
+
+class PortletDestaqueForm(models.ModelForm):
     
     class Meta:
         model = Portlet
