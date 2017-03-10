@@ -14,6 +14,7 @@ from ..comum.utils import CONTENT_BY_TYPE
 from ..models import Site, PortalCatalog, Sessao
 from portalufopa.comum.contents import get_site_url_id, reescrever_url,\
     fraguiment_url
+from portalufopa.models import Portlet
 
 
 register = template.Library()
@@ -195,25 +196,29 @@ def has_breadcrumbs(context):
     aux = '/'
     count = 0
     _url = reescrever_url(context.request).strip('/').split('/')
-    for i in _url:
-        
-        if i not in ['folder_contents', 'createObject', 'edit'] :
+    
+    if len(_url):
+        _html += "<li class='active'>Pagina Inicial</li>"
+    else:
+        for i in _url:
             
-            if count < len(_url)-1:
-                aux += i + '/'
-                if count == 0:
-                    _html += "<li><a href='%s'>Inicio</a>&nbsp;-&nbsp;</li>" % aux
-                else:
-                    text_link = _p.get(path_url=aux)
-                    _html += "<li><a href='%s'>%s</a>&nbsp;-&nbsp;</li>" % (aux, text_link.titulo)
+            if i not in ['folder_contents', 'createObject', 'edit'] :
                 
-                count += 1
+                if count < len(_url)-1:
+                    aux += i + '/'
+                    if count == 0:
+                        _html += "<li><a href='%s'>Inicio</a>&nbsp;-&nbsp;</li>" % aux
+                    else:
+                        text_link = _p.get(path_url=aux)
+                        _html += "<li><a href='%s'>%s</a>&nbsp;-&nbsp;</li>" % (aux, text_link.titulo)
+                    
+                    count += 1
+                else:
+                    aux += i + '/'
+                    text_link = _p.get(path_url=aux)
+                    _html += "<li class='active'>%s</li>" % text_link.titulo
             else:
-                aux += i + '/'
-                text_link = _p.get(path_url=aux)
-                _html += "<li class='active'>%s</li>" % text_link.titulo
-        else:
-            _html += "<li class='active'>[...]</li>"
+                _html += "<li class='active'>[...]</li>"
     _html += "</ol> </div>"
     
     return format_html(_html)
@@ -245,4 +250,36 @@ def has_ifinlist(values, text):
         return True
     else:
         return False
+
+@register.simple_tag(takes_context=True)
+def has_formata_url(context):
+    return reescrever_url(context.request)
+
+@register.simple_tag(takes_context=True)
+def format_menu_portlets(context):
+    _new_url = reescrever_url(context.request)
+    return '%s%s' % (_new_url, "@@manage-portlets")
+
+@register.simple_tag(takes_context=True)
+def has_portlets(context):
+    _url = reescrever_url(context.request).strip('/').split('/')
+    _site_url = get_site_url_id(context.request)
     
+    _result = []
+    for item in _url:
+        _p = None
+        if item == _site_url:
+            p_ = Portlet.objects.filter(site__url=_site_url, origem='pagina-inicial')
+        else:
+            portal_catalog = PortalCatalog.objects.filter(site__url=_site_url).get(url=item)
+            _obj = portal_catalog.get_content_object()
+            p_ = _obj.portlet.all()
+            
+        for i in p_:
+            _result.append(i)
+    return _result
+
+@register.simple_tag()    
+def has_text_mais_tipo(tipo):
+    
+    return 'veja mais'
