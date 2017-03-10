@@ -2,14 +2,14 @@
 {% load bootstrap portal_tags staticfiles %}
 
 {% block container %}
-	<div id="pag-comum">
+	<div >
 		<p>Gerenciamento de sessão.</p>
 		
 		<h1>{{object}}</h1>
 		<h3>Conteúdos vinculados <a href="#" data-target="#run_modal" data-toggle="modal"><i class="fa fa-plus-square" aria-hidden="true"></i></a></h3>
 		{% if list_sessions %}
 		{% format_menu_session object.sessao as menu %}
-		<div class="col-sm-12" style="border: 1px solid #ccc;">
+		<div class="col-sm-12" style="border: 1px solid #ccc; margin-bottom: 30px;">
 			<p><ul>
 				{% for i in list_sessions %}
 					<li>
@@ -23,6 +23,7 @@
 			</ul></p>
 		</div>
 		{% endif %}
+		<p style="text-indent: 0;><a href="{% has_formata_url %}" class="btn btn-danger">Fechar</a></p>
 	</div>
 	
 	{% include 'm_manage_sessao.html' %}
