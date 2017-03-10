@@ -196,8 +196,7 @@ def has_breadcrumbs(context):
     aux = '/'
     count = 0
     _url = reescrever_url(context.request).strip('/').split('/')
-    
-    if len(_url):
+    if len(_url) == 1:
         _html += "<li class='active'>Pagina Inicial</li>"
     else:
         for i in _url:
