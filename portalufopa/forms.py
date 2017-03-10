@@ -209,10 +209,11 @@ class PortletDestaqueForm(models.ModelForm):
     class Meta:
         model = Portlet
         fields = (
-            'titulo', 'tipo', 'quantidade'
+            'titulo', 'tipo', 'quantidade', 'layout'
             )
         labels = {
             'titulo' : 'Titulo do portlet',
             'tipo' : 'Tipo de contúdo',
             'quantidade' : 'Quantidade a ser exibido',
+            'layout' : 'Layout do portlet'
             }
