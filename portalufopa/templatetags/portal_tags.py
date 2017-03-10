@@ -8,7 +8,7 @@ from django.http.response import Http404
 from django.utils.html import format_html
 
 from portalufopa.comum.utils import WORKFLOW_COLOR, ICONS,\
-    get_content_by_tipo
+    get_content_by_tipo, MAIS_CONTENTS
 
 from ..comum.utils import CONTENT_BY_TYPE
 from ..models import Site, PortalCatalog, Sessao
@@ -281,5 +281,5 @@ def has_portlets(context):
 
 @register.simple_tag()    
 def has_text_mais_tipo(tipo):
-    
-    return 'veja mais'
+    tipo = tipo.replace('AT', '').lower()
+    return MAIS_CONTENTS[tipo]
