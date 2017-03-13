@@ -75,12 +75,12 @@
 			              {% if list_objects %}
 			            		{% for obj in list_objects %}
 			            			<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-			                  		<h3 style="font-size: 14px;"><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
+			                  		<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
 			            		{% endfor %}
 			            	{% else %}
 			  	            <li>
 			  	                <span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
-			  	                <h3 style="font-size: 14px;"><a href="" title="">Nenhum conteúdo encontrado</a></h3>
+			  	                <h3><a href="" title="">Nenhum conteúdo encontrado</a></h3>
 			  	            </li>
 			              {% endif %}
 			            </ul>
@@ -92,7 +92,7 @@
 							<ul>
 								{% for p in conteudos %}
 									<li><span class="data">{% if p.public_at %}{{p.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-						      		<h3 style="font-size: 14px;"><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
+						      		<h3><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
 								{% endfor %}
 							</ul>
 						{% else %}

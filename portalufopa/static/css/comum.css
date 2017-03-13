@@ -651,13 +651,20 @@ ul{
     padding:0;
 }
 .barra-lateral a{
+    color:#3F7169;  
+}
+.barra-lateral p > a{
     font-size:1.6em;
-    color:#3F7169;
+    padding: 0 .3em;
+}
+.barra-lateral h3{
+  font-size: 1.75em;
+  font-weight: 500;
 }
 .barra-lateral li{
     list-style:none;
-    border-bottom: 2px dotted #778D94;
-    padding:1em 0 2em;
+    border-bottom: 1px dotted #778D94;
+    padding:1em 0 1em;
 }
 .barra-lateral span, .mais{
     color:#778D94;
@@ -781,66 +788,6 @@ ul{
 
 
 
-/************ Páginas Notíciasssss ********** */
-/*
-.progep-titulos {
-  display: flex;
-}
-#conteudo-progep .titulos-comum{
-   margin-bottom: 30px;
-   text-transform: uppercase;
-}
-#conteudo-progep .feed-post{
-     border-top: 1px solid #c7C7C7; 
-}
-#conteudo-progep .feed-post-body {
-  overflow: hidden;
-  padding:1.5em 0;
-  width: 100%;
-}
-#conteudo-progep .feed-post-body a:hover{
-    text-decoration: none;
-}
-#conteudo-progep .feed-post-figure-link {
-  float: left;
-  margin: 0 1rem 0 0;
-  border-radius: 4px;
-  display:block;
-}
-#conteudo-progep .conteudo-comum img {
-  margin-bottom: 0em;
-  margin-top: 0em;
-}
-#conteudo-progep .conteudo-comum p {
-  color: #3e787f;
-  font-size: 25px;
-  font-weight: bold;
-  text-indent: 0em;
-}
-
-/************ Páginas arquivos ********** */
-/*
-#conteudo-progep .titulo-arquivo{
-    padding: 0;
-    margin-left: -10px;
-    font-size: 16px;
-    color: #595959;
-}
-#conteudo-progep .list-group-item a {
-    color: #595959;
-}
-
-/************ Páginas comum2 ********** */
-/*
-.conteudo-comum h4{
-    color: #3e787f;
-    font-weight: 400;
-}
-.conteudo-siglas{
-    font-size: 10px;
-    color: #3e787f;
-}
-*/
 
 /**
 CONTRASTE
