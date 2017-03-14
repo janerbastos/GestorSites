@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from datetime import date
+from datetime import datetime
 
 from django.shortcuts import redirect, render
 from django.utils.text import slugify
@@ -43,7 +43,7 @@ def edit(request):
     form = AgendaForm(request.POST or None, request.FILES or None, instance=_object)
     if form.is_valid():
         model = form.save(commit=False)
-        model.update_at = date.today()
+        model.update_at = datetime.now()
         model.save()
         save_in_portal_catalog(model)
         return redirect(_url)
@@ -58,6 +58,6 @@ def workflow(request, portal_catalog, _workflow):
     _o = Agenda.objects.filter(site__url=_site_url).get(url=portal_catalog.url)
     _o.workflow = _workflow
     if _o.workflow == 'Publicado' and _o.public_at==None:
-        _o.public_at = date.today()
+        _o.public_at = datetime.now()
     _o.save() 
     save_in_portal_catalog(_o)

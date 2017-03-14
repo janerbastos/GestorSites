@@ -16,6 +16,7 @@ from .comum.contents import reescrever_url, get_url_id_content, get_site_url_id,
     TYPE_NAME, WORKFLOW_ACTION, WORKFLOW
 from portalufopa.comum.contents import fraguiment_url
 from portalufopa.comum import portlets
+from datetime import datetime
 
 
 # Create your views here.

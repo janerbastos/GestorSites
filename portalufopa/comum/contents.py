@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from portalufopa.models import Site, PortalCatalog
 from django.shortcuts import get_object_or_404
-from datetime import date
+from datetime import datetime
 
 OBJ_SERVICE = ('sessions_manage', 'createObject', 'folder_contents', 'content_status_modify',
                'select_default_page', 'organizer_content', 'image_browse_url', 'edit', '@@manage-portlets')
@@ -56,7 +56,7 @@ def save_in_portal_catalog(instance, url=None):
         portal.dono = instance.dono
         
     if instance.workflow == 'Publicado' and portal.public_at==None:
-        portal.public_at = date.today()
+        portal.public_at = datetime.now()
     
     portal.url = instance.url
     portal.titulo = instance.titulo

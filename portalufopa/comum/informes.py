@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import date
+from datetime import datetime
 
 from django.shortcuts import redirect, render
 from django.utils.text import slugify
@@ -22,7 +22,6 @@ def create(request):
         model.url = _url
         model.tipo = 'ATInforme'
         model.site = site
-        model.update_at = date.today()
         if 'imagem' in request.FILES:
             model.imagem = request.FILES['imagem']
         model.dono = request.user
@@ -46,6 +45,7 @@ def edit(request):
     form = InformeForm(request.POST or None, instance=_object)
     if form.is_valid():
         model = form.save(commit=False)
+        model.update_at = datetime.now()
         if 'imagem' in request.FILES:
             model.imagem = request.FILES['imagem']
         model.save()
@@ -64,6 +64,6 @@ def workflow(request, portal_catalog, _workflow):
     _o.workflow = _workflow
     if _o.workflow == 'Publicado' and _o.public_at==None:
         print _workflow
-        _o.public_at = date.today()
+        _o.public_at = datetime.now()
     _o.save() 
     save_in_portal_catalog(_o)
