@@ -660,6 +660,7 @@ ul{
 .barra-lateral h3{
   font-size: 1.75em;
   font-weight: 500;
+  margin-top: 0px;
 }
 .barra-lateral li{
     list-style:none;
