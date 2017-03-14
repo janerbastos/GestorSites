@@ -88,7 +88,7 @@ DATABASES = {
     
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'portal_ufopa',
+        'NAME': 'portalufopa',
         'USER': 'mamba_negra',
         'PASSWORD': 'mamba',
         'HOST': '10.3.9.31',
