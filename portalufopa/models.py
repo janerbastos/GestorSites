@@ -39,7 +39,10 @@ CHOOSE_TIPO_CONTENT = (
 
 CHOOSE_LAYOUT = (
         ('', 'Padrão'),
-        ('layout_01', 'Modelo sem título'),
+        ('layout_01', 'Sem Título'),
+        ('layout_02', 'Destaque'),
+        ('layout_03', 'Evento'),
+        ('layout_04', 'Agenda'),
     )
     
 class Site(models.Model):

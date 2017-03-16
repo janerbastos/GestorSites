@@ -6,50 +6,227 @@
 	  {% has_portlets as portlets %}
 	  
 	  {% for i in portlets %}
-	  	<h2 class="titulo">{{i.titulo}}
-	  	</h2>
-	  	<p class="pull-right">
-	  		{% if i.categoria == 'destaque' %}<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>{% endif %}
-	  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
-	  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
-	  	</p>
-	  	{% if i.categoria != 'destaque' %}
-		   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
-		   	<div class="nano">
-				<ul class="nano-content">
-					{% if list_objects %}
-						{% for obj in list_objects %}
-							<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-				      		<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
-						{% endfor %}
-					{% else %}
-					  	<li>
-							<span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
-							<h3><a href="" title="">Nenhum conteúdo encontrado</a></h3>
-					    </li>
-				    {% endif %}
-				</ul>
-			</div>
-			<a class="mais pull-right" href="" title="mais informes">{% has_text_mais_tipo i.tipo %}</a>
-	     {% else %}
-	     	{% with conteudos=i.conteudo.all %}
-				{% if conteudos %}
-					<ul>
-						{% for p in conteudos %}
-							<li><span class="data">{% if p.public_at %}{{p.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-				      		<h3><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
-						{% endfor %}
-					</ul>
-				{% else %}
-						<p> Nenhum item informado.</p>
-				{% endif %}
-			
-			{% endwith %}
-			
-	     {% endif %}
+
+	  		<!-- Padrão -->
+	  		{% if not i.layout %}
+			  	<h2 class="titulo">{{i.titulo}}</h2>
+			  	<p class="pull-right">
+			  		{% if i.categoria == 'destaque' %}<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>{% endif %}
+			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+			  	</p>
+			  	{% if i.categoria != 'destaque' %}
+				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
+				   	<div class="nano">
+						<ul class="nano-content">
+							{% if list_objects %}
+								{% for obj in list_objects %}
+									<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+						      		<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
+								{% endfor %}
+							{% else %}
+							  	<li>
+									<span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
+									<h3><a href="" title="">Nenhum conteúdo encontrado</a></h3>
+							    </li>
+						    {% endif %}
+						</ul>
+					</div>
+					<a class="mais pull-right" href="" title="mais informes">{% has_text_mais_tipo i.tipo %}</a>
+			     {% else %}
+			     	{% with conteudos=i.conteudo.all %}
+						{% if conteudos %}
+							<ul>
+								{% for p in conteudos %}
+									<li><span class="data">{% if p.public_at %}{{p.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+						      		<h3><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
+								{% endfor %}
+							</ul>
+						{% else %}
+								<p> Nenhum item informado.</p>
+						{% endif %}
+					
+					{% endwith %}
+			     {% endif %}
+	     	{% endif %}
+	     	
+	     	<!-- Sem Titulo -->
+	     	{% if i.layout == 'layout_01' %}
+			  	<h2 class="titulo">{{i.titulo}}</h2>
+			  	<p class="pull-right">
+			  		{% if i.categoria == 'destaque' %}<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>{% endif %}
+			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+			  	</p>
+			  	{% if i.categoria != 'destaque' %}
+				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
+				   	<div class="nano">
+						<ul class="nano-content">
+							{% if list_objects %}
+								{% for obj in list_objects %}
+									<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+						      		<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
+								{% endfor %}
+							{% else %}
+							  	<li>
+									<span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
+									<h3><a href="" title="">Nenhum conteúdo encontrado</a></h3>
+							    </li>
+						    {% endif %}
+						</ul>
+					</div>
+					<a class="mais pull-right" href="" title="mais informes">{% has_text_mais_tipo i.tipo %}</a>
+			     {% else %}
+			     	{% with conteudos=i.conteudo.all %}
+						{% if conteudos %}
+							<ul>
+								{% for p in conteudos %}
+									<li><span class="data">{% if p.public_at %}{{p.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+						      		<h3><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
+								{% endfor %}
+							</ul>
+						{% else %}
+								<p> Nenhum item informado.</p>
+						{% endif %}
+					
+					{% endwith %}
+			     {% endif %}
+	     	{% endif %}
+	     	
+	     	<!-- Destaque -->
+	     	{% if i.layout == 'layout_02' %}
+			  	<h2 class="titulo">{{i.titulo}}</h2>
+			  	<p class="pull-right">
+			  		{% if i.categoria == 'destaque' %}<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>{% endif %}
+			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+			  	</p>
+			  	{% if i.categoria != 'destaque' %}
+				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
+				   	<div class="nano">
+						<ul class="nano-content">
+							{% if list_objects %}
+								{% for obj in list_objects %}
+									<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+						      		<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
+								{% endfor %}
+							{% else %}
+							  	<li>
+									<span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
+									<h3><a href="" title="">Nenhum conteúdo encontrado</a></h3>
+							    </li>
+						    {% endif %}
+						</ul>
+					</div>
+					<a class="mais pull-right" href="" title="mais informes">{% has_text_mais_tipo i.tipo %}</a>
+			     {% else %}
+			     	{% with conteudos=i.conteudo.all %}
+						{% if conteudos %}
+							<ul>
+								{% for p in conteudos %}
+									<li><span class="data">{% if p.public_at %}{{p.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+						      		<h3><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
+								{% endfor %}
+							</ul>
+						{% else %}
+								<p> Nenhum item informado.</p>
+						{% endif %}
+					
+					{% endwith %}
+			     {% endif %}
+	     	{% endif %}
+	     	
+	     	<!-- Evento -->
+	     	{% if i.layout == 'layout_03' %}
+			  	<h2 class="titulo">{{i.titulo}}</h2>
+			  	<p class="pull-right">
+			  		{% if i.categoria == 'destaque' %}<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>{% endif %}
+			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+			  	</p>
+			  	{% if i.categoria != 'destaque' %}
+				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
+				   	<div class="nano">
+						<ul class="nano-content">
+							{% if list_objects %}
+								{% for obj in list_objects %}
+									<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+						      		<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
+								{% endfor %}
+							{% else %}
+							  	<li>
+									<span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
+									<h3><a href="" title="">Nenhum conteúdo encontrado</a></h3>
+							    </li>
+						    {% endif %}
+						</ul>
+					</div>
+					<a class="mais pull-right" href="" title="mais informes">{% has_text_mais_tipo i.tipo %}</a>
+			     {% else %}
+			     	{% with conteudos=i.conteudo.all %}
+						{% if conteudos %}
+							<ul>
+								{% for p in conteudos %}
+									<li><span class="data">{% if p.public_at %}{{p.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+						      		<h3><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
+								{% endfor %}
+							</ul>
+						{% else %}
+								<p> Nenhum item informado.</p>
+						{% endif %}
+					
+					{% endwith %}
+			     {% endif %}
+	     	{% endif %}
+	     	
+	     	<!-- Agenda -->
+	     	{% if i.layout == 'layout_04' %}
+			  	<h2 class="titulo">{{i.titulo}}</h2>
+			  	<p class="pull-right">
+			  		{% if i.categoria == 'destaque' %}<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>{% endif %}
+			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+			  	</p>
+			  	{% if i.categoria != 'destaque' %}
+				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
+				   	<div class="nano">
+						<ul class="nano-content">
+							{% if list_objects %}
+								{% for obj in list_objects %}
+									<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+						      		<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
+								{% endfor %}
+							{% else %}
+							  	<li>
+									<span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
+									<h3><a href="" title="">Nenhum conteúdo encontrado</a></h3>
+							    </li>
+						    {% endif %}
+						</ul>
+					</div>
+					<a class="mais pull-right" href="" title="mais informes">{% has_text_mais_tipo i.tipo %}</a>
+			     {% else %}
+			     	{% with conteudos=i.conteudo.all %}
+						{% if conteudos %}
+							<ul>
+								{% for p in conteudos %}
+									<li><span class="data">{% if p.public_at %}{{p.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+						      		<h3><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
+								{% endfor %}
+							</ul>
+						{% else %}
+								<p> Nenhum item informado.</p>
+						{% endif %}
+					
+					{% endwith %}
+			     {% endif %}
+	     	{% endif %}
+	     	
 	  {% endfor %}
+	  
 	  {% if action != 'portlet' %}
 	  	<div style="padding: 5px 5px 5px 10px; background-color: #ccc;"><a href="{% format_menu_portlets %}">Gerenciador de Portlets</a></div>
 	  {% endif %}
+	  
 	</div>  
 </div>
