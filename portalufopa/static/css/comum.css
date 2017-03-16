@@ -562,6 +562,7 @@ ul{
   margin: 0;
 }
 /* fim conteudo*/
+
 /* visão padrão*/
 #ordenador{
   clear: left;
@@ -650,6 +651,7 @@ ul{
 /* início barra lateral comum*/
 .barra-lateral{
     padding: 0;
+    margin-top: 2em;
 }
 .barra-lateral ul{
     padding:0;
@@ -673,7 +675,10 @@ ul{
 }
 .barra-lateral span, .mais{
     color:#778D94;
-    padding:.5em 0;
+}
+.barra-lateral .pull-right{
+  margin-right: -2.5em;
+  display: inline-grid;
 }
 .titulo {
     font-size:2em;
@@ -683,34 +688,36 @@ ul{
     text-transform: uppercase;
     margin-bottom: 0;
 }
-.dsqv:hover, .dgdp:hover{
+.portlet-sem-titulo a{
+  background: #e8f2f4;
+  border-radius: 0px !important;
+  width: 100%;
+  color: #4A4949;
+  margin-bottom: .2em;
+  font-size: 2em;
+  padding: 0 10px 10px;
+  border:none;
+}
+{
+
+}
+.portlet-sem-titulo a:hover{
     background:#ccd1d2;
 }
-.dgdp p, .dsqv p {
-    padding:1em 1em 1.62em 1em; 
-    font-size:1.5em;
+.portlet-sem-titulo p {
+    font-size:15px;
     font-weight:300;
     margin-bottom:0;
     color: #54656b;
 }
-.dgdp, .dsqv{
-    background: #e8f2f4;
-}
-.dgdp h2{
-    font-size:1.7em;
+.portlet-sem-titulo h2{
+    font-size:17px;
     font-weight:700;
     color:#467f7c;
     padding:.5em;
     margin:0;
 }
-.dsqv h2{
-    font-size:1.7em;
-    font-weight:700;
-    color:#467f7c;
-    padding:.5em;
-    margin:0;
-    margin-top:2px;
-}
+
 #ferramentas{
     padding:0;
 }

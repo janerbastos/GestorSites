@@ -7,15 +7,13 @@
 	  
 	  {% for i in portlets %}
 
-	  		<!-- Padrão -->
-	  		{% if not i.layout %}
+		  		<!-- Padrão -->
+		  		{% if not i.layout %}
 			  	<h2 class="titulo">{{i.titulo}}</h2>
 			  	<p class="pull-right">
-			  		{% if i.categoria == 'destaque' %}<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>{% endif %}
 			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
 			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
 			  	</p>
-			  	{% if i.categoria != 'destaque' %}
 				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
 				   	<div class="nano">
 						<ul class="nano-content">
@@ -33,193 +31,126 @@
 						</ul>
 					</div>
 					<a class="mais pull-right" href="" title="mais informes">{% has_text_mais_tipo i.tipo %}</a>
-			     {% else %}
-			     	{% with conteudos=i.conteudo.all %}
-						{% if conteudos %}
-							<ul>
-								{% for p in conteudos %}
-									<li><span class="data">{% if p.public_at %}{{p.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-						      		<h3><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
-								{% endfor %}
-							</ul>
-						{% else %}
-								<p> Nenhum item informado.</p>
-						{% endif %}
-					
-					{% endwith %}
-			     {% endif %}
+
 	     	{% endif %}
 	     	
 	     	<!-- Sem Titulo -->
 	     	{% if i.layout == 'layout_01' %}
-			  	<h2 class="titulo">{{i.titulo}}</h2>
-			  	<p class="pull-right">
-			  		{% if i.categoria == 'destaque' %}<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>{% endif %}
+				<p class="pull-right">
+			  		<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
 			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
 			  	</p>
-			  	{% if i.categoria != 'destaque' %}
-				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
-				   	<div class="nano">
-						<ul class="nano-content">
-							{% if list_objects %}
-								{% for obj in list_objects %}
-									<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-						      		<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
-								{% endfor %}
-							{% else %}
-							  	<li>
-									<span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
-									<h3><a href="" title="">Nenhum conteúdo encontrado</a></h3>
-							    </li>
-						    {% endif %}
-						</ul>
-					</div>
-					<a class="mais pull-right" href="" title="mais informes">{% has_text_mais_tipo i.tipo %}</a>
-			     {% else %}
-			     	{% with conteudos=i.conteudo.all %}
-						{% if conteudos %}
-							<ul>
-								{% for p in conteudos %}
-									<li><span class="data">{% if p.public_at %}{{p.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-						      		<h3><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
-								{% endfor %}
-							</ul>
-						{% else %}
-								<p> Nenhum item informado.</p>
-						{% endif %}
-					
-					{% endwith %}
-			     {% endif %}
+				{% with conteudos=i.conteudo.all %}
+					{% if conteudos %}
+						<div class="portlet-sem-titulo {{i.layout}} list-group">
+							{% for p in conteudos %}
+							    {% if p.tipo == 'ATLink' %}
+									{% with link=p.get_content_object %}
+										<a class="link_{{ forloop.counter }} list-group-item" href="{{link.link}}" title="{{p.descricao}}" target="link.target">
+										<h2>{{p.titulo}}</h2>
+									    <p class="hidden-xs hidden-sm ">{{p.descricao}}</p>
+									</a>
+									{% endwith %}
+							    {% else %}
+						      		<a href="{{p.path_url}}" title="{{p.descricao}}">
+										<h2 class="_{{ forloop.counter }}">{{p.titulo}}</h2>
+									    <p class="hidden-xs hidden-sm ">{{p.descricao}}</p>
+									</a>
+								{% endif %}
+							{% endfor %}
+						</div>
+					{% else %}
+							<p> Nenhum item informado.</p>
+					{% endif %}
+				
+				{% endwith %}
+
 	     	{% endif %}
 	     	
 	     	<!-- Destaque -->
+
 	     	{% if i.layout == 'layout_02' %}
 			  	<h2 class="titulo">{{i.titulo}}</h2>
 			  	<p class="pull-right">
-			  		{% if i.categoria == 'destaque' %}<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>{% endif %}
+			  		<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
 			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
 			  	</p>
-			  	{% if i.categoria != 'destaque' %}
-				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
-				   	<div class="nano">
-						<ul class="nano-content">
-							{% if list_objects %}
-								{% for obj in list_objects %}
-									<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-						      		<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
-								{% endfor %}
-							{% else %}
-							  	<li>
-									<span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
-									<h3><a href="" title="">Nenhum conteúdo encontrado</a></h3>
-							    </li>
-						    {% endif %}
-						</ul>
-					</div>
-					<a class="mais pull-right" href="" title="mais informes">{% has_text_mais_tipo i.tipo %}</a>
-			     {% else %}
-			     	{% with conteudos=i.conteudo.all %}
-						{% if conteudos %}
-							<ul>
-								{% for p in conteudos %}
-									<li><span class="data">{% if p.public_at %}{{p.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-						      		<h3><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
-								{% endfor %}
-							</ul>
-						{% else %}
-								<p> Nenhum item informado.</p>
-						{% endif %}
-					
-					{% endwith %}
-			     {% endif %}
+				{% with conteudos=i.conteudo.all %}
+					{% if conteudos %}
+						<div class="portlet-destaque {{i.layout}} list-group">
+							{% for p in conteudos %}
+							    {% if p.tipo == 'ATLink' %}
+									{% with link=p.get_content_object %}
+										<a class="link_{{ forloop.counter }} list-group-item" href="{{link.link}}" title="{{p.descricao}}" target="link.target">
+										<h2>{{p.titulo}}</h2>
+									    <p class="hidden-xs hidden-sm ">{{p.descricao}}</p>
+									</a>
+									{% endwith %}
+							    {% else %}
+						      		<a href="{{p.path_url}}" title="{{p.descricao}}">
+										<h2 class="_{{ forloop.counter }}">{{p.titulo}}</h2>
+									    <p class="hidden-xs hidden-sm ">{{p.descricao}}</p>
+									</a>
+								{% endif %}
+							{% endfor %}
+						</div>
+					{% else %}
+							<p> Nenhum item informado.</p>
+					{% endif %}
+				
+				{% endwith %}
 	     	{% endif %}
 	     	
 	     	<!-- Evento -->
 	     	{% if i.layout == 'layout_03' %}
-			  	<h2 class="titulo">{{i.titulo}}</h2>
 			  	<p class="pull-right">
-			  		{% if i.categoria == 'destaque' %}<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>{% endif %}
+			  	  
+			  		<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
 			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
 			  	</p>
-			  	{% if i.categoria != 'destaque' %}
-				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
-				   	<div class="nano">
-						<ul class="nano-content">
-							{% if list_objects %}
-								{% for obj in list_objects %}
-									<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-						      		<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
-								{% endfor %}
-							{% else %}
-							  	<li>
-									<span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
-									<h3><a href="" title="">Nenhum conteúdo encontrado</a></h3>
-							    </li>
-						    {% endif %}
-						</ul>
-					</div>
-					<a class="mais pull-right" href="" title="mais informes">{% has_text_mais_tipo i.tipo %}</a>
-			     {% else %}
-			     	{% with conteudos=i.conteudo.all %}
-						{% if conteudos %}
-							<ul>
-								{% for p in conteudos %}
-									<li><span class="data">{% if p.public_at %}{{p.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-						      		<h3><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
-								{% endfor %}
-							</ul>
-						{% else %}
-								<p> Nenhum item informado.</p>
-						{% endif %}
-					
-					{% endwith %}
-			     {% endif %}
+				{% with conteudos=i.conteudo.all %}
+					{% if conteudos %}
+						<div class="portlet-evento">
+							{% for p in conteudos %}
+					      		<a href="{{p.path_url}}" title="{{p.descricao}}">
+									<h2>{{p.titulo}}</h2>
+								    <p class="hidden-xs hidden-sm ">{{p.descricao}}</p>
+								</a>
+							{% endfor %}
+						</div>
+					{% else %}
+							<p> Nenhum item informado.</p>
+					{% endif %}
+				
+				{% endwith %}
 	     	{% endif %}
 	     	
 	     	<!-- Agenda -->
 	     	{% if i.layout == 'layout_04' %}
-			  	<h2 class="titulo">{{i.titulo}}</h2>
 			  	<p class="pull-right">
-			  		{% if i.categoria == 'destaque' %}<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>{% endif %}
+			  	  
+			  		<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
 			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
 			  	</p>
-			  	{% if i.categoria != 'destaque' %}
-				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
-				   	<div class="nano">
-						<ul class="nano-content">
-							{% if list_objects %}
-								{% for obj in list_objects %}
-									<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-						      		<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
-								{% endfor %}
-							{% else %}
-							  	<li>
-									<span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
-									<h3><a href="" title="">Nenhum conteúdo encontrado</a></h3>
-							    </li>
-						    {% endif %}
-						</ul>
-					</div>
-					<a class="mais pull-right" href="" title="mais informes">{% has_text_mais_tipo i.tipo %}</a>
-			     {% else %}
-			     	{% with conteudos=i.conteudo.all %}
-						{% if conteudos %}
-							<ul>
-								{% for p in conteudos %}
-									<li><span class="data">{% if p.public_at %}{{p.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-						      		<h3><a href="{{p.path_url}}" title="{{p.descricao}}">{{p.titulo}}</a></h3></li>
-								{% endfor %}
-							</ul>
-						{% else %}
-								<p> Nenhum item informado.</p>
-						{% endif %}
-					
-					{% endwith %}
-			     {% endif %}
+				{% with conteudos=i.conteudo.all %}
+					{% if conteudos %}
+						<div class="portlet-agenda">
+							{% for p in conteudos %}
+					      		<a href="{{p.path_url}}" title="{{p.descricao}}">
+									<h2>{{p.titulo}}</h2>
+								    <p class="hidden-xs hidden-sm ">{{p.descricao}}</p>
+								</a>
+							{% endfor %}
+						</div>
+					{% else %}
+							<p> Nenhum item informado.</p>
+					{% endif %}
+				
+				{% endwith %}
 	     	{% endif %}
 	     	
 	  {% endfor %}
