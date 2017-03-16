@@ -652,6 +652,7 @@ ul{
 .barra-lateral{
     padding: 0;
     margin-top: 2em;
+    font-family: roboto;
 }
 .barra-lateral ul{
     padding:0;
@@ -681,14 +682,14 @@ ul{
   display: inline-grid;
 }
 .titulo {
-    font-size:2em;
-    font-weight:700;
-    color:#3F7169;
-    border-bottom: 4px solid #54656B;
-    text-transform: uppercase;
-    margin-bottom: 0;
+  font-size:2em;
+  font-weight:700;
+  color:#3F7169;
+  border-bottom: 4px solid #54656B;
+  text-transform: uppercase;
+  margin-bottom: 0;
 }
-.portlet-sem-titulo a{
+.portlet-sem-titulo a, .portlet-destaque a{
   background: #e8f2f4;
   border-radius: 0px !important;
   width: 100%;
@@ -698,49 +699,35 @@ ul{
   padding: 0 10px 10px;
   border:none;
 }
-{
-
-}
 .portlet-sem-titulo a:hover{
-    background:#ccd1d2;
+  background:#ccd1d2;
 }
 .portlet-sem-titulo p {
-    font-size:15px;
-    font-weight:300;
-    margin-bottom:0;
-    color: #54656b;
+  font-size:15px;
+  font-weight:300;
+  margin-bottom:0;
+  color: #54656b;
 }
 .portlet-sem-titulo h2{
-    font-size:17px;
-    font-weight:700;
-    color:#467f7c;
-    padding:.5em;
-    margin:0;
+  font-size:17px;
+  font-weight:700;
+  color:#467f7c;
+  padding:.5em;
+  margin:0;
 }
-
-#ferramentas{
-    padding:0;
+.portlet-destaque a {
+  padding: 10px 0;
+  text-align: center;
+  background: #BaD9DD;
 }
-.btn-lg, .btn-group-lg > .btn {
-  padding: 17px 16px;
+.portlet-destaque h2{
+    font-size: 20px;
+    margin-top: 10px;
 }
-.titulo-2{
-    margin-top:1em;
-}
-
-.btn-utilitarios{
-    border-radius:0px;
-    width:100%;
-    background:#BaD9DD;
-    color:#4A4949;
-    margin-bottom:.2em;
-    font-size: 2em;
-    padding: 17px 10px;
-}
-
-.btn-utilitarios:hover{
+.portlet-destaque a:hover{
     background:#A5C4C8;
 }
+
 /* fim barra lateral comum*/
 
 
