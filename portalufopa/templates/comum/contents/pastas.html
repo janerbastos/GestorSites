@@ -13,6 +13,10 @@
 		{% if object_view == 'sumaria' %}
 			<div class="col-sm-6 conteudo-comum-titulos"><h2 class="titulos-comum">{{object.titulo}}</h2></div>
 			{% include 'comum/contents/list_view_sumaria.html' %}
+		{% elif object_view == 'agenda'%}
+			{% include 'comum/contents/list_view_agenda.html' %}
+		{% elif object_view == 'evento'%}
+			{% include 'comum/contents/list_view_evento.html' %}
 		{% else %}
 			
 			<div class="col-sm-6 conteudo-comum-titulos"> 

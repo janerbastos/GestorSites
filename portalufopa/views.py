@@ -250,9 +250,10 @@ def __select_default_page(request):
     
     if 'view' in request.GET:
         _view = request.GET['view']
-        if _view == 'sumaria':
+        if _view in ('sumaria', 'agenda', 'evento'):
             _object.visao_padrao = _view
             _object.save()
+
         return redirect(new_url)
 
     if 'content_view_url' in request.POST:

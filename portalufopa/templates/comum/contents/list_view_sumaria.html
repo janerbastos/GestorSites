@@ -4,8 +4,8 @@
 {% for obj in contents %}
 <div class="feed-post">
    <div class="feed-post-body">
-		{% if obj.tipo == 'ATNoticia' %}
 			{% has_content_by_portal_catalog obj as content %}
+		{% if obj.tipo == 'ATNoticia' %}
 			{% if content.imagem %}
 				<a href="{{obj.path_url}}" class="feed-post-figure-link ">
 				   <img src="{{content.imagem.url}}" alt="Foto:" width="260">
@@ -16,7 +16,6 @@
 		<a href="{{ obj.path_url }}" class="feed-post-link gui-image-hover gui-color-primary-link">
 		  <p class="feed-post-body-title gui-color-primary">{{ obj.titulo }}</p>
 		</a>
-		<!-- {% if obj.descricao %}<p>{{ obj.descricao }}</p> -->{% endif %}
 	</div>
 </div>
 {% endfor %}         

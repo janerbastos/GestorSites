@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from datetime import date
+from datetime import datetime, date
 
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
@@ -38,7 +38,7 @@ def has_permissao_content_site(context):
 
 @register.simple_tag(takes_context=True)
 def has_visao_padrao(context, param):
-    if param == 'sumaria':
+    if param in ('sumaria', 'evento', 'agenda'):
         return param
     itens = param.split(',')
     site = context['site']
@@ -61,7 +61,20 @@ def has_list_objects_pasta(context, **kwargs):
     url = context.request.path
     lista = []
     nivel = len(url.strip('/').split('/'))+1
-    _p = PortalCatalog.objects.filter(path_url__startswith=url).exclude(path_url=url).order_by('ordenador')
+    
+    _p = PortalCatalog.objects.filter(path_url__startswith=url).exclude(path_url=url)
+    
+    if 'tipo' in kwargs:
+        _p = _p.filter(tipo=kwargs['tipo'])
+    
+    if 'data' in kwargs:
+        year = datetime.now().year
+        month = datetime.now().month
+        _p = _p.filter(public_at__month=month, public_at__year=year)
+    
+    if not 'tipo' in kwargs and not 'data_agenda' in kwargs:
+        _p = _p.order_by('ordenador')
+    
     if 'excluir' in kwargs:
         _p = _p.exclude( tipo=kwargs['excluir'])
     for i in _p:
