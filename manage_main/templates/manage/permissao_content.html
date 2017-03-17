@@ -1,0 +1,14 @@
+{% extends 'manage/index.html' %}
+{% load bootstrap portal_tags %}
+
+{% block container %}
+	<h2>Liberação de conteúdo</h2>
+	<a href="#" data-toggle="modal" data-target="#run_modal"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;-&nbsp;Permissão</a>
+	<p><ul style="list-style: none;">
+		{% for content in contents %}
+		<li><a href="?remover={{content.id}}" title="Excluir"><i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;-&nbsp;{% has_icon_content content.tipo %}&nbsp;{{ content.descricao }}</li>	
+		{% endfor %}
+	</ul></p>
+	
+	{% include 'manage/m_select_contents.html' %}
+{% endblock container %}
