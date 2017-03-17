@@ -42,17 +42,13 @@
 		        <li class="dropdown ">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adicionar item... <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
-		            <li><a href="{% format_menu_admin_content 'pasta' %}">{% has_icon_content 'pasta' %} Pasta</a></li>
-		            <li><a href="{% format_menu_admin_content 'noticia' %}">{% has_icon_content 'noticia' %} Noticia</a></li>
-		            <li><a href="{% format_menu_admin_content 'informe' %}">{% has_icon_content 'informe' %} Informe</a></li>
-		            <li><a href="{% format_menu_admin_content 'pagina' %}">{% has_icon_content 'pagina' %} Pagina</a></li>
-		            <li><a href="{% format_menu_admin_content 'evento' %}">{% has_icon_content 'evento' %} Evento</a></li>
-		            <li><a href="{% format_menu_admin_content 'agenda' %}">{% has_icon_content 'agenda' %} Agenda</a></li>
-		            <li role="separator" class="divider"></li>
-		            <li><a href="{% format_menu_admin_content 'link' %}">{% has_icon_content 'link' %} Link</a></li>
-		            <li><a href="{% format_menu_admin_content 'imagem' %}">{% has_icon_content 'imagem' %} Imagem</a></li>
-		            <li><a href="{% format_menu_admin_content 'banner' %}">{% has_icon_content 'banner' %} Banner</a></li>
-		            <li><a href="{% format_menu_admin_content 'arquivo' %}">{% has_icon_content 'arquivo' %} Arquivo</a></li>
+		          	{% has_permissao_content_site as permissoes %}
+		          	{% for i in permissoes %}
+		          		
+		          		<li><a href="{% format_menu_admin_content i.tipo %}">{% has_icon_content i.tipo %} {{ i.descricao }}</a></li>
+		          		
+			            
+		            {% endfor %}
 		          </ul>
 		        </li>
 		    {% endif %}

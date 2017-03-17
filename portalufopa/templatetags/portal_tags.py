@@ -13,7 +13,7 @@ from portalufopa.comum.utils import WORKFLOW_COLOR, ICONS,\
 from ..comum.utils import CONTENT_BY_TYPE
 from ..models import Site, PortalCatalog, Sessao
 from portalufopa.comum.contents import get_site_url_id, reescrever_url,\
-    fraguiment_url
+    fraguiment_url, get_site_url
 from portalufopa.models import Portlet
 
 
@@ -30,6 +30,11 @@ def has_site(context):
         return Site.objects.get(url=_site_url)
     except ObjectDoesNotExist:
         raise Http404('Site não encontrado.')
+
+@register.assignment_tag(takes_context=True)
+def has_permissao_content_site(context):
+    site = get_site_url(context.request)
+    return site.content_type_permissao.all()
 
 @register.simple_tag(takes_context=True)
 def has_visao_padrao(context, param):
@@ -170,6 +175,7 @@ def has_action_view_edit(context, action):
 
 @register.simple_tag(takes_context=True)
 def format_menu_admin_content(context, tipo):
+    tipo = tipo.replace('AT', '').lower()
     _html = context.request.path.replace('/folder_contents', '')
     _url = "%screateObject/?type_name=%s" % (_html, tipo)
     return _url
@@ -181,6 +187,7 @@ def format_menu_session(context, sessao):
 
 @register.simple_tag()
 def has_icon_content(tipo):
+    tipo = tipo.replace('AT', '').lower()
     return format_html(ICONS[CONTENT_BY_TYPE[tipo]])
 
 @register.simple_tag()

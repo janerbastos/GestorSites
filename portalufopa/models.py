@@ -71,6 +71,7 @@ class Site(models.Model):
     email = models.EmailField(max_length=255, null=True, blank=True, default=None)
     telefone = models.CharField(max_length=255, null=True, blank=True, default=None)
     workflow = models.CharField(max_length=20, default='Privado', choices=CHOOSE_WORKFLOW)
+    content_type_permissao = models.ManyToManyField('ContentType', related_name='list_permissao_tipo',)
     
     def __unicode__(self):
         return self.titulo
@@ -80,7 +81,15 @@ class Site(models.Model):
     
     def get_absolute_url(self):
         return '/%s/' % self.url
+
+class ContentType(models.Model):
+    tipo = models.CharField(max_length=20, choices=CHOOSE_TIPO_CONTENT, unique=True)
+    descricao = models.CharField(max_length=20)
     
+    def __unicode__(self):
+        return self.descricao
+    
+
 class PortalUrl(models.Model):
     url = models.SlugField(max_length=255)
     site = models.ForeignKey(Site)

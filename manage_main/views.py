@@ -7,7 +7,7 @@ from django.utils.text import slugify
 from manage_main.forms import CreateSiteForm, EnderecoSiteForm, \
     RedesSociaisSiteForm, DesenvolcedorSiteForm, AnalyticSiteForm, SessaoForm, \
     TagForm
-from portalufopa.models import Site, Sessao, Tag
+from portalufopa.models import Site, Sessao, Tag, ContentType
 
 
 # Create your views here.
@@ -173,4 +173,31 @@ def new_or_edit_tag(request, url, tag=None):
         'form' : form,
         }
     
+    return render(request, template, context)
+
+def permissao_content(request, url):
+    template = TEMPLATE % 'permissao_content'
+    _object_site = Site.objects.get(url=url)
+    _contents = ContentType.objects.all()
+    _itens = _object_site.content_type_permissao.values_list('id', flat=True)
+    _contents = _contents.exclude(id__in = _itens)
+    
+    if request.GET:
+        _item = request.GET['remover']
+        _object_site.content_type_permissao.remove(_item)
+        return redirect(request.path)
+        
+    
+    if request.POST:
+        _list=request.POST.getlist('content')
+        for i in _list:
+            _object_site.content_type_permissao.add(i)
+        return redirect(request.path)
+    
+    context = {
+        'site' : _object_site,
+        'contents' : _object_site.content_type_permissao.all(),
+        'action' : 'contents',
+        'lista_contents' : _contents,
+        }
     return render(request, template, context)
