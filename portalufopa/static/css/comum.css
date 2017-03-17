@@ -455,6 +455,8 @@ ul{
     color: #467F7B;
     border-bottom: 5px solid #84ACBA;
     padding-left: 0;
+    min-width:50%;
+    display: inline-flex;
 }
 .conteudo-comum img{
     margin: .5em auto;

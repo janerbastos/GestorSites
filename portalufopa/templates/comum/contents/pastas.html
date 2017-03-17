@@ -4,14 +4,14 @@
 	{% has_breadcrumbs %}
     
     {% if not object_view %}
-		<div class="col-sm-6 conteudo-comum-titulos"> 
+		<div class=" conteudo-comum-titulos"> 
 	    	<h2 class="titulos-comum">{{object.titulo}}</h2>
 	    </div>
 	    {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
 		{% has_list_pastas %}
 	{% else %}
 		{% if object_view == 'sumaria' %}
-			<div class="col-sm-6 conteudo-comum-titulos"><h2 class="titulos-comum">{{object.titulo}}</h2></div>
+			<div class="conteudo-comum-titulos"><h2 class="titulos-comum">{{object.titulo}}</h2></div>
 			{% include 'comum/contents/list_view_sumaria.html' %}
 		{% elif object_view == 'agenda'%}
 			{% include 'comum/contents/list_view_agenda.html' %}
@@ -19,7 +19,7 @@
 			{% include 'comum/contents/list_view_evento.html' %}
 		{% else %}
 			
-			<div class="col-sm-6 conteudo-comum-titulos"> 
+			<div class="conteudo-comum-titulos"> 
 		    	<h2 class="titulos-comum">{{object_view.titulo}}</h2>
 		    </div>
 		    
