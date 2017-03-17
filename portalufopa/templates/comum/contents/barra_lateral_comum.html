@@ -105,52 +105,82 @@
 	     	
 	     	<!-- Evento -->
 	     	{% if i.layout == 'layout_03' %}
-			  	<p class="pull-right">
-			  	  
-			  		<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
-			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
-			  	</p>
-				{% with conteudos=i.conteudo.all %}
-					{% if conteudos %}
-						<div class="portlet-evento">
-							{% for p in conteudos %}
-					      		<a href="{{p.path_url}}" title="{{p.descricao}}">
-									<h2>{{p.titulo}}</h2>
-								    <p class="hidden-xs hidden-sm ">{{p.descricao}}</p>
-								</a>
-							{% endfor %}
-						</div>
-					{% else %}
-							<p> Nenhum item informado.</p>
-					{% endif %}
-				
-				{% endwith %}
+
+		    		<div class="dados-agenda">
+		    			<img src="" alt="">
+					  	<h2 class="titulo agenda-orgao">{{i.titulo}}</h2>
+					  	<h3 class="agenda-autoridade"></h3>
+					  	<span class="agenda-dia">{% data_atual '%d-%m-%Y' %}</span>
+					  	<p class="pull-right">
+					  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+					  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+				  		</p>
+					</div>
+				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
+				   	<div class="nano">
+						<ul class="nano-content">
+							{% if list_objects %}
+								{% for obj in list_objects %}
+								<li> 
+         					<!--  <time class="horario agenda-inicio" datetime="2017-03-16 09:15">09h15</time> -->
+	        						<div class="agenda-horarios">
+										<span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+									</div>
+									<div class="agenda-dados">
+							      		<h4 class="agenda-titulo">{{obj.titulo}}</h4>
+							      		<p class="agenda-local"><label>Local:</label> Palácio do Planalto </p>         
+							      	</div>
+						      	</li>	
+								{% endfor %}
+							{% else %}
+							  	<li>
+									<span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
+									<h3><a href="" title="">Nenhum conpromisso agendado para essa data</a></h3>
+							    </li>
+						    {% endif %}
+						</ul>
+					</div>
+
 	     	{% endif %}
 	     	
 	     	<!-- Agenda -->
 	     	{% if i.layout == 'layout_04' %}
-			  	<p class="pull-right">
-			  	  
-			  		<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
-			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
-			  	</p>
-				{% with conteudos=i.conteudo.all %}
-					{% if conteudos %}
-						<div class="portlet-agenda">
-							{% for p in conteudos %}
-					      		<a href="{{p.path_url}}" title="{{p.descricao}}">
-									<h2>{{p.titulo}}</h2>
-								    <p class="hidden-xs hidden-sm ">{{p.descricao}}</p>
-								</a>
-							{% endfor %}
-						</div>
-					{% else %}
-							<p> Nenhum item informado.</p>
-					{% endif %}
-				
-				{% endwith %}
+
+		    		<!--<div class="dados-agenda">
+		    			 <img src="" alt=""> -->
+					  	<h2 class="titulo agenda-orgao">{{i.titulo}}</h2>
+					  	<!-- <h3 class="agenda-autoridade"></h3>
+					  	<span class="agenda-dia">{% data_atual '%d-%m-%Y' %}</span> -->
+					  	<p class="pull-right">
+					  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+					  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+				  		</p>
+					<!-- </div> -->
+				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
+				   	<div class="nano">
+						<ul class="nano-content">
+							{% if list_objects %}
+								{% for obj in list_objects %}
+								<li> 
+         					<!--  <time class="horario agenda-inicio" datetime="2017-03-16 09:15">09h15</time> -->
+	        						<div class="agenda-horarios">
+										<span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+									</div>
+									<div class="agenda-dados">
+							      		<h4 class="agenda-titulo">{{obj.titulo}}</h4>
+							      		<p class="agenda-local"><label>Local:</label> Palácio do Planalto </p>         
+							      	</div>
+						      	</li>	
+								{% endfor %}
+							{% else %}
+							  	<li>
+									<span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
+									<h3><a href="" title="">Nenhum conpromisso agendado para essa data</a></h3>
+							    </li>
+						    {% endif %}
+						</ul>
+					</div>
+
 	     	{% endif %}
 	     	
 	  {% endfor %}
