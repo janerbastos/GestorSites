@@ -1,0 +1,19 @@
+{% load portal_tags %}
+
+{% has_list_objects_pasta tipo='ATAgenda' as contents %}
+{% if contents %}
+	{% for obj in contents %}
+	<div class="feed-post">
+	   <div class="feed-post-body">
+			{% with agenda=obj.get_content_object %}
+				<span class="feed-post-time-label data text-right">{% if obj.public_at %} {{obj.public_at}} {% else %} Aguardando publicação {% endif %}</span>
+				<a href="{{ obj.path_url }}" class="feed-post-link gui-image-hover gui-color-primary-link">
+				  <p class="feed-post-body-title gui-color-primary">{{ obj.titulo }}</p>
+				</a>
+			{% endwith %}
+		</div>
+	</div>
+	{% endfor %}
+{% else %}
+	<p style="text-align: center; margin-top: 2em;" ><string>Atualmente não existem compromissos agendados.</string></p>
+{% endif%}  
