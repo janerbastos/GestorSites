@@ -344,7 +344,6 @@ def __portlet(request):
         }
     
     return render(request, template, context)
-    
 
 def index(request, url=None):
     

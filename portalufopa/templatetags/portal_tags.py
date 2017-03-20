@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from datetime import datetime, date
+from datetime import datetime, date, time
 
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
@@ -14,7 +14,7 @@ from ..comum.utils import CONTENT_BY_TYPE
 from ..models import Site, PortalCatalog, Sessao
 from portalufopa.comum.contents import get_site_url_id, reescrever_url,\
     fraguiment_url, get_site_url
-from portalufopa.models import Portlet
+from portalufopa.models import Portlet, Agenda, Evento
 
 
 register = template.Library()
@@ -72,8 +72,10 @@ def has_list_objects_pasta(context, **kwargs):
         month = datetime.now().month
         _p = _p.filter(public_at__month=month, public_at__year=year)
     
-    if not 'tipo' in kwargs and not 'data_agenda' in kwargs:
+    if not 'ordernador' in kwargs:
         _p = _p.order_by('ordenador')
+    else:
+        _p = _p.order_by(kwargs['ordenador'])
     
     if 'excluir' in kwargs:
         _p = _p.exclude( tipo=kwargs['excluir'])
@@ -81,6 +83,31 @@ def has_list_objects_pasta(context, **kwargs):
         if len(i.path_url.strip('/').split('/')) == nivel:
             lista.append(i)
     return lista
+
+@register.simple_tag(takes_context=True)
+def has_list_objects_agenda(context, **kwargs):
+    _site_url = get_site_url_id(context.request)
+    _path_url = reescrever_url(context.request)
+    _portal_catalog = PortalCatalog.objects.filter(site__url=_site_url, path_url__startswith=_path_url, tipo='ATAgenda').values_list('url', flat=True)
+    
+    _agenda = Agenda.objects.filter(site__url=_site_url, url__in=_portal_catalog)
+    if 'hoje' in kwargs:
+        today_min = datetime.combine(date.today(), time.min)
+        today_max = datetime.combine(date.today(), time.max)
+        _agenda = _agenda.filter(data_at__range=(today_min, today_max))
+    _agenda = _agenda.order_by('data_at')
+    return _agenda
+
+@register.simple_tag(takes_context=True)
+def has_list_objects_evento(context, **kwargs):
+    _site_url = get_site_url_id(context.request)
+    _p = Evento.objects.filter(site__url=_site_url)
+    if 'hoje' in kwargs:
+        today_min = datetime.combine(date.today(), time.min)
+        today_max = datetime.combine(date.today(), time.max)
+        _p = _p.filter(inicio_at__range=(today_min, today_max))
+    _p = _p.order_by('-inicio_at')
+    return _p
 
 @register.simple_tag(takes_context=True)
 def has_list_pastas(context):
@@ -145,6 +172,13 @@ def has_content_by_portal_catalog(object_portal_catalog):
 @register.simple_tag()
 def data_atual(format_string):
     return date.today().strftime(format_string)
+
+@register.simple_tag()
+def has_get_data(**kwargs):
+    data = datetime.now()
+    dia = ('Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo')
+    meses = ('Janeriro', 'Feveriero', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro')
+    return "%s, %s de %s de %s" % (dia[data.weekday()], data.day, meses[data.month-1], data.year)
 
 @register.inclusion_tag('tags/menu_horizontal.html', takes_context=True)
 def has_menu_horizontal(context):

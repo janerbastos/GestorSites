@@ -1,24 +1,17 @@
 {% load portal_tags %}
 
-{% has_list_objects_pasta tipo='ATAgenda' as contents %}
+{% has_list_objects_agenda hoje='True' as contents %}
 {% if contents %}
  <ul class="list-compromissos">
 	{% for obj in contents %}
-
 	<li class="item-compromisso"> 
-	{% with agenda=obj.get_content_object %}
-	<!--  <time class="horario agenda-inicio" datetime="2017-03-16 09:15">09h15</time> -->
-
 		<div class="agenda-horarios">
-			<span class="feed-post-time-label data text-right">{% if obj.public_at %} {{obj.public_at}} {% else %} Aguardando publicação {% endif %}</span>
+			<span class="feed-post-time-label data text-right">{{obj.data_at|date:'H:i'}}</span>
 		</div>
 		<div class="agenda-dados">
-			<a href="{{ obj.path_url }}" class="feed-post-link gui-image-hover gui-color-primary-link">
-	      		<h4 class="agenda-titulo">{{obj.titulo}}</h4>
-	      	</a>  
+	      	<h4 class="agenda-titulo">{{obj.titulo}}</h4>
 	      	<p class="agenda-local"><label>Local:</label> Palácio do Planalto </p> 	       
       	</div>
-    {% endwith %}
   	</li>	
 	{% endfor %}
 </ul>								

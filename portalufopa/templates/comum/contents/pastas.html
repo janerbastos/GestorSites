@@ -14,7 +14,7 @@
 			<div class="conteudo-comum-titulos"><h2 class="titulos-comum">{{object.titulo}}</h2></div>
 			{% include 'comum/contents/list_view_sumaria.html' %}
 		{% elif object_view == 'agenda'%}
-			<div class="conteudo-comum-titulos"><h2 class="titulos-comum">{{object.titulo}}</h2><p class="data-atual">{{object.descricao}} <strong> {{obj.public_at|date:'%d %m %y'}} </strong> </p></div>
+			<div class="conteudo-comum-titulos"><h2 class="titulos-comum">{{object.titulo}}</h2><p class="data-atual">{{object.descricao}} <strong> {% has_get_data %} </strong> </p></div>
 			{% include 'comum/contents/list_view_agenda.html' %}
 		{% elif object_view == 'evento'%}
 			<div class="conteudo-comum-titulos"><h2 class="titulos-comum">{{object.titulo}}</h2></div>
