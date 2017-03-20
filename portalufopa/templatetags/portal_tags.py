@@ -75,7 +75,6 @@ def has_list_objects_pasta(context, **kwargs):
     if not 'ordenador' in kwargs:
         _p = _p.order_by('ordenador')
     else:
-        print kwargs['ordenador']
         _p = _p.order_by(kwargs['ordenador'])
     
     if 'excluir' in kwargs:
