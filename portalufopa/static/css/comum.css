@@ -648,6 +648,35 @@ ul{
 #conteudo .feed-post-body img{
     margin: 0;
 }
+/*visão agenda*/
+.list-compromissos{
+
+  margin-left: 0;
+  border-bottom: 1px solid #d6dcd7;
+}
+.item-compromisso {
+  overflow: hidden;
+  margin-top: 10px;
+  padding: 24px 0 14px;
+  border-top: 1px solid #d6dcd7;
+  list-style: none;
+  display: flex;
+}
+.agenda-horarios span {
+  display: block;
+  padding: 0 10px;
+/*  line-height: 14px !important;*/
+}
+.agenda-horarios {
+  float: left;
+}
+.agenda-dados {
+  padding-left: 2em;
+  border-left: 1px dotted #d6dcd7;
+
+}
+/*visão evento*/
+
 
 
 /* início barra lateral comum*/
