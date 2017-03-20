@@ -124,26 +124,30 @@ $( function() {
 {% block static_file_button %}
 	
 	
-	{% if form and editor %}
+	{% if form %}
 	<script type="text/javascript">
+		{% if editor %}
+			CKEDITOR.config.extraPlugins = 'simple-image-browser';
+			CKEDITOR.config.simpleImageBrowserURL = '/{{site.url}}/image_browse_url/';
+			CKEDITOR.replace('id_corpo_texto');
+		{% endif %}
+        
+		{% if data_pick %}
+			$(function () {
+	            $('#id_inicio_at').datetimepicker({
+	            	locale: 'pt-br'
+	            });
+	            
+				$('#id_termino_at').datetimepicker({
+					locale: 'pt-br'
+	            });
+				
+				$('#id_data_at').datetimepicker({
+					locale: 'pt-br'
+	            });
+	        });
+		{% endif %}
 		
-		CKEDITOR.config.extraPlugins = 'simple-image-browser';
-		CKEDITOR.config.simpleImageBrowserURL = '/{{site.url}}/image_browse_url/';
-		CKEDITOR.replace('id_corpo_texto');
-	
-        $(function () {
-            $('#id_inicio_at').datetimepicker({
-            	locale: 'pt-br'
-            });
-            
-			$('#id_termino_at').datetimepicker({
-				locale: 'pt-br'
-            });
-			
-			$('#id_data_at').datetimepicker({
-				locale: 'pt-br'
-            });
-        });
     </script>
     {% endif %}
 

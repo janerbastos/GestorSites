@@ -31,6 +31,7 @@ def create(request):
 
     context = {
         'form' : form,
+        'data_pick' : True,
         }
     
     return render(request, TEMPLATE, context)
@@ -49,6 +50,7 @@ def edit(request):
         return redirect(_url)
     context = {
         'form' : form,
+        'data_pick' : True,
         }
     
     return render(request, TEMPLATE, context)

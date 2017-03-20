@@ -31,6 +31,7 @@ def create(request):
     context = {
         'form' : form,
         'editor' : True,
+        'data_pick' : True,
         }
     
     return render(request, TEMPLATE, context)
@@ -50,6 +51,7 @@ def edit(request):
     context = {
         'form' : form,
         'editor' : True,
+        'data_pick' : True,
         }
     
     return render(request, TEMPLATE, context)
