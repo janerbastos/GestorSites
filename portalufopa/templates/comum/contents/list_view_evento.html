@@ -1,27 +1,26 @@
 {% load portal_tags %}
 
-{% has_list_objects_pasta tipo='ATEvento' ordenador='public_at' as contents %}
+{% has_list_objects_evento ordenador='hoje' as contents %}
 <div class="feed-post agenda">
    <div class="feed-post-body">
    		{% if contents %}
    		<div class="nanoAgenda nano">
             <ul class="nano-content">
 			{% for obj in contents %}
-			{% with evento=obj.get_content_object %}
 				 <li>
                     <div class="media">
-                      <div class="media-left {{ evento.inicio_at|date:'d-m'}}">
-                      <span class="data-agenda">{% has_get_data data=evento.inicio_at formato_dia_mes='True' %}</span>
+                      <div class="media-left {{ obj.inicio_at|date:'d-m'}}">
+                      <span class="data-agenda">{% has_get_data data=obj.inicio_at formato_dia_mes='True' %}</span>
                       </div>
                       <div class="media-body">
-                   		<a href="{{ obj.path_url }}" class="feed-post-link gui-image-hover gui-color-primary-link">
+                      	{% has_portal_catalog_by_content obj as portal_catalog %}
+                   		<a href="{{ portal_catalog.path_url }}" class="feed-post-link gui-image-hover gui-color-primary-link">
 				  			<p class="feed-post-body-title gui-color-primary">{{ obj.titulo }}</p>
 						</a>
-                        <p><span class="glyphicon glyphicon-map-marker"></span>{{ evento.local }}</p>
+                        <p><span class="glyphicon glyphicon-map-marker"></span>{{ obj.local }}</p>
                       </div>
                     </div>
                   </li>
-			{% endwith %}
 			{% endfor %}   
 		 	</ul>
       	</div>

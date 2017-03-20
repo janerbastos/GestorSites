@@ -101,13 +101,17 @@ def has_list_objects_agenda(context, **kwargs):
 @register.simple_tag(takes_context=True)
 def has_list_objects_evento(context, **kwargs):
     _site_url = get_site_url_id(context.request)
-    _p = Evento.objects.filter(site__url=_site_url)
+    _path_url = reescrever_url(context.request)
+    _portal_catalog = PortalCatalog.objects.filter(site__url=_site_url, path_url__startswith=_path_url, tipo='ATEvento').values_list('url', flat=True)
+    _evento = Evento.objects.filter(site__url=_site_url, url__in=_portal_catalog)
+    
     if 'hoje' in kwargs:
         today_min = datetime.combine(date.today(), time.min)
         today_max = datetime.combine(date.today(), time.max)
-        _p = _p.filter(inicio_at__range=(today_min, today_max))
-    _p = _p.order_by('-inicio_at')
-    return _p
+        _evento = _evento.filter(inicio_at__range=(today_min, today_max))
+    _evento = _evento.order_by('inicio_at')
+
+    return _evento
 
 @register.simple_tag(takes_context=True)
 def has_list_pastas(context):
@@ -166,8 +170,12 @@ def has_list_object(context, **kwargs):
 @register.simple_tag()
 def has_content_by_portal_catalog(object_portal_catalog):
     _object = object_portal_catalog.get_content_object()
-
     return _object
+
+@register.simple_tag()
+def has_portal_catalog_by_content(object_content):
+    _portal_catalog = PortalCatalog.objects.filter(site=object_content.site).get(url=object_content.url)
+    return _portal_catalog
 
 @register.simple_tag()
 def data_atual(format_string):
