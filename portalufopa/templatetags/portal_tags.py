@@ -72,9 +72,10 @@ def has_list_objects_pasta(context, **kwargs):
         month = datetime.now().month
         _p = _p.filter(public_at__month=month, public_at__year=year)
     
-    if not 'ordernador' in kwargs:
+    if not 'ordenador' in kwargs:
         _p = _p.order_by('ordenador')
     else:
+        print kwargs['ordenador']
         _p = _p.order_by(kwargs['ordenador'])
     
     if 'excluir' in kwargs:
@@ -175,10 +176,16 @@ def data_atual(format_string):
 
 @register.simple_tag()
 def has_get_data(**kwargs):
-    data = datetime.now()
-    dia = ('Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo')
-    meses = ('Janeriro', 'Feveriero', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro')
-    return "%s, %s de %s de %s" % (dia[data.weekday()], data.day, meses[data.month-1], data.year)
+    if 'data' in kwargs:
+        _data = kwargs['data']
+        if 'formato_dia_mes' in kwargs:
+            meses = ('Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez')
+            return format_html(( '%s <small>%s</small>' ) % (_data.day, meses[_data.month-1].upper()))
+    else:
+        data = datetime.now()
+        dia = ('Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo')
+        meses = ('Janeriro', 'Feveriero', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro')
+        return "%s, %s de %s de %s" % (dia[data.weekday()], data.day, meses[data.month-1], data.year)
 
 @register.inclusion_tag('tags/menu_horizontal.html', takes_context=True)
 def has_menu_horizontal(context):
