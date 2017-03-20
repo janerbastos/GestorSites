@@ -1,16 +1,33 @@
 {% load portal_tags %}
 
 {% has_list_objects_pasta tipo='ATEvento' as contents %}
-{% for obj in contents %}
-<div class="feed-post">
+<div class="feed-post agenda">
    <div class="feed-post-body">
-		{% with evento=obj.get_content_object %}
-			<span class="feed-post-time-label data text-right">{% if obj.public_at %} {{obj.public_at}} {% else %} Aguardando publicação {% endif %}</span>
-			<a href="{{ obj.path_url }}" class="feed-post-link gui-image-hover gui-color-primary-link">
-			  <p class="feed-post-body-title gui-color-primary">{{ obj.titulo }}</p>
-			</a>
-		{% endwith %}
-		
+   		<div class="nanoAgenda nano">
+            <ul class="nano-content">
+{% for obj in contents %}
+			{% with evento=obj.get_content_object %}
+			<!-- <span class="feed-post-time-label data text-right">{% if obj.public_at %} {{obj.public_at}} {% else %} Aguardando publicação {% endif %}</span> -->
+				 <li>
+                    <div class="media">
+                      <div class="media-left">
+                      <span class="data-agenda"><small>{{obj.public_at}}</small></span>
+                      </div>
+                      <div class="media-body">
+                        <ul>
+                          <li>
+                            <a href="{{ obj.path_url }}" class="feed-post-link gui-image-hover gui-color-primary-link">
+				  				<p class="feed-post-body-title gui-color-primary">{{ obj.titulo }}</p>
+							</a>
+                            <p><span class="glyphicon glyphicon-map-marker"></span> Auditório da Unidade Tapajós, em Santarém (PA). </p>
+                          </li>  
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+			{% endwith %}
+{% endfor %}   
+		 	</ul>
+      	</div>
 	</div>
 </div>
-{% endfor %}         

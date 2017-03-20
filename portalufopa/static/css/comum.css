@@ -677,7 +677,46 @@ ul{
 }
 /*visão evento*/
 
-
+.agenda li{
+  border-bottom: 2px solid #C8C8C8;
+  padding: 15px 0px;
+}
+.agenda li ul li:first-child{
+  padding-top: 0px;
+}
+.agenda li ul li:last-child{
+  border-bottom: 0px;
+  padding-bottom: 0px;
+}
+.agenda p{
+  color: #5E7124;
+}
+.agenda p span{
+  color: #333;
+  font-size: 1em;
+}
+.agenda h4{
+  font-size: 1.125em;
+}
+.data-agenda{
+  background: #BEC570;
+  display: inline-block;
+  padding: 15px;
+  text-align: center;
+  color: #fff;
+  line-height: 90%;
+  font-size: 2.1em;
+}
+.data-agenda small{
+  font-size: 0.750em;
+  line-height: 90%;
+}
+.agenda .active{
+  background: #405425 !important;
+}
+.nanoAgenda {
+  height: 410px; 
+}
 
 /* início barra lateral comum*/
 .barra-lateral{
