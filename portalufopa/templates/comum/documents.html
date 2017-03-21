@@ -49,7 +49,7 @@ $( function() {
 		
 		{% if form %}
 			
-			<form method="post" enctype="multipart/form-data" id="form">
+			<form method="post" enctype="multipart/form-data" id="form" style="margin-top: 2em;">
 				{% csrf_token %}
 				{{ form|bootstrap }}
 				<div class="form-group col-sm-12">
