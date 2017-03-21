@@ -5,26 +5,26 @@
    <div class="feed-post-body">
    		{% if contents %}
    		<div class="nanoAgenda nano">
-            <ul class="nano-content">
+      <ul class="nano-content">
 			{% for obj in contents %}
 				 <li>
-                    <div class="media">
-                      <div class="media-left {{ obj.inicio_at|date:'d-m'}}">
-                      <span class="data-agenda">{% has_get_data data=obj.inicio_at formato_dia_mes='True' %}</span>
-                      </div>
-                      <div class="media-body">
-                      	{% has_portal_catalog_by_content obj as portal_catalog %}
-                   		<a href="{{ portal_catalog.path_url }}" class="feed-post-link gui-image-hover gui-color-primary-link">
-				  			<p class="feed-post-body-title gui-color-primary">{{ obj.titulo }}</p>
-						</a>
-                        <p><span class="glyphicon glyphicon-map-marker"></span>{{ obj.local }}</p>
-                      </div>
-                    </div>
-                  </li>
+              <div class="media">
+                <div class="media-left {{ obj.inicio_at|date:'d-m'}}">
+                  <span class="data-agenda">{% has_get_data data=obj.inicio_at formato_dia_mes='True' %}</span>
+                </div>
+                <div class="media-body">
+                	{% has_portal_catalog_by_content obj as portal_catalog %}
+               		<a href="{{ portal_catalog.path_url }}" class="feed-post-link gui-image-hover gui-color-primary-link">
+  				  			 <p class="feed-post-body-title gui-color-primary">{{ obj.titulo }}</p>
+  						    </a>
+                  <p><span class="glyphicon glyphicon-map-marker"></span>{{ obj.local }}</p>
+                </div>
+              </div>
+          </li>
 			{% endfor %}   
 		 	</ul>
-      	</div>
-      	{% else %}
+      </div>
+      {% else %}
 			<p style="text-align: center; margin-top: 2em;" ><string>Atualmente não existem Eventos agendados.</string></p>
 		{% endif%} 
 	</div>

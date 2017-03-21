@@ -1,30 +1,25 @@
 {% load portal_tags %}
 
 {% has_list_objects_arquivo as contents %}
-<div class="feed-post agenda">
+<div class="feed-post">
    <div class="feed-post-body">
    		{% if contents %}
-   		<div class="nanoAgenda nano">
-            <ul class="nano-content">
-			{% for obj in contents %}
-				 <li>
-                    <div class="media">
-                      <div class="media-left {{ obj.public_at|date:'d-m'}}">
-                      <span class="data-agenda">{% has_get_data data=obj.public_at %}</span>
-                      </div>
-                      <div class="media-body">
-                      	<a href="{{ obj.arquivo.url }}" class="feed-post-link gui-image-hover gui-color-primary-link">
-				  			<p class="feed-post-body-title gui-color-primary">{{ obj.titulo }}</p>
-						</a>
-                        <p><span class="glyphicon glyphicon-map-marker"></span>{{ obj.local }}</p>
-                      </div>
-                    </div>
-                  </li>
-			{% endfor %}   
+        <ul class="list-group">
+			  {% for obj in contents %}
+				  <li class="list-group-item row">            	
+            <a href="{{obj.arquivo.url}}" target="_blank">
+              <i class="fa fa-3x fa-file-text-o col-sm-1" aria-hidden="true"></i>
+              <p class="col-sm-8 titulo-arquivo" >{{ obj.titulo }}</p>
+              <p class="text-right col-sm-3" > Baixar arquivo</p> 
+            </a>
+          </li>
+      {% endfor %}   
 		 	</ul>
-      	</div>
+    </div>
       	{% else %}
 			<p style="text-align: center; margin-top: 2em;" ><string>Atualmente não existem Arquivo nesta pasta.</string></p>
 		{% endif%} 
-	</div>
 </div>
+
+            
+  
