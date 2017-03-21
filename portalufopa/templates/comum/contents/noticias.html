@@ -1,15 +1,25 @@
 {% load portal_tags %}
+ <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
 
 <div class="col-sm-9 conteudo-comum">
 	{% has_breadcrumbs %}
     	<h2>{{object.titulo}}</h2>
     	{% has_tag_content tag=object.tag as tag %}
         <div class="tag2 tag"> <a href=""><span><img src="{{tag.imagem.url}}"></span> </a></div>
-            <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a> 
+        <div class="redessociais">
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a> 
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-        <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+            <div class="fb-like" data-href="" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+        </div>
     <div class="conteudo-noticia">
-        {% if object.public_at %}<p>{{object.public_at}}</p>{% endif %}
+        {% if object.public_at %}<p class="data-noticia">{{object.public_at}}</p>{% endif %}
         {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
         {% autoescape off %}{{object.corpo_texto }}{% endautoescape %}
         
