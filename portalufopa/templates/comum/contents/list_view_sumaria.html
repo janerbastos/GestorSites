@@ -4,7 +4,7 @@
 {% for obj in contents %}
 <div class="feed-post">
    <div class="feed-post-body">
-			{% has_content_by_portal_catalog obj as content %}
+		{% has_content_by_portal_catalog obj as content %}
 		{% if obj.tipo == 'ATNoticia' %}
 			{% if content.imagem %}
 				<a href="{{obj.path_url}}" class="feed-post-figure-link ">

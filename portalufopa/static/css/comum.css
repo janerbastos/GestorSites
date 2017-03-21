@@ -292,8 +292,11 @@ ul{
 
 /*inicio menu*/
 #menu{
-    text-transform: uppercase;
+
     background: #758287;
+}
+#menu li > a  {
+    text-transform: uppercase;
 }
 .navegacao{
     padding-right: 0;
@@ -313,7 +316,7 @@ ul{
     font-size: 1.6em;
     color: #fff;
     background: #758287;
-    padding: 15px 4em;
+    padding: 15px 4em;    
 }
 #menu li.active a, #menu li a:hover, #menu li a:focus, .nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
     color: #fff;
@@ -332,6 +335,9 @@ ul{
 .dropdown-menu {
     font-size:  .935em;
     font-weight:400;
+}
+.dropdown-menu > li > a {
+  text-transform: none !important;
 }
 .dropdown-submenu {
     position: relative;
