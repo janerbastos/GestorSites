@@ -7,8 +7,9 @@
 	  
 	  {% for i in portlets %}
 
-		  		<!-- Padrão -->
-		  		{% if not i.layout %}
+	  		<!-- Padrão -->
+	  		{% if not i.layout %}
+		  		
 			  	<h2 class="titulo">{{i.titulo}}</h2>
 			  	<p class="pull-right">
 			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
