@@ -250,7 +250,7 @@ def __select_default_page(request):
     
     if 'view' in request.GET:
         _view = request.GET['view']
-        if _view in ('sumaria', 'agenda', 'evento'):
+        if _view in ('sumaria', 'agenda', 'evento', 'arquivo'):
             _object.visao_padrao = _view
             _object.save()
 

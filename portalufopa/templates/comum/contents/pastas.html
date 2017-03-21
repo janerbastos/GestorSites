@@ -19,6 +19,9 @@
 		{% elif object_view == 'evento'%}
 			<div class="conteudo-comum-titulos"><h2 class="titulos-comum">{{object.titulo}}</h2></div>
 			{% include 'comum/contents/list_view_evento.html' %}
+		{% elif object_view == 'arquivo'%}
+			<div class="conteudo-comum-titulos"><h2 class="titulos-comum">{{object.titulo}}</h2></div>
+			{% include 'comum/contents/list_view_arquivo.html' %}
 		{% else %}
 			
 			<div class="conteudo-comum-titulos"> 

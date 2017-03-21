@@ -14,7 +14,7 @@ from ..comum.utils import CONTENT_BY_TYPE
 from ..models import Site, PortalCatalog, Sessao
 from portalufopa.comum.contents import get_site_url_id, reescrever_url,\
     fraguiment_url, get_site_url
-from portalufopa.models import Portlet, Agenda, Evento
+from portalufopa.models import Portlet, Agenda, Evento, Arquivo
 
 
 register = template.Library()
@@ -38,7 +38,7 @@ def has_permissao_content_site(context):
 
 @register.simple_tag(takes_context=True)
 def has_visao_padrao(context, param):
-    if param in ('sumaria', 'evento', 'agenda'):
+    if param in ('sumaria', 'evento', 'agenda', 'arquivo'):
         return param
     itens = param.split(',')
     site = context['site']
@@ -112,6 +112,17 @@ def has_list_objects_evento(context, **kwargs):
     _evento = _evento.order_by('inicio_at')
 
     return _evento
+
+@register.simple_tag(takes_context=True)
+def has_list_objects_arquivo(context, **kwargs):
+    _site_url = get_site_url_id(context.request)
+    _path_url = reescrever_url(context.request)
+    
+    _portal_catalog = PortalCatalog.objects.filter(site__url=_site_url, path_url__startswith=_path_url, tipo='ATArquivo').values_list('url', flat=True)
+    
+    _arquivo = Arquivo.objects.filter(site__url=_site_url, url__in=_portal_catalog)
+
+    return _arquivo
 
 @register.simple_tag(takes_context=True)
 def has_list_pastas(context):
