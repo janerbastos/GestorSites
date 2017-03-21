@@ -1,0 +1,26 @@
+{% extends 'manage/index.html' %}
+{% load bootstrap %}
+
+{% block container %}
+
+	<form method="post" id="form">
+		{% csrf_token %}
+		{{ form|bootstrap }}
+		<div class="form-group col-sm-12">
+			<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-save"></i>&nbsp;Gravar</button>
+			<button type="button" id="_cancelar_" class="btn btn-danger" name="_cancelar_" onclick="clicked()"><i class="fa fa-fw fa-times"></i>&nbsp;Cancelar</button>
+		</div>
+	</form>
+	
+	<table class="table">
+		<thead>
+			<tr><th>Primeiro Nome</th><th>Username</th><th>Email</th></tr>
+		</thead>
+		<tbody>
+			{% for u in users %}
+			<tr><td>{{u.user.first_name}}</td><td>{{u.user.username}}</td><td>{{u.user.email}}</td></tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock container %}
