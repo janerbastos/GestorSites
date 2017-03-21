@@ -2,6 +2,8 @@
 from django.forms import models
 
 from portalufopa.models import Site, Sessao, Tag
+from django.contrib.auth.models import User
+from django import forms
 
 
 class CreateSiteForm(models.ModelForm):
@@ -98,3 +100,34 @@ class TagForm(models.ModelForm):
             'titulo' : 'Título da tag',
             'imagem' : 'Selecione uma imagem vinculada a tag',
             }
+
+class UserForm(models.ModelForm):
+    pwd = forms.CharField(label='Senha.', max_length=32, widget=forms.PasswordInput)
+    check_pwd = forms.CharField(label='Confirmar senha.',max_length=32, widget=forms.PasswordInput)
+    
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'username',
+            'email',
+            'pwd',
+            'check_pwd',
+            )
+        
+        labels = {
+            'fist_name':'Primeiro nome',
+            'last_name':'Sobrenome',
+            'username':'Username',
+            'password':'Senha',
+            'email':'E-mail',
+        }
+        
+    def clean(self):
+        cleaned_data = super(UserForm, self).clean()
+        pwd = cleaned_data.get('pwd')
+        check_pwd = cleaned_data.get('check_pwd')
+        if not pwd==check_pwd:
+            raise forms.ValidationError("Senha não confirma!")
+

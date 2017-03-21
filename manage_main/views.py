@@ -6,8 +6,10 @@ from django.utils.text import slugify
 
 from manage_main.forms import CreateSiteForm, EnderecoSiteForm, \
     RedesSociaisSiteForm, DesenvolcedorSiteForm, AnalyticSiteForm, SessaoForm, \
-    TagForm
+    TagForm, UserForm
 from portalufopa.models import Site, Sessao, Tag, ContentType
+from django.contrib.auth.models import User
+from manage_main.models import UserSite
 
 
 # Create your views here.
@@ -201,3 +203,32 @@ def permissao_content(request, url):
         'lista_contents' : _contents,
         }
     return render(request, template, context)
+
+def create_or_edit_user(request, url):
+    template = TEMPLATE % 'create_or_usuario_form'
+    _user = None
+    form  = None
+    _object_site = Site.objects.get(url=url)
+    
+    if 'edit' in request.GET:
+        _user = User.objects.get(username=request.GET['edit'])
+    
+    form = UserForm(request.POST or None, instance=_user)
+    if form.is_valid():
+        model = form.save(commit=False)
+        model.set_password(request.POST.get('pwd'))
+        model.save()
+        
+        user_site = UserSite(user=model, site=_object_site)
+        user_site.save()
+        
+        return redirect(request.path)
+    _users = UserSite.objects.filter(site=_object_site)
+    context = {
+        'site' : _object_site,
+        'form':form,
+        'action' : 'users',
+        'users' : _users,
+        }
+    return render(request, template, context)
+    
