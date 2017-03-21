@@ -14,7 +14,7 @@ from ..comum.utils import CONTENT_BY_TYPE
 from ..models import Site, PortalCatalog, Sessao
 from portalufopa.comum.contents import get_site_url_id, reescrever_url,\
     fraguiment_url, get_site_url
-from portalufopa.models import Portlet, Agenda, Evento, Arquivo
+from portalufopa.models import Portlet, Agenda, Evento, Arquivo, Tag
 
 
 register = template.Library()
@@ -361,3 +361,15 @@ def has_portlets(context):
 def has_text_mais_tipo(tipo):
     tipo = tipo.replace('AT', '').lower()
     return MAIS_CONTENTS[tipo]
+
+@register.simple_tag(takes_context=True) 
+def has_tag_content(context, **kwargs):
+    _site_url = get_site_url_id(context.request)
+    
+    _tags = Tag.objects.filter(site__url=_site_url)
+    
+    if 'tag' in kwargs:
+        _tag = kwargs['tag']
+        _tags = _tags.get(tag=_tag)
+    
+    return _tags
