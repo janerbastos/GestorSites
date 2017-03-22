@@ -13,7 +13,7 @@ from portalufopa.comum.utils import WORKFLOW_COLOR, ICONS,\
 from ..comum.utils import CONTENT_BY_TYPE
 from ..models import Site, PortalCatalog, Sessao
 from portalufopa.comum.contents import get_site_url_id, reescrever_url,\
-    fraguiment_url, get_site_url
+    fraguiment_url, get_site_url, get_url_id_content
 from portalufopa.models import Portlet, Agenda, Evento, Arquivo, Tag
 
 
@@ -373,3 +373,12 @@ def has_tag_content(context, **kwargs):
         _tags = _tags.get(tag=_tag)
     
     return _tags
+
+@register.simple_tag(takes_context=True)
+def has_formata_url_view_tag(context):
+    _url = reescrever_url(context.request)
+    _content_url = get_url_id_content(context.request)
+    
+    return _url.replace('/'+_content_url, '')
+
+    
