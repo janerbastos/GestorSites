@@ -1,0 +1,19 @@
+{% load portal_tags %}
+
+{% has_list_objects_noticia as contents %}
+{% for content in contents %}
+<div class="feed-post">
+   <div class="feed-post-body">
+		{% has_portal_catalog_by_content content as portal_catalog %}
+		{% if content.imagem %}
+			<a href="{{portal_catalog.path_url}}" class="feed-post-figure-link ">
+			   <img src="{{content.imagem.url}}" alt="Foto:" width="260">
+			</a>
+		{% endif %}
+		<span class="feed-post-time-label data text-right">{% if content.public_at %} {{content.public_at}} {% else %} Aguardando publicação {% endif %}</span>
+		<a href="{{ portal_catalog.path_url }}" class="feed-post-link gui-image-hover gui-color-primary-link">
+			<p class="feed-post-body-title gui-color-primary">{{ content.titulo }}</p>
+		</a>
+	</div>
+</div>
+{% endfor %}         
