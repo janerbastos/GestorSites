@@ -35,7 +35,17 @@ CHOOSE_TIPO_CONTENT = (
         ('ATBanner', 'Banners'),
         ('ATEvento', 'Eventos'),
         ('ATAgenda', 'Agendas'),
+        ('ATArquivo', 'Arquivo'),
     )
+
+CHOOSE_TIPO_CONTENT_PORTLET = (
+        ('', 'Informe um tipo de conteúdo'),
+        ('ATPagina', 'Páginas'),
+        ('ATLink', 'Links'),
+        ('ATImagem', 'Imagens'),
+        ('ATBanner', 'Banners'),
+        ('ATArquivo', 'Arquivo'),
+        )
 
 CHOOSE_LAYOUT = (
         ('', 'Padrão'),
@@ -100,7 +110,7 @@ class PortalUrl(models.Model):
 
 class Portlet(models.Model):
     portlet = models.CharField(max_length=150)
-    tipo = models.CharField(max_length=15, choices=CHOOSE_TIPO_CONTENT, null=True, blank=True)
+    tipo = models.CharField(max_length=15, choices=CHOOSE_TIPO_CONTENT_PORTLET, null=True, blank=True)
     titulo = models.CharField(max_length=150)
     quantidade = models.PositiveIntegerField(default=0)
     conteudo = models.ManyToManyField('PortalCatalog', related_name='lista_portlets')

@@ -9,7 +9,6 @@
 
 	  		<!-- Padrão -->
 	  		{% if not i.layout %}
-		  		
 			  	<h2 class="titulo">{{i.titulo}}</h2>
 			  	<p class="pull-right">
 			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
@@ -53,6 +52,22 @@
 									    <p class="hidden-xs hidden-sm ">{{p.descricao}}</p>
 									</a>
 									{% endwith %}
+								{% elif p.tipo == 'ATImagem' %}
+									{% with imagem=p.get_content_object %}
+										<img alt="{{p.descricao}}" src="{{imagem.imagem.url}}">
+									{% endwith %}
+								{% elif p.tipo == 'ATBanner' %}
+									{% with banner=p.get_content_object %}
+									<a href="{{banner.link}}" title="{{p.descricao}}" target="{{banner.target}}">
+										<img alt="{{p.descricao}}" src="{{banner.imagem.url}}">
+									</a>
+									{% endwith %}
+								{% elif p.tipo == 'ATArquivo' %}
+									{% with arquivo=p.get_content_object %}
+									<a href="{{arquivo.arquivo.url}}" title="{{p.descricao}}" target="_blank">
+										<h2 class="_{{ forloop.counter }}">{{p.titulo}}</h2>
+									</a>
+									{% endwith %}
 							    {% else %}
 						      		<a href="{{p.path_url}}" title="{{p.descricao}}">
 										<h2 class="_{{ forloop.counter }}">{{p.titulo}}</h2>
@@ -87,6 +102,22 @@
 										<a class="link_{{ forloop.counter }} list-group-item" href="{{link.link}}" title="{{p.descricao}}" target="link.target">
 										<h2>{{p.titulo}}</h2>
 									    <p class="hidden-xs hidden-sm ">{{p.descricao}}</p>
+									</a>
+									{% endwith %}
+								{% elif p.tipo == 'ATImagem' %}
+									{% with imagem=p.get_content_object %}
+										<img alt="{{p.descricao}}" src="{{imagem.imagem.url}}">
+									{% endwith %}
+								{% elif p.tipo == 'ATBanner' %}
+									{% with banner=p.get_content_object %}
+									<a href="{{banner.link}}" title="{{p.descricao}}" target="{{banner.target}}">
+										<img alt="{{p.descricao}}" src="{{banner.imagem.url}}">
+									</a>
+									{% endwith %}
+								{% elif p.tipo == 'ATArquivo' %}
+									{% with arquivo=p.get_content_object %}
+									<a href="{{arquivo.arquivo.url}}" title="{{p.descricao}}" target="_blank">
+										<h2 class="_{{ forloop.counter }}">{{p.titulo}}</h2>
 									</a>
 									{% endwith %}
 							    {% else %}
