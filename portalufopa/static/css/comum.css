@@ -432,14 +432,17 @@ ul{
   font-size: 1em;
   margin-bottom: 2em;
 }
+.tag_ufopa {
+    background: #00656D;
+}
 .tag {
     z-index: 100;
     float: left;
-    position: relative;
-    width: 23%;
-}
-#conteudo .tag img{
-  margin:0;
+    position: absolute;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 11px;
+    padding: .5em;
 }
 .conteudo-comum .redessociais{
   padding-top: 2.5em;

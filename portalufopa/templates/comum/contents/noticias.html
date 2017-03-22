@@ -15,7 +15,7 @@
 	{% has_breadcrumbs %}
    	<h2>{{object.titulo}}</h2>
   		{% has_tag_content tag=object.tag as tag %}
-      	<div class="tag2 tag"> <a href="{% has_formata_url_view_tag %}?tag={{tag.tag}}"><span><img src="{{tag.imagem.url}}"></span> </a></div>
+      	<div class="tag tag_{{tag.tag}}"> <a href="{% has_formata_url_view_tag %}?tag={{tag.tag}}"><span>{{tag.titulo}}</span> </a></div>
       	<div class="redessociais">
            <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a> 
            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
@@ -32,7 +32,7 @@
                 <i><h3 class="media-heading">{{object.legenda }}</h3></i>
             </div>  
             <div class="media-left media-middle">
-                <img src="{{object.imagem.url}}" width="500" class="media-object img-responsive">
+                <img src="{{object.imagem.url}}" width="536" class="media-object img-responsive">
 
             </div>  
         </div>
