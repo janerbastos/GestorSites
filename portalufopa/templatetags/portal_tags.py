@@ -14,7 +14,7 @@ from ..comum.utils import CONTENT_BY_TYPE
 from ..models import Site, PortalCatalog, Sessao
 from portalufopa.comum.contents import get_site_url_id, reescrever_url,\
     fraguiment_url, get_site_url, get_url_id_content
-from portalufopa.models import Portlet, Agenda, Evento, Arquivo, Tag
+from portalufopa.models import Portlet, Agenda, Evento, Arquivo, Tag, Noticia
 
 
 register = template.Library()
@@ -38,7 +38,7 @@ def has_permissao_content_site(context):
 
 @register.simple_tag(takes_context=True)
 def has_visao_padrao(context, param):
-    if param in ('sumaria', 'evento', 'agenda', 'arquivo'):
+    if param in ('sumaria', 'evento', 'agenda', 'arquivo', 'noticia'):
         return param
     itens = param.split(',')
     site = context['site']
@@ -123,6 +123,21 @@ def has_list_objects_arquivo(context, **kwargs):
     _arquivo = Arquivo.objects.filter(site__url=_site_url, url__in=_portal_catalog)
 
     return _arquivo
+
+@register.simple_tag(takes_context=True)
+def has_list_objects_noticia(context, **kwargs):
+    _site_url = get_site_url_id(context.request)
+    _path_url = reescrever_url(context.request)
+    
+    _portal_catalog = PortalCatalog.objects.filter(site__url=_site_url, path_url__startswith=_path_url, tipo='ATNoticia').values_list('url', flat=True)
+    
+    _noticia = Noticia.objects.filter(site__url=_site_url, url__in=_portal_catalog)
+    
+    if 'tag' in context.request.GET:
+        tag = context.request.GET['tag']
+        _noticia = _noticia.filter(tag=tag)
+
+    return _noticia
 
 @register.simple_tag(takes_context=True)
 def has_list_pastas(context):
@@ -373,6 +388,15 @@ def has_tag_content(context, **kwargs):
         _tags = _tags.get(tag=_tag)
     
     return _tags
+
+@register.simple_tag(takes_context=True) 
+def has_show_image_tag(context, **kwargs):
+    _site_url = get_site_url_id(context.request)
+    _tag = None
+    if 'tag' in context.request.GET:
+        tag = context.request.GET['tag']
+        _tag = Tag.objects.filter(site__url=_site_url).get(tag=tag)
+    return _tag
 
 @register.simple_tag(takes_context=True)
 def has_formata_url_view_tag(context):

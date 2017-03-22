@@ -1,39 +1,41 @@
 {% load portal_tags %}
- <div id="fb-root"></div>
-      <script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));</script>
+
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5";
+	fjs.parentNode.insertBefore(js, fjs);
+} (document, 'script', 'facebook-jssdk'));
+</script>
 
 <div class="col-sm-9 conteudo-comum">
 	{% has_breadcrumbs %}
-    	<h2>{{object.titulo}}</h2>
-    	{% has_tag_content tag=object.tag as tag %}
-        <div class="tag2 tag"> <a href="{% has_formata_url_view_tag %}?tag={{tag.tag}}"><span><img src="{{tag.imagem.url}}"></span> </a></div>
-        	<div class="redessociais">
-	            <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a> 
-	            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-	            <div class="fb-like" data-href="" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
-	       </div>
+   	<h2>{{object.titulo}}</h2>
+  		{% has_tag_content tag=object.tag as tag %}
+      	<div class="tag2 tag"> <a href="{% has_formata_url_view_tag %}?tag={{tag.tag}}"><span><img src="{{tag.imagem.url}}"></span> </a></div>
+      	<div class="redessociais">
+           <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a> 
+           <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+           <div class="fb-like" data-href="" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+       </div>
+   	<div class="conteudo-noticia">
+        {% if object.public_at %}<p class="data-noticia">{{object.public_at}}</p>{% endif %}
+        {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
+        {% autoescape off %}{{object.corpo_texto }}{% endautoescape %}
+        
+        {% if object.imagem %}
+        <div class="media">
+            <div class="media-body media-body-1">
+                <i><h3 class="media-heading">{{object.legenda }}</h3></i>
+            </div>  
+            <div class="media-left media-middle">
+                <img src="{{object.imagem.url}}" width="500" class="media-object img-responsive">
+
+            </div>  
         </div>
-    	<div class="conteudo-noticia">
-	        {% if object.public_at %}<p class="data-noticia">{{object.public_at}}</p>{% endif %}
-	        {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
-	        {% autoescape off %}{{object.corpo_texto }}{% endautoescape %}
-	        
-	        {% if object.imagem %}
-	        <div class="media">
-	            <div class="media-body media-body-1">
-	                <i><h3 class="media-heading">{{object.legenda }}</h3></i>
-	            </div>  
-	            <div class="media-left media-middle">
-	                <img src="{{object.imagem.url}}" width="500" class="media-object img-responsive">
-	
-	            </div>  
-	        </div>
-	        {% endif %}
-      	</div> 
+        {% endif %}
+   	</div> 
 </div>

@@ -30,11 +30,12 @@
 			          <ul class="dropdown-menu">
 			            <li class="{% if not object.visao_padrao %}active{% endif %}"><a href="select_default_page/"> Visão Padrão</a></li>
 			            <li class="{% if object.visao_padrao == 'sumaria' %}active{% endif %}"><a href="select_default_page/?view=sumaria"> Visão Sumária</a></li>
+			            <li class="{% if object.visao_padrao == 'noticia' %}active{% endif %}"><a href="select_default_page/?view=noticia"> Visão Notícia</a></li>
 			            <li class="{% if object.visao_padrao == 'agenda' %}active{% endif %}"><a href="select_default_page/?view=agenda"> Visão Agenda</a></li>
 			            <li class="{% if object.visao_padrao == 'evento' %}active{% endif %}"><a href="select_default_page/?view=evento"> Visão Eventos</a></li>
 			            <li class="{% if object.visao_padrao == 'arquivo' %}active{% endif %}"><a href="select_default_page/?view=arquivo"> Visão Arquivos</a></li>
 			            {% if object_view %}
-			            	{% if not object_view == 'sumaria' and not object_view == 'agenda' and not object_view == 'evento' and not object_view == 'arquivo' %}
+			            	{% if not object_view == 'sumaria' and not object_view == 'agenda' and not object_view == 'evento' and not object_view == 'arquivo' and not object_view == 'noticia' %}
 			            		<li class="active"><a href="#">Item: {{object_view.titulo}}</a></li>
 			            	{% endif %}
 			            {% endif %}

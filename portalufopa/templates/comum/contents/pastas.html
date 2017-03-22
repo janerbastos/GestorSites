@@ -22,6 +22,11 @@
 		{% elif object_view == 'arquivo'%}
 			<div class="conteudo-comum-titulos"><h2 class="titulos-comum">{{object.titulo}}</h2></div>
 			{% include 'comum/contents/list_view_arquivo.html' %}
+		{% elif object_view == 'noticia'%}
+			<div class="conteudo-comum-titulos"><h2 class="titulos-comum">{{object.titulo}}</h2></div>
+			{% has_show_image_tag as tag_noticia%}
+			{% if tag_noticia %}<span><img src="{{tag_noticia.imagem.url}}"></span>{% endif %}
+			{% include 'comum/contents/list_view_noticia.html' %}
 		{% else %}
 			
 			<div class="conteudo-comum-titulos"> 
