@@ -19,8 +19,15 @@
 						<ul class="nano-content">
 							{% if list_objects %}
 								{% for obj in list_objects %}
-									<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-						      		<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
+									{% if obj.tipo == 'ATEvento' %}
+										{% with content=obj.get_content_object %}
+										<li><span class="data">{% if obj.public_at %}{{content.inicio_at}}{% else %} Aguardando publicação {% endif %}</span>
+							      		<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
+							      		{% endwith %}
+									{% else %}
+										<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+							      		<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
+						      		{% endif %}
 								{% endfor %}
 							{% else %}
 							  	<li>

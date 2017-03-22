@@ -217,3 +217,10 @@ class PortletDestaqueForm(models.ModelForm):
             'quantidade' : 'Quantidade a ser exibido',
             'layout' : 'Layout do portlet'
             }
+        
+    def clean_tipo(self):
+        tipo = self.cleaned_data['tipo']
+        if tipo is None:
+            raise forms.ValidationError("Tipo de conteúdo é obrigatório.")
+
+        return tipo

@@ -51,8 +51,6 @@ CHOOSE_LAYOUT = (
         ('', 'Padrão'),
         ('layout_01', 'Sem Título'),
         ('layout_02', 'Destaque'),
-        ('layout_03', 'Evento'),
-        ('layout_04', 'Agenda'),
     )
     
 class Site(models.Model):
