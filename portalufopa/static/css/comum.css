@@ -529,12 +529,18 @@ ul{
 .conteudo-comum hr{
   border-bottom: 3px solid #53636B;
 }
-.conteudo-comum cite{
-    font-size: 1.34em;
+.conteudo-noticia div cite{
+    font-size: 1.9em;
     font-weight: 600;
 }
-.conteudo-comum p > cite:only-of-type{
+.conteudo-noticia p > cite:only-of-type{
     text-align: center;  
+}
+.conteudo-noticia div {
+    background: none !important;
+    border: none !important;
+    padding: 5px 10px;
+    text-align: center;
 }
     /*conteúdo comum*/
 #destaque{
