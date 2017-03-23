@@ -11,6 +11,11 @@
       	{% endif %}
         <li {% if action == 'view' %}class="active"{% endif %}><a href="{% has_action_view_edit 'view' %}">Visão <span class="sr-only">(current)</span></a></li>
         <li {% if action == 'edit' %}class="active"{% endif %}><a href="{% has_action_view_edit 'edit' %}">Editar</a></li>
+        {% if action == 'view'%}
+        	{% if object.tipo != 'ATPasta' %}
+        		<li><a href="{% has_action_view_delete %}">Excluir</a></li>
+        	{% endif %}
+        {% endif %}
       </ul>
       {% endif %}
       

@@ -56,6 +56,16 @@ def edit(request):
     
     return render(request, TEMPLATE, context)
 
+def delete(request, portal_catalog):
+    content_url = get_url_id_content(request)
+    content = portal_catalog.get_content_object()
+    content.delete()
+    portal_catalog.delete()
+    _new_url = reescrever_url(request)
+    _new_url = _new_url.replace('/'+content_url, '')
+    
+    return redirect(_new_url)
+
 def workflow(request, portal_catalog, _workflow):
     _site_url = get_site_url_id(request)
     _o = Imagem.objects.filter(site__url=_site_url).get(url=portal_catalog.url)

@@ -405,4 +405,8 @@ def has_formata_url_view_tag(context):
     
     return _url.replace('/'+_content_url, '')
 
+@register.simple_tag(takes_context=True)
+def has_action_view_delete(context):
+    _url = reescrever_url(context.request)
+    return ('%sdelete/') % _url
     

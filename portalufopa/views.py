@@ -160,6 +160,47 @@ def __updateObject(request):
     except PortalCatalog.DoesNotExist:
         raise Http404('Página não encontrada.')
 
+def __deleteObjec(request):
+    _site_url = get_site_url_id(request)
+    p = PortalCatalog.objects.filter(site__url=_site_url)
+    
+    try:
+        _content_url = get_url_id_content(request)
+        _object = p.get(url=_content_url)
+        if _object.tipo == 'ATPagina':
+            return paginas.delete(request, _object)
+        
+        if _object.tipo == 'ATPasta':
+            #Verificar sua implementação
+            return redirect(reescrever_url(request))
+        
+        if _object.tipo == 'ATNoticia':
+            return noticias.delete(request, _object)
+        
+        if _object.tipo == 'ATImagem':
+            return imagens.delete(request, _object)
+        
+        if _object.tipo == 'ATLink':
+            return links.delete(request, _object)
+        
+        if _object.tipo == 'ATBanner':
+            return banners.delete(request, _object)
+        
+        if _object.tipo == 'ATArquivo':
+            return arquivos.delete(request, _object)
+        
+        if _object.tipo == 'ATEvento':
+            return eventos.delete(request, _object)
+        
+        if _object.tipo == 'ATAgenda':
+            return agendas.delete(request, _object)
+        
+        if _object.tipo == 'ATInforme':
+            return informes.delete(request, _object)
+        
+    except PortalCatalog.DoesNotExist:
+        raise Http404('Página não encontrada.')
+
 def __listObject(request):
     request.session['action'] = 'list'
     _url = reescrever_url(request)
@@ -421,6 +462,12 @@ def index(request, url=None):
     if 'search' in _fragment_url:
         if len(_fragment_url) >= 2:
             return __search(request)
+        else:
+            raise Http404('Operação não permitida.')
+        
+    if 'delete' in _fragment_url:
+        if len(_fragment_url)>=2:
+            return __deleteObjec(request)
         else:
             raise Http404('Operação não permitida.')
     

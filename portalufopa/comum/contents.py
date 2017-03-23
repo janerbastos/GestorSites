@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from datetime import datetime
 
 OBJ_SERVICE = ('sessions_manage', 'createObject', 'folder_contents', 'content_status_modify',
-               'select_default_page', 'organizer_content', 'image_browse_url', 'edit', '@@manage-portlets')
+               'select_default_page', 'organizer_content', 'image_browse_url', 'edit', '@@manage-portlets', 'delete')
 
 TYPE_NAME = ['pagina', 'noticia', 'link', 'imagem', 'banner', 'arquivo', 'agenda', 'evento', 'agenda', 'pasta', 'informe']
 
