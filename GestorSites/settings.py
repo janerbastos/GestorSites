@@ -81,19 +81,19 @@ WSGI_APPLICATION = 'GestorSites.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    #'default': {
-    #    'ENGINE': 'django.db.backends.sqlite3',
-    #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    #}
-    
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'portalufopa',
-        'USER': 'mamba_negra',
-        'PASSWORD': 'mamba',
-        'HOST': '10.3.9.31',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    
+    #'default': {
+    #    'ENGINE': 'django.db.backends.mysql',
+    #    'NAME': 'portalufopa',
+    #    'USER': 'mamba_negra',
+    #    'PASSWORD': 'mamba',
+    #    'HOST': '10.3.9.31',
+    #    'PORT': '3306',
+    #}
 }
 
 
