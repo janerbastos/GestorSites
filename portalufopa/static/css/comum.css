@@ -417,9 +417,9 @@ ul{
 }
 .conteudo-noticia .data-noticia{
     color: #8C8C8C;
-    font-size: 1em;
+    font-size: 1.1em;
     font-weight: normal;
-    margin-top: 2em;
+    margin: 2em 0;
 }
 .conteudo-noticia{
     margin: 2em 0; 
@@ -435,17 +435,23 @@ ul{
 .tag_ufopa {
     background: #00656D;
 }
+.tag_ensino-e-educacao{
+    background: #00656D;
+}
 .tag {
     z-index: 100;
     float: left;
-    position: absolute;
+    position: relative;
     text-transform: uppercase;
     font-weight: 400;
     font-size: 11px;
     padding: .5em;
 }
+.tag a{
+  color: #fff; 
+}
 .conteudo-comum .redessociais{
-  padding-top: 2.5em;
+  padding-top: 5px;
 }
 .twitter-share-button {
     margin-left: 4em;
@@ -459,10 +465,9 @@ ul{
 }
 #conteudo .col-sm-9 h2{
     color: #53636B;
-    font-size: 3.43em;
+    font-size: 4.4em;
     font-weight: 400;
-    padding-right: 1em;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 #conteudo .col-sm-9{
     padding-left: 0;
