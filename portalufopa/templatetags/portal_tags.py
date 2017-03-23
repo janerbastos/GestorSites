@@ -384,8 +384,11 @@ def has_tag_content(context, **kwargs):
     _tags = Tag.objects.filter(site__url=_site_url)
     
     if 'tag' in kwargs:
-        _tag = kwargs['tag']
-        _tags = _tags.get(tag=_tag)
+        try:
+            _tag = kwargs['tag']
+            _tags = _tags.get(tag=_tag)
+        except:
+            return None
     
     return _tags
 
