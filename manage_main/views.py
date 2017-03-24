@@ -35,6 +35,14 @@ def index(request):
     return render(request, template, context)
 
 def open_site(request, url):
+    
+    if 'action' in request.GET:
+        _action = request.GET['action']
+        if _action == 'excluir':
+            _object_site = Site.objects.get(url=url)
+            _object_site.delete()
+            return redirect('/manage_main')
+    
     template = TEMPLATE % 'open_site'
     _object_site = Site.objects.get(url=url)
     action = 'open'
@@ -45,6 +53,9 @@ def open_site(request, url):
     return render(request, template, context)
 
 def new_or_edit_site(request, url=None, opcao=None):
+    
+        
+    
     try:
         _object_site = Site.objects.get(url=url)
         action = 'edit'
