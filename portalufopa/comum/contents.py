@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-from portalufopa.models import Site, PortalCatalog
+from portalufopa.models import Site, PortalCatalog, IndiceUrl
 from django.shortcuts import get_object_or_404
 from datetime import datetime
+from PIL._imaging import path
+from django.utils.text import slugify
 
 OBJ_SERVICE = ('sessions_manage', 'createObject', 'folder_contents', 'content_status_modify',
                'select_default_page', 'organizer_content', 'image_browse_url', 'edit', '@@manage-portlets', 'delete')
@@ -54,6 +56,8 @@ def save_in_portal_catalog(instance, url=None):
         portal.site = instance.site
         portal.tipo = instance.tipo
         portal.dono = instance.dono
+    
+    if portal.content_id == 0 or portal.content_id == None:
         portal.content_id = instance.id
         
     if instance.workflow == 'Publicado' and portal.public_at==None:
@@ -67,3 +71,18 @@ def save_in_portal_catalog(instance, url=None):
     portal.excluir_nav = instance.excluir_nav
     portal.save()
     
+def save_indice_url(request, titulo):
+    _url_code = slugify(titulo)
+    _url = reescrever_url(request)
+    _site_url = get_site_url_id(request)
+    try:
+        indice = IndiceUrl.objects.filter(site__url=_site_url, path_url__iexact=_url).get(url=_url_code)
+        indice.indice += 1
+        _url_code = ('%s-%s') % (_url_code, indice.indice)
+        indice.save()
+    except:
+        site = get_site_url(request)
+        indice = IndiceUrl(url=_url_code, indice=1, site=site, path_url=_url)
+        indice.save()
+    
+    return _url_code
