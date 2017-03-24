@@ -118,6 +118,7 @@ class Portlet(models.Model):
     posicao = models.CharField(max_length=10, default='rigth')
     categoria = models.CharField(max_length=20, default='content')
     origem = models.CharField(max_length=20, default='dafault')
+    content_id = models.PositiveIntegerField()
     
     def __unicode__(self):
         return self.titulo
