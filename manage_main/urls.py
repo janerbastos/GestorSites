@@ -28,22 +28,28 @@ urlpatterns = [
 
 #Metodo de atualização da base dados executado uma unica vez.
 def start():
-    print 'Atualizando os tipos de contens'
-    if ContentType.objects.count()==0:
-        LISTA_CONTENTS = {'ATNoticia':'Noticia', 'ATPagina':'Pagina', 'ATPasta':'Pasta', 'ATArquivo':'Arquivo',
-                      'ATEvento':'Evento', 'ATAgenda':'Agenda', 'ATImagem':'Imagem', 'ATBanner':'Banner',
-                      'ATInforme':'Informe'}
-        for key, value in LISTA_CONTENTS.iteritems():
-            content_type = ContentType(tipo=key, descricao=value)
-            content_type.save()
+    try:
+        if ContentType.objects.count()==0:
+            LISTA_CONTENTS = {'ATNoticia':'Noticia', 'ATPagina':'Pagina', 'ATPasta':'Pasta', 'ATArquivo':'Arquivo',
+                          'ATEvento':'Evento', 'ATAgenda':'Agenda', 'ATImagem':'Imagem', 'ATBanner':'Banner',
+                          'ATInforme':'Informe'}
+            for key, value in LISTA_CONTENTS.iteritems():
+                content_type = ContentType(tipo=key, descricao=value)
+                content_type.save()
+        print 'Atualizando os tipos de contens, OK.\n'
+    except:
+        print 'Atualizando os tipos de contens, Error.\n'
     
-    print 'Atualizando os papeis dos contents'
-    if Papel.objects.count() == 0:
-        contents_type = ContentType.objects.all()
-        LISTA_PAPEIS = {'create':'Criar', 'delete':'Apagar', 'update':'Atualizar', 'workflow':'Publicar'}
-        for i in contents_type:
-            for key, valor in LISTA_PAPEIS.iteritems():
-                papel = Papel(papel_name=valor, cod_name=key, content_type=i)
-                papel.save()
+    try:
+        if Papel.objects.count() == 0:
+            contents_type = ContentType.objects.all()
+            LISTA_PAPEIS = {'create':'Criar', 'delete':'Apagar', 'update':'Atualizar', 'workflow':'Publicar'}
+            for i in contents_type:
+                for key, valor in LISTA_PAPEIS.iteritems():
+                    papel = Papel(papel_name=valor, cod_name=key, content_type=i)
+                    papel.save()
+        print 'Atualizando os papeis dos contents, Ok.\n'
+    except:
+        print 'Atualizando os papeis dos contents, Error.\n'
         
 start()
