@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'GestorSites.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'default': ler_arquivo_conf_banco('c:/temp/portal_conf.cfg')
+    'default': ler_arquivo_conf_banco(os.path.join(BASE_DIR, '_database.ini'))
 }
 
 # Password validation
