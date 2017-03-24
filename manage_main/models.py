@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 
 from django.db import models
-from portalufopa.models import Site
+from portalufopa.models import Site, ContentType
 from django.contrib.auth.models import User
 
 #UM UNICO USUÁRIO POR SITE
@@ -12,8 +12,6 @@ class UserSite(models.Model):
     
     class Meta:
         unique_together = (("user", "site"),)
-        
-   
 
 class GrupoPapel(models.Model):
     grupo = models.ForeignKey('Grupo', related_name='grupos')
@@ -31,6 +29,8 @@ class Grupo(models.Model):
 
 class Papel(models.Model):
     papel_name = models.CharField(max_length=50)
+    cod_name = models.SlugField(max_length=50, null=True)
+    content_type = models.ForeignKey(ContentType, related_name='content_papel', null=True)
     
     def __unicode__(self):
         return self.papel_name

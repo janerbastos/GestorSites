@@ -131,3 +131,18 @@ class UserForm(models.ModelForm):
         if not pwd==check_pwd:
             raise forms.ValidationError("Senha não confirma!")
 
+class UserEditForm(models.ModelForm):
+    
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'email',
+            )
+        
+        labels = {
+            'fist_name':'Primeiro nome',
+            'last_name':'Sobrenome',
+            'email':'E-mail',
+        }

@@ -6,7 +6,7 @@ from django.utils.text import slugify
 
 from manage_main.forms import CreateSiteForm, EnderecoSiteForm, \
     RedesSociaisSiteForm, DesenvolcedorSiteForm, AnalyticSiteForm, SessaoForm, \
-    TagForm, UserForm
+    TagForm, UserForm, UserEditForm
 from portalufopa.models import Site, Sessao, Tag, ContentType
 from django.contrib.auth.models import User
 from manage_main.models import UserSite
@@ -28,6 +28,7 @@ def __excluir_tag(request, url, tag):
 def index(request):
     template = TEMPLATE % 'index'
     _list_site = Site.objects.all()
+    
     context = {
         'list_sites' : _list_site
         }
@@ -205,30 +206,54 @@ def permissao_content(request, url):
     return render(request, template, context)
 
 def create_or_edit_user(request, url):
-    template = TEMPLATE % 'create_or_usuario_form'
+    template = TEMPLATE % 'create_or_edit_usuario_form'
     _user = None
     form  = None
     _object_site = Site.objects.get(url=url)
     
+    action = False
     if 'edit' in request.GET:
+        action = True
         _user = User.objects.get(username=request.GET['edit'])
-    
-    form = UserForm(request.POST or None, instance=_user)
-    if form.is_valid():
-        model = form.save(commit=False)
-        model.set_password(request.POST.get('pwd'))
-        model.save()
+        form = UserEditForm(request.POST or None, instance=_user)
         
-        user_site = UserSite(user=model, site=_object_site)
-        user_site.save()
+    if 'new' in request.GET:
+        action = True
+        form = UserForm(request.POST or None, instance=_user)
         
+    if 'bloquear' in request.GET:
+        _user = User.objects.get(username=request.GET['bloquear'])
+        _user.is_active = False
+        _user.save()
         return redirect(request.path)
+    
+    if 'desbloquear' in request.GET:
+        _user = User.objects.get(username=request.GET['desbloquear'])
+        _user.is_active = True
+        _user.save()
+        return redirect(request.path)
+    
+    if 'vincular' in request.GET:
+        _user = User.objects.get(username=request.GET['vincular'])
+        user_site = UserSite(user=_user, site=_object_site)
+        user_site.save()
+        return redirect(request.path)
+    
+    if action: 
+        if form.is_valid():
+            model = form.save(commit=False)
+            if 'new' in request.GET:
+                model.set_password(request.POST.get('pwd'))
+            model.save()
+            return redirect(request.path)
+    
     _users = UserSite.objects.filter(site=_object_site)
     context = {
         'site' : _object_site,
-        'form':form,
+        'form' : form,
         'action' : 'users',
         'users' : _users,
+        'operacao' : action,
         }
     return render(request, template, context)
     

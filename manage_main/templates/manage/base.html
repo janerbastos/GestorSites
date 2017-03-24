@@ -40,7 +40,13 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
     
-    {% block static_file_top %} {% endblock static_file_top %}
+{% block static_file_top %}
+	<script type="text/javascript">
+		function clicked() {
+			window.history.back();
+		}
+	</script>
+{% endblock static_file_top %}
   </head>
 <!-- NAVBAR
 ================================================== -->
