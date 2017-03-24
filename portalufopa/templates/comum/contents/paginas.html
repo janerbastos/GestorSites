@@ -4,6 +4,7 @@
 	{% has_breadcrumbs %}
 	<div class="conteudo-comum-titulos"> 
     	<h2 class="titulos-comum">{{object.titulo}}</h2>
+    	<p>{%if object.public_at %}{{object.public_at}}{% else %}<span class="text-danger"><strong>Aguardando publicação</strong></span>{% endif%}</p>
     </div>
     <!-- {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %} -->
     {% autoescape off %}{{object.corpo_texto }}{% endautoescape %}
