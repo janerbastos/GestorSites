@@ -54,6 +54,7 @@ def save_in_portal_catalog(instance, url=None):
         portal.site = instance.site
         portal.tipo = instance.tipo
         portal.dono = instance.dono
+        portal.content_id = instance.id
         
     if instance.workflow == 'Publicado' and portal.public_at==None:
         portal.public_at = datetime.now()
