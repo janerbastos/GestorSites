@@ -97,11 +97,11 @@ class ContentType(models.Model):
     def __unicode__(self):
         return self.descricao
     
-
-class PortalUrl(models.Model):
+class IndiceUrl(models.Model):
     url = models.SlugField(max_length=255)
     site = models.ForeignKey(Site)
     indice = models.PositiveIntegerField()
+    path_url = models.CharField(max_length=255, null=True, blank=True)
     
     def __unicode__(self):
         return self.url
@@ -118,7 +118,6 @@ class Portlet(models.Model):
     posicao = models.CharField(max_length=10, default='rigth')
     categoria = models.CharField(max_length=20, default='content')
     origem = models.CharField(max_length=20, default='dafault')
-    content_id = models.PositiveIntegerField()
     
     def __unicode__(self):
         return self.titulo
@@ -163,32 +162,37 @@ class Content(models.Model):
     def get_absolute_url(self):
         pass
     
+    def get_portal_catalog(self):
+        _object = PortalCatalog.objects.filter(site=self.site, tipo=self.tipo).get(content_id=self.id)
+        return _object
+    
 class PortalCatalog(Content):
     path_url = models.CharField(max_length=255, null=True, blank=True)
     ordenador = models.PositiveIntegerField(null=True)
+    content_id = models.PositiveIntegerField()
     
     def get_content_object(self):
         _object = None
         if self.tipo == 'ATPagina':
-            _object = Pagina.objects.filter(site = self.site).get(url=self.url)
+            _object = Pagina.objects.filter(site = self.site).get(id=self.content_id)
         if self.tipo == 'ATLink':
-            _object = Link.objects.filter(site = self.site).get(url=self.url)
+            _object = Link.objects.filter(site = self.site).get(id=self.content_id)
         if self.tipo == 'ATPasta':
-            _object = Pasta.objects.filter(site = self.site).get(url=self.url)
+            _object = Pasta.objects.filter(site = self.site).get(id=self.content_id)
         if self.tipo == 'ATImagem':
-            _object = Imagem.objects.filter(site = self.site).get(url=self.url)
+            _object = Imagem.objects.filter(site = self.site).get(id=self.content_id)
         if self.tipo == 'ATNoticia':
-            _object = Noticia.objects.filter(site = self.site).get(url=self.url)
+            _object = Noticia.objects.filter(site = self.site).get(id=self.content_id)
         if self.tipo == 'ATBanner':
-            _object = Banner.objects.filter(site = self.site).get(url=self.url)
+            _object = Banner.objects.filter(site = self.site).get(id=self.content_id)
         if self.tipo == 'ATInforme':
-            _object = Informe.objects.filter(site = self.site).get(url=self.url)
+            _object = Informe.objects.filter(site = self.site).get(id=self.content_id)
         if self.tipo == 'ATAgenda':
-            _object = Agenda.objects.filter(site = self.site).get(url=self.url)
+            _object = Agenda.objects.filter(site = self.site).get(id=self.content_id)
         if self.tipo == 'ATEvento':
-            _object = Evento.objects.filter(site = self.site).get(url=self.url)
+            _object = Evento.objects.filter(site = self.site).get(id=self.content_id)
         if self.tipo == 'ATArquivo':
-            _object = Arquivo.objects.filter(site = self.site).get(url=self.url)
+            _object = Arquivo.objects.filter(site = self.site).get(id=self.content_id)
         return _object
 
 class Pagina(Content):
