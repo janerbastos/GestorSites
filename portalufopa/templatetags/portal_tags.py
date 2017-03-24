@@ -200,7 +200,7 @@ def has_content_by_portal_catalog(object_portal_catalog):
 
 @register.simple_tag()
 def has_portal_catalog_by_content(object_content):
-    _portal_catalog = PortalCatalog.objects.filter(site=object_content.site).get(url=object_content.url)
+    _portal_catalog = object_content.get_portal_catalog()
     return _portal_catalog
 
 @register.simple_tag()
