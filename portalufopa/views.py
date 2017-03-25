@@ -219,36 +219,7 @@ def __view(request):
     _object = None
     try:
         p = p.get(path_url=_path_url)
-        if p.tipo == 'ATPagina':
-            _object = Pagina.objects.filter(site__url=_site_url).get(url=p.url)
-            
-        if p.tipo == 'ATPasta':
-            _object = Pasta.objects.filter(site__url=_site_url).get(url=p.url)
-            
-        if p.tipo == 'ATNoticia':
-            _object = Noticia.objects.filter(site__url=_site_url).get(url=p.url)
-            
-        if p.tipo == 'ATImagem':
-            _object = Imagem.objects.filter(site__url=_site_url).get(url=p.url)
-            
-        if p.tipo == 'ATLink':
-            _object = Link.objects.filter(site__url=_site_url).get(url=p.url)
-            
-        if p.tipo == 'ATBanner':
-            _object = Banner.objects.filter(site__url=_site_url).get(url=p.url)
-            
-        if p.tipo == 'ATArquivo':
-            _object = Arquivo.objects.filter(site__url=_site_url).get(url=p.url)
-        
-        if p.tipo == 'ATEvento':
-            _object = Evento.objects.filter(site__url=_site_url).get(url=p.url)
-            
-        if p.tipo == 'ATAgenda':
-            _object = Agenda.objects.filter(site__url=_site_url).get(url=p.url)
-            
-        if p.tipo == 'ATInforme':
-            _object = Informe.objects.filter(site__url=_site_url).get(url=p.url)
-            
+        _object = p.get_content_object()
     except PortalCatalog.DoesNotExist:
         raise Http404('Pagina não encontrada.')
     
