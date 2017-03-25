@@ -86,3 +86,13 @@ def save_indice_url(request, titulo, tipo=None):
         pass
     
     return _url_code
+
+def format_visao_by_delete(site_url, new_url):
+    try:
+        pc = PortalCatalog.objects.filter(site__url=site_url).get(path_url=new_url)
+        pasta = pc.get_content_object()
+        if pasta.visao_padrao not in ('sumaria', 'agenda', 'evento', 'arquivo', 'noticia', None):
+            pasta.visao_padrao='sumaria'
+            pasta.save()
+    except:
+        pass

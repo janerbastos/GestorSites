@@ -6,9 +6,7 @@ from django.shortcuts import redirect, render
 from ..forms import PaginaForm
 from ..models import Pagina
 from ..comum.contents import reescrever_url, save_in_portal_catalog, get_site_url
-from ..comum.contents import get_site_url_id, get_url_id_content
-from portalufopa.comum.contents import save_indice_url
-from portalufopa.models import PortalCatalog
+from ..comum.contents import get_site_url_id, get_url_id_content, save_indice_url, format_visao_by_delete
 
 
 TEMPLATE = '%s/documents.html' % 'comum'
@@ -62,16 +60,9 @@ def delete(request, portal_catalog):
     portal_catalog.delete()
     _new_url = reescrever_url(request)
     _new_url = _new_url.replace('/'+content_url, '')
-    #verica ocorrencia de visão do content na pasta e corrige
     _site_url = get_site_url_id(request)
-    try:
-        pc = PortalCatalog.objects.filter(site__url=_site_url).get(path_url=_new_url)
-        pasta = pc.get_content_object()
-        if pasta.visao_padrao not in ('sumaria', 'agenda', 'evento', 'arquivo', 'noticia', None):
-            pasta.visao_padrao='sumaria'
-            pasta.save()
-    except:
-        pass
+    #verica ocorrencia de visão do content na pasta e formata para visão sumaria
+    format_visao_by_delete(_site_url, _new_url)
     return redirect(_new_url)
 
 def workflow(request, portal_catalog, _workflow):

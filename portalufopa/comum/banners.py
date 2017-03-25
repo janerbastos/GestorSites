@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render
 from ..forms import BannerForm
 from ..models import Banner
 from ..comum.contents import reescrever_url, get_site_url,\
-    save_in_portal_catalog, get_site_url_id, get_url_id_content, save_indice_url
+    save_in_portal_catalog, get_site_url_id, get_url_id_content, save_indice_url, format_visao_by_delete
 
 
 TEMPLATE = '%s/documents.html' % 'comum'
@@ -62,7 +62,9 @@ def delete(request, portal_catalog):
     portal_catalog.delete()
     _new_url = reescrever_url(request)
     _new_url = _new_url.replace('/'+content_url, '')
-
+    _site_url = get_site_url_id(request)
+    #verica ocorrencia de visão do content na pasta e formata para visão sumaria
+    format_visao_by_delete(_site_url, _new_url)
     return redirect(_new_url)
 
 def workflow(request, portal_catalog, _workflow):
