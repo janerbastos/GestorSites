@@ -141,7 +141,7 @@ def has_list_objects_noticia(context, **kwargs):
 
 @register.simple_tag(takes_context=True)
 def has_list_pastas(context):
-    url_site = context.request.path.replace('/folder_contents', '')
+    url_site = reescrever_url(context.request)
     _p = PortalCatalog.objects.filter(path_url__startswith=url_site,).exclude(path_url=url_site).order_by('ordenador')
     nivel = len(url_site.strip('/').split('/'))+1
     _html = "<ul id='ordenador'>"
