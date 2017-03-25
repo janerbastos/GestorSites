@@ -348,6 +348,7 @@ def __add_item_session(request):
 def __search(request):
     template = 'comum/search.html'
     _result = None
+    request.session['action'] = 'search'
     if request.POST:
         _search = request.POST['search']
         _result = PortalCatalog.objects.filter(Q(titulo__icontains=_search)|Q(descricao__icontains=_search))
