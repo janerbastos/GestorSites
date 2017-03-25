@@ -11,11 +11,12 @@ from .comum.utils import get_content_by_portal_catalog
 
 from .comum import agendas
 from .comum import paginas, pastas, noticias, imagens, links, banners, arquivos, informes, eventos
-from .models import PortalCatalog, Pagina, Pasta, Noticia, Imagem, Link, Banner, Arquivo, Evento, Agenda, Informe, Sessao
+from .models import PortalCatalog, Pasta, Sessao
 from .comum.contents import reescrever_url, get_url_id_content, get_site_url_id,\
     TYPE_NAME, WORKFLOW_ACTION, WORKFLOW
 from portalufopa.comum.contents import fraguiment_url
 from portalufopa.comum import portlets
+from portalufopa.models import Imagem
 
 
 # Create your views here.
@@ -122,11 +123,11 @@ def __createObject(request):
 
 def __updateObject(request):
     _site_url = get_site_url_id(request)
-    p = PortalCatalog.objects.filter(site__url=_site_url)
+    catalogs = PortalCatalog.objects.filter(site__url=_site_url)
     request.session['action'] = 'edit'
     try:
-        _content_url = get_url_id_content(request)
-        _object = p.get(url=_content_url)
+        _content_url = reescrever_url(request)
+        _object = catalogs.get(path_url=_content_url)
         if _object.tipo == 'ATPagina':
             return paginas.edit(request)
         
@@ -165,8 +166,8 @@ def __deleteObjec(request):
     p = PortalCatalog.objects.filter(site__url=_site_url)
     
     try:
-        _content_url = get_url_id_content(request)
-        _object = p.get(url=_content_url)
+        _content_url = reescrever_url(request)
+        _object = p.get(path_url=_content_url)
         if _object.tipo == 'ATPagina':
             return paginas.delete(request, _object)
         
