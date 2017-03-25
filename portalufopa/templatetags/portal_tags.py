@@ -357,14 +357,15 @@ def format_menu_portlets(context):
 def has_portlets(context):
     _url = reescrever_url(context.request).strip('/').split('/')
     _site_url = get_site_url_id(context.request)
-    
     _result = []
+    _new_url = ('/%s/')%_url[0]
     for item in _url:
         _p = None
         if item == _site_url:
             p_ = Portlet.objects.filter(site__url=_site_url, origem='pagina-inicial')
         else:
-            portal_catalog = PortalCatalog.objects.filter(site__url=_site_url).get(url=item)
+            _new_url = ('%s%s/') % (_new_url, item)
+            portal_catalog = PortalCatalog.objects.filter(site__url=_site_url).get(path_url=_new_url)
             _obj = portal_catalog.get_content_object()
             p_ = _obj.portlet.all()
             
