@@ -7,8 +7,7 @@ from django.shortcuts import redirect, render
 from ..forms import PastaForm
 from ..models import Pasta
 from ..comum.contents import get_site_url, reescrever_url,\
-    save_in_portal_catalog, get_site_url_id, get_url_id_content
-from portalufopa.comum.contents import save_indice_url
+    save_in_portal_catalog, get_site_url_id, get_url_id_content, save_indice_url
 
 
 TEMPLATE = '%s/documents.html' % 'comum'

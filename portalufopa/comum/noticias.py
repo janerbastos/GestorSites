@@ -2,12 +2,11 @@
 from datetime import datetime
 
 from django.shortcuts import redirect, render
-from django.utils.text import slugify
 
 from ..forms import NoticiaForm
 from ..models import Noticia
 from portalufopa.comum.contents import reescrever_url, get_site_url_id,\
-    save_in_portal_catalog, get_url_id_content, get_site_url
+    save_in_portal_catalog, get_url_id_content, get_site_url, save_indice_url
 
 
 TEMPLATE = '%s/documents.html' % 'comum'
@@ -18,7 +17,7 @@ def create(request):
     form = NoticiaForm(site.url, request.POST or None, instance=None)
     if form.is_valid():
         model = form.save(commit=False)
-        _url = slugify(model.titulo)
+        _url = save_indice_url(request, model.titulo)
         model.url = _url
         model.tipo = 'ATNoticia'
         model.site = site
