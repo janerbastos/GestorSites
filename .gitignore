@@ -1,5 +1,5 @@
 *.pyc
-*.sqlite3
+*.sqlite*
 _database.ini
 /portalufopa/migrations/[0-9]*.py
 /manage_main/migrations/[0-9]*.py
