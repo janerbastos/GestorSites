@@ -94,6 +94,12 @@ def new_or_edit_site(request, url=None, opcao=None):
         
         model.save()
         
+        #Adiciona por padrão todos os Tipos de contents para o site
+        if not opcao:
+            content_types = ContentType.objects.all().values_list('id', flat=True)
+            model.content_type_permissao.add(*content_types)
+            model.save()
+        
         _url = model.url
         
         if action == 'new' : 
