@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from portalufopa.models import Site, PortalCatalog, IndiceUrl
+from portalufopa.models import Site, PortalCatalog
 from django.shortcuts import get_object_or_404
 from datetime import datetime
-from PIL._imaging import path
 from django.utils.text import slugify
 
 OBJ_SERVICE = ('sessions_manage', 'createObject', 'folder_contents', 'content_status_modify',
@@ -18,6 +17,11 @@ WORKFLOW = {
     'rejeitar' : 'Privado',
     'enviar_publicar' : 'Revisao pendente',
     }
+
+def __gerar():
+    import random
+    resposta = ('%s%s') % (random.randrange(0, 101, 2), random.choice('abcdefghij'))
+    return resposta
 
 def __get_url_fraguiment(request):
     return request.path.strip('/').split('/')
@@ -49,7 +53,7 @@ def get_url_id_content(request):
 
 def save_in_portal_catalog(instance, url=None):
     try:
-        portal = PortalCatalog.objects.filter(site=instance.site).get(url=instance.url)
+        portal = instance.get_portal_catalog()
     except PortalCatalog.DoesNotExist:
         portal = PortalCatalog()
         portal.path_url = url
@@ -71,18 +75,14 @@ def save_in_portal_catalog(instance, url=None):
     portal.excluir_nav = instance.excluir_nav
     portal.save()
     
-def save_indice_url(request, titulo):
+def save_indice_url(request, titulo, tipo=None):
     _url_code = slugify(titulo)
     _url = reescrever_url(request)
-    _site_url = get_site_url_id(request)
+    _site = get_site_url(request)
     try:
-        indice = IndiceUrl.objects.filter(site__url=_site_url, path_url__iexact=_url).get(url=_url_code)
-        indice.indice += 1
-        _url_code = ('%s-%s') % (_url_code, indice.indice)
-        indice.save()
+        pc = PortalCatalog.objects.filter(site=_site, path_url__icontains=_url).get(url=_url_code)
+        _url_code = ('%s-%s') % (_url_code, __gerar())
     except:
-        site = get_site_url(request)
-        indice = IndiceUrl(url=_url_code, indice=1, site=site, path_url=_url)
-        indice.save()
+        pass
     
     return _url_code
