@@ -11,7 +11,7 @@
 } (document, 'script', 'facebook-jssdk'));
 </script>
 
-<div class="col-sm-9 conteudo-comum">
+<div id="conteudo-noticia" class="col-sm-9 conteudo-comum">
 	{% has_breadcrumbs %}
    	<h2>{{object.titulo}}</h2>
   		{% has_tag_content tag=object.tag as tag %}
@@ -22,7 +22,7 @@
            <div class="fb-like" data-href="" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
        </div>
    	<div class="conteudo-noticia">
-        {% if object.public_at %}<p class="data-noticia">{{object.public_at}}</p>{% endif %}
+        {% if object.public_at %}<p class="data data-noticia">{{object.public_at}}</p>{% endif %}
         {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
         {% autoescape off %}{{object.corpo_texto }}{% endautoescape %}
         
