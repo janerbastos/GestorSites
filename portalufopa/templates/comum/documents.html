@@ -65,6 +65,7 @@ $( function() {
 		{% endif %}
 		
 		{% if object %}
+		
 			{% if object.tipo == 'ATPasta' %}
 				{% include 'comum/contents/pastas.html' %}
 				{% include 'comum/contents/barra_lateral_comum.html' %}
@@ -119,7 +120,11 @@ $( function() {
 		{% endif %}
 	
 </section>
+
+{% include 'm_confirma_exclusao_content.html' %}
+
 {% endblock container %}
+
 
 {% block static_file_button %}
 	

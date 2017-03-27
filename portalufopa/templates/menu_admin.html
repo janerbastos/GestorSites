@@ -13,7 +13,7 @@
         <li {% if action == 'edit' %}class="active"{% endif %}><a href="{% has_action_view_edit 'edit' %}">Editar</a></li>
         {% if action == 'view'%}
         	{% if object.tipo != 'ATPasta' %}
-        		<li><a href="{% has_action_view_delete %}">Excluir</a></li>
+        		<li><a href="_#" data-toggle="modal" data-target="#confirmacaoExclusaoModal">Excluir</a></li>
         	{% endif %}
         {% endif %}
       </ul>
