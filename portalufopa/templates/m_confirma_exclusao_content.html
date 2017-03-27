@@ -1,0 +1,23 @@
+{% load bootstrap portal_tags staticfiles %}
+<div class="modal fade" id="confirmacaoExclusaoModal" tabindex="-1" data-keyboard="false" data-backdrop="static">
+	<div class="modal-dialog">
+		<form action="{% has_action_view_delete %}" method="POST">
+			<input type="hidden" name="_method" value="DELETE"/>
+			{% csrf_token %}
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Você tem certeza?</h4>
+				</div>
+				
+				<div class="modal-body">
+					<span>Tem certeza que deseja apagar o conteúdo <strong>{{object.titulo}}</strong>?</span>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Excluir</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
