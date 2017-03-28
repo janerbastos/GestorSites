@@ -251,12 +251,21 @@ def create_or_edit_user(request, url):
         return redirect(request.path)
     
     if 'vincular' in request.GET:
-        _user = User.objects.get(username=request.GET['vincular'])
-        user_site = UserSite(user=_user, site=_object_site)
-        user_site.save()
+        _list=request.POST.getlist('content_users')
+        for uid in _list:
+            _user = User.objects.get(id=uid)
+            user_site = UserSite(user=_user, site=_object_site)
+            user_site.save()
         return redirect(request.path)
     
-    if action: 
+    if 'desvincular' in request.GET:
+        username = request.GET['desvincular']
+        user = UserSite.objects.filter(site=_object_site).get(user__username=username)
+        user.delete()
+        return redirect(request.path)
+        
+    
+    if action:
         if form.is_valid():
             model = form.save(commit=False)
             if 'new' in request.GET:
