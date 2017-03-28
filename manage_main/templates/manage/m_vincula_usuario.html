@@ -1,0 +1,29 @@
+{% load manage_admin_tags %}
+<div class="modal fade" id="vincula_usuario_" tabindex="-1" data-keyboard="false" data-backdrop="static">
+	<div class="modal-dialog">
+		<form action="?vincular=user" method="POST">
+			{% csrf_token %}
+			<input type="hidden" name="_method" value="vincular"/>
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Vincular usuário ao site.</h4>
+				</div>
+				
+				<div class="modal-body">
+					<span>Selecione um usuário a ser vinculado ao site.</span>
+					{% has_list_users users=users as list_users %}
+					<ul style="padding-top: 2em; list-style: none; ">
+					{% for user in list_users %}
+						<li><input type="checkbox" value="{{user.id}}" name="content_users"> <span>{{ user.get_full_name }}</span></li>
+					{% endfor %}
+					</ul>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Vincular</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
