@@ -4,6 +4,7 @@ from django.forms import models
 from portalufopa.models import Site, Sessao, Tag
 from django.contrib.auth.models import User
 from django import forms
+from manage_main.models import Grupo
 
 
 class CreateSiteForm(models.ModelForm):
@@ -146,3 +147,15 @@ class UserEditForm(models.ModelForm):
             'last_name':'Sobrenome',
             'email':'E-mail',
         }
+
+class GrupoForm(models.ModelForm):
+    
+    class Meta:
+        model = Grupo
+        fields = (
+            'grupo_name',
+            )
+        labels = {
+            'grupo_name' : 'Nome do grupo'
+            }
+        

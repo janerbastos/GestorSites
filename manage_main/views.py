@@ -6,10 +6,10 @@ from django.utils.text import slugify
 
 from manage_main.forms import CreateSiteForm, EnderecoSiteForm, \
     RedesSociaisSiteForm, DesenvolcedorSiteForm, AnalyticSiteForm, SessaoForm, \
-    TagForm, UserForm, UserEditForm
+    TagForm, UserForm, UserEditForm, GrupoForm
 from portalufopa.models import Site, Sessao, Tag, ContentType
 from django.contrib.auth.models import User
-from manage_main.models import UserSite
+from manage_main.models import UserSite, Grupo
 
 
 # Create your views here.
@@ -282,4 +282,29 @@ def create_or_edit_user(request, url):
         'operacao' : action,
         }
     return render(request, template, context)
+
+def create_or_edit_permissao(request, url):
+    _grupos = Grupo.objects.all()
+    _grupo = None
+    _form = None
     
+    action = False
+    if 'edit' in request.GET:
+        action = True
+        _grupo = Grupo.objects.get(grupo_name=request.GET['edit'])
+        _form = GrupoForm(request.POST or None, instance=_grupo)
+    
+    if 'new' in request.GET:
+        action = True
+        _form = GrupoForm(request.POST or None, instance=_grupo)
+    
+    template = TEMPLATE % 'create_or_edit_permissao_form'
+    
+    context = {
+        'grupos' : _grupos,
+        'form' : _form,
+        'grupo' : _grupo,
+        'action' : 'groups',
+        'operacao' : action,
+        }
+    return render(request, template, context)  

@@ -21,8 +21,7 @@ class GrupoPapel(models.Model):
         return self.grupo.grupo_nome
 
 class Grupo(models.Model):
-    site = models.ForeignKey(Site)
-    grupo_name = models.CharField(max_length=50)
+    grupo_name = models.CharField(max_length=60)
     
     def __unicode__(self):
         return self.grupo_nome
