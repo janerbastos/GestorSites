@@ -4,40 +4,38 @@
 {% block container %}
 
 	{% if operacao %}
-	<form method="post" id="form">
-		{% csrf_token %}
-		{{ form|bootstrap }}
-		<div class="form-group col-sm-12">
-			<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-save"></i>&nbsp;Gravar</button>
-			<button type="button" id="_cancelar_" class="btn btn-danger" name="_cancelar_" onclick="clicked()"><i class="fa fa-fw fa-times"></i>&nbsp;Cancelar</button>
-		</div>
-	</form>
-	{% else %}
-	<p><a href="?new=user"><i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp;Cadastrar novo usuário</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#_" data-toggle="modal" data-target="#vincula_usuario_"><i class="fa fa-exchange" aria-hidden="true"></i>&nbsp;Vincular usuário ao site</a></p>
-	<table class="table">
-		<thead>
-			<tr><th>Nome</th><th>Username</th><th>Email</th><th>Status</th><th>&nbsp;</th></tr>
-		</thead>
-		<tbody>
-			{% for u in users %}
-			<tr {% if not u.user.is_active %}class="danger"{% endif %} ><td>{{u.user.get_full_name}}</td><td>{{u.user.username}}</td><td>{{u.user.email}}</td>
-			<td>{% if u.user.is_active %}<i class="fa fa-check-square-o text-success" aria-hidden="true" title="Ativo"></i>{%else%}<i class="fa fa-times text-danger" aria-hidden="true" title="Inativo"></i>{% endif %}</td>
-			<td>
-				<a href="?edit={{u.user.username}}" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-				{% if u.user.is_active %}&nbsp;
-					<a href="#_" title="Permissões"><i class="fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;
-					<a href="?desvincular={{u.user.username}}" title="Desvincular usuário do site"><i class="fa fa-plug" aria-hidden="true"></i></a>&nbsp;
-					<a href="?bloquear={{u.user.username}}" title="Bloquear"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-				{% else %}
-					<a href="?desbloquear={{u.user.username}}" title="Desbloquear"><i class="fa fa-check-square" aria-hidden="true"></i></a>
-				{% endif %}
-			</td></tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	
-	{% include 'manage/m_vincula_usuario.html' %}
-	
+		<form method="post" id="form">
+			{% csrf_token %}
+			{{ form|bootstrap }}
+			<div class="form-group col-sm-12">
+				<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-save"></i>&nbsp;Gravar</button>
+				<button type="button" id="_cancelar_" class="btn btn-danger" name="_cancelar_" onclick="clicked()"><i class="fa fa-fw fa-times"></i>&nbsp;Cancelar</button>
+			</div>
+		</form>
+		{% else %}
+		<p><a href="?new=user"><i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp;Cadastrar novo usuário</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#_" data-toggle="modal" data-target="#vincula_usuario_"><i class="fa fa-exchange" aria-hidden="true"></i>&nbsp;Vincular usuário ao site</a></p>
+		<table class="table">
+			<thead>
+				<tr><th>Nome</th><th>Username</th><th>Email</th><th>Status</th><th>&nbsp;</th></tr>
+			</thead>
+			<tbody>
+				{% for u in users %}
+				<tr {% if not u.user.is_active %}class="danger"{% endif %} ><td>{{u.user.get_full_name}}</td><td>{{u.user.username}}</td><td>{{u.user.email}}</td>
+				<td>{% if u.user.is_active %}<i class="fa fa-check-square-o text-success" aria-hidden="true" title="Ativo"></i>{%else%}<i class="fa fa-times text-danger" aria-hidden="true" title="Inativo"></i>{% endif %}</td>
+				<td>
+					<a href="?edit={{u.user.username}}" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+					{% if u.user.is_active %}&nbsp;
+						<a href="#_" title="Permissões"><i class="fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;
+						<a href="?desvincular={{u.user.username}}" title="Desvincular usuário do site"><i class="fa fa-plug" aria-hidden="true"></i></a>&nbsp;
+						<a href="?bloquear={{u.user.username}}" title="Bloquear"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+					{% else %}
+						<a href="?desbloquear={{u.user.username}}" title="Desbloquear"><i class="fa fa-check-square" aria-hidden="true"></i></a>
+					{% endif %}
+				</td></tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% include 'manage/m_vincula_usuario.html' %}
 	{% endif %}
 	
 {% endblock container %}
