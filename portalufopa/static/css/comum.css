@@ -828,7 +828,11 @@ color:#3379B7;
 .portlet-destaque a:hover{
     background:#A5C4C8;
 }
-
+.portlet ul{
+  list-style: none;
+  font-size: 21px;
+  margin-top: 20px;
+}
 /* fim barra lateral comum*/
 
 

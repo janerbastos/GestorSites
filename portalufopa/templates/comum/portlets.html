@@ -12,7 +12,7 @@
 {% endblock static_file_top %}
 
 {% block container %}
-	<section class="container" >
+	<section class="container {{action}}" >
 		<h2>Gerenciamento de Portlets.</h2>
 		<div class="col-sm-9 conteudo-comum" >
 		{% has_breadcrumbs %}
@@ -33,7 +33,7 @@
 				{% if conteudos %}
 					<ul>
 					{% for p in conteudos %}
-						<li style="padding-bottom: 5px; font-size: 1.5em;"><a href="?portlet={{portlet.portlet}}&excluir={{p.id}}"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a> {{p.titulo}}</li>
+						<li><a href="?portlet={{portlet.portlet}}&excluir={{p.id}}"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a> {{p.titulo}}</li>
 					{% endfor %}
 					</ul>
 				{% else %}
@@ -41,7 +41,7 @@
 				{% endif %}
 				
 			{% else %}
-			<ul style="margin-top: 20px; font-size: 2em;">
+			<ul>
 				<li><a href="?create=noticia">{% has_icon_content 'noticia' %} Noticias</a></li>
 				<li><a href="?create=informe">{% has_icon_content 'informe' %} Informes</a></li>
 				<li><a href="?create=evento">{% has_icon_content 'evento' %} Eventos</a></li>
