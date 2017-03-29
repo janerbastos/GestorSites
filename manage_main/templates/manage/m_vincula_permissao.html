@@ -1,0 +1,29 @@
+{% load manage_admin_tags %}
+<div class="modal fade" id="vincula_permiisao_" tabindex="-1" data-keyboard="false" data-backdrop="static">
+	<div class="modal-dialog">
+		<form action="?vincular={{grupo.grupo_name}}" method="POST">
+			{% csrf_token %}
+			<input type="hidden" name="_method" value="vincular"/>
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Vincular permissão ao grupo.</h4>
+				</div>
+				
+				<div class="modal-body">
+					<span>Selecione uma permissão a ser vinculado ao grupo.</span>
+					{% has_list_papeis grupo=grupo.grupo_name as list_papeis %}
+					<ul style="padding-top: 2em; list-style: none; ">
+					{% for p in list_papeis %}
+						<li><input type="checkbox" value="{{p.id}}" name="content_permissao"> <span>{{ p.papel_name }} - {{p.content_type.descricao}}</span></li>
+					{% endfor %}
+					</ul>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Vincular</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
