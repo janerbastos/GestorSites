@@ -9,7 +9,7 @@ from manage_main.forms import CreateSiteForm, EnderecoSiteForm, \
     TagForm, UserForm, UserEditForm, GrupoForm
 from portalufopa.models import Site, Sessao, Tag, ContentType
 from django.contrib.auth.models import User
-from manage_main.models import UserSite, Grupo
+from manage_main.models import UserSite, Grupo, GrupoPapel
 
 
 # Create your views here.
@@ -287,6 +287,8 @@ def create_or_edit_permissao(request, url):
     _grupos = Grupo.objects.all()
     _grupo = None
     _form = None
+    _object_site = Site.objects.get(url=url)
+    _grupo_papel = None
     
     action = False
     if 'edit' in request.GET:
@@ -297,14 +299,54 @@ def create_or_edit_permissao(request, url):
     if 'new' in request.GET:
         action = True
         _form = GrupoForm(request.POST or None, instance=_grupo)
+        
+    if 'delete' in request.GET:
+        action = True
+        _grupo = Grupo.objects.get(grupo_name=request.GET['delete'])
+        _grupo.delete()
+        return redirect(request.path)
+    
+    if 'vincular' in request.GET:
+        _grupo_name = request.GET['vincular']
+        _list=request.POST.getlist('content_permissao')
+        _grupo = Grupo.objects.get(grupo_name=_grupo_name)
+        try:
+            _grupo_papel = GrupoPapel.objects.get(grupo=_grupo) 
+        except:
+            _grupo_papel = GrupoPapel(grupo=_grupo)
+            _grupo_papel.save()
+        for gid in _list:
+            _grupo_papel.papeis.add(gid)
+        return redirect(request.path)
+    
+    if 'permissao' in request.GET:
+        _grupo = Grupo.objects.get(grupo_name=request.GET['permissao'])
+        try:
+            _grupo_papel = GrupoPapel.objects.get(grupo=_grupo)
+        except:
+            _grupo_papel = GrupoPapel()
+    
+    if 'desvincular_permissao' in request.GET:
+        gp = request.GET['desvincular_permissao'].split('_')
+        _grupo_papel = GrupoPapel.objects.get(grupo__id=gp[0])
+        _grupo_papel.papeis.remove(gp[1])
+        return redirect("%s?permissao=%s" % (request.path, _grupo_papel.grupo.grupo_name))
+    
+    if action:
+        if _form.is_valid():
+            model = _form.save(commit=False)
+            model.save()
+            return redirect(request.path)
     
     template = TEMPLATE % 'create_or_edit_permissao_form'
     
     context = {
+        'site' : _object_site,
         'grupos' : _grupos,
         'form' : _form,
         'grupo' : _grupo,
         'action' : 'groups',
         'operacao' : action,
+        'grupo_papel' : _grupo_papel
         }
     return render(request, template, context)  

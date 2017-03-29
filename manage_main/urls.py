@@ -3,7 +3,7 @@
 from django.conf.urls import url
 
 from manage_main.views import new_or_edit_tag, permissao_content,\
-    create_or_edit_user
+    create_or_edit_user, create_or_edit_permissao
 
 from .views import index, new_or_edit_site, open_site, new_or_edit_sessao
 from portalufopa.models import ContentType
@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^edit/(?P<url>\w+)/permissao/contents/$', permissao_content, name='permissao_content_site'),
     
     url(r'^(?P<url>\w+)/users/$', create_or_edit_user, name='create_edit_user'),
+    url(r'^(?P<url>\w+)/groups/$', create_or_edit_permissao, name='create_edit_permissao'),
     ]
 
 #Metodo de atualização da base dados executado uma unica vez.
@@ -32,7 +33,7 @@ def start():
         if ContentType.objects.count()==0:
             LISTA_CONTENTS = {'ATNoticia':'Noticia', 'ATPagina':'Pagina', 'ATPasta':'Pasta', 'ATArquivo':'Arquivo',
                           'ATEvento':'Evento', 'ATAgenda':'Agenda', 'ATImagem':'Imagem', 'ATBanner':'Banner',
-                          'ATInforme':'Informe'}
+                          'ATInforme':'Informe', 'ATLink':'Link'}
             for key, value in LISTA_CONTENTS.iteritems():
                 content_type = ContentType(tipo=key, descricao=value)
                 content_type.save()

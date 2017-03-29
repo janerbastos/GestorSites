@@ -18,10 +18,10 @@ class GrupoPapel(models.Model):
     papeis = models.ManyToManyField('Papel', related_name='grupo_papeis')
     
     def __unicode__(self):
-        return self.grupo.grupo_nome
+        return self.grupo.grupo_name
 
 class Grupo(models.Model):
-    grupo_name = models.CharField(max_length=60)
+    grupo_name = models.CharField(max_length=60, unique=True)
     
     def __unicode__(self):
         return self.grupo_nome

@@ -23,6 +23,7 @@
 				  	<li {% if action == 'contents' %}class='active'{% endif %}><a href="{% url 'manage_main:permissao_content_site' site.url %}">Contents</a></li>
 				  	<li role="separator" class="divider"></li>
 				  	<li {% if action == 'users' %}class='active'{% endif %}><a href="{% url 'manage_main:create_edit_user' site.url %}">Usuários</a></li>
+				  	<li {% if action == 'groups' %}class='active'{% endif %}><a href="{% url 'manage_main:create_edit_permissao' site.url %}">Grupos</a></li>
 				  </ul>
 				</li>
 			</ul>

@@ -2,6 +2,7 @@
 {% load bootstrap %}
 
 {% block container %}
+	{% if operacao %}
 	<form method="post" id="form">
 		{% csrf_token %}
 		{{ form|bootstrap }}
@@ -10,4 +11,52 @@
 			<button type="button" id="_cancelar_" class="btn btn-danger" name="_cancelar_" onclick="clicked()"><i class="fa fa-fw fa-times"></i>&nbsp;Cancelar</button>
 		</div>
 	</form>
-{% block container %}
+	{% else %}
+	<p>
+	<a href="?new=group"><i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp;Cadastrar novo grupo</a>
+	{% if grupo_papel %}
+	&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" data-toggle="modal" data-target="#vincula_permiisao_"><i class="fa fa-exchange" aria-hidden="true"></i>&nbsp;Vincular permissão</a>
+	&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{request.path}}" title="Retornar"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Retornar</a>
+	{% endif %}
+	</p>
+	
+	{% if grupo_papel %}
+	{{ grupo.grupo_name }}
+	<table class="table">
+		{% with permissoes=grupo_papel.papeis.all%}
+		<thead><tr><th>Permissão</th><th>Tipo de conteúdo</th><th>&nbsp;</th></tr></thead>
+		<tbody>
+			{% if grupo_papel.grupo %}
+			{% for p in permissoes %}
+			<tr><th>{{p.papel_name}}</th><th>{{p.content_type.descricao}}</th>
+			<td><a href="?desvincular_permissao={{grupo.id}}_{{p.id}}"><i class="fa fa-fw fa-trash"></i></a></td>
+			</tr>
+			{% endfor %}
+			{% else %}
+				<tr><td colspan="3" >Nenhum papel vinculado</td></tr>
+			{% endif %}
+		</tbody>
+		{% endwith %}
+	</table>
+	{% include 'manage/m_vincula_permissao.html' %}
+	{% else %}
+	<table class="table">
+		<thead><tr><th>Nome do grupo</th><th>&nbsp;</th></tr></thead>
+		<tbody>
+			{% if grupos %}
+			{% for g in grupos %}
+			<tr><td>{{ g.grupo_name|upper }}</td>
+			<td style="width: 10%; text-align: center;">
+			<a href="?edit={{g.grupo_name}}" title="Editar grupo"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;
+			<a href="?permissao={{g.grupo_name}}" title="Vincular permissão"><i class="fa fa-exchange" aria-hidden="true"></i></a>&nbsp;&nbsp;
+			<a href="?delete={{g.grupo_name}}" title="Excluir grupo"><i class="fa fa-trash" aria-hidden="true"></i></a>
+			</td></tr>
+			{% endfor %}
+			{% else %}
+			<tr><td colspan="2" >Nenhum grupo cadastrado</td></tr>
+			{% endif %}
+		</tbody>
+	</table>
+	{% endif %}
+	{% endif %}
+{% endblock container %}
