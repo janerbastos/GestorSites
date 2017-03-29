@@ -1,4 +1,5 @@
 {% load manage_admin_tags %}
+
 <div class="modal fade" id="vincula_permiisao_" tabindex="-1" data-keyboard="false" data-backdrop="static">
 	<div class="modal-dialog">
 		<form action="?vincular={{grupo.grupo_name}}" method="POST">
@@ -10,13 +11,18 @@
 				</div>
 				
 				<div class="modal-body">
-					<span>Selecione uma permissão a ser vinculado ao grupo.</span>
 					{% has_list_papeis grupo=grupo.grupo_name as list_papeis %}
-					<ul style="padding-top: 2em; list-style: none; ">
+					{% if list_papeis %}
+					<span>Selecione uma permissão a ser vinculado ao grupo.</span>
+					<ul style="padding-top: 2em; list-style: none; padding-left: 0px;">
+						<li style="border-bottom: 1px solid #ccc; margin-bottom: 1em;"><input type="checkbox" id="select_all">&nbsp;<span>Selecionar tudo</span></li>
 					{% for p in list_papeis %}
-						<li><input type="checkbox" value="{{p.id}}" name="content_permissao"> <span>{{ p.papel_name }} - {{p.content_type.descricao}}</span></li>
+						<li><input type="checkbox" class="cbx" value="{{p.id}}" name="content_permissao">&nbsp;<span>{{ p.papel_name }} - {{p.content_type.descricao}}</span></li>
 					{% endfor %}
 					</ul>
+					{% else %}
+						<p><strong>Nenhum permissão encontrada, todas já foram selecionados.</strong></p>
+					{% endif %}
 				</div>
 				
 				<div class="modal-footer">
