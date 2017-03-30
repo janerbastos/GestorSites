@@ -87,14 +87,14 @@
 {% block header %}
 <header id="topo">
     <div class="row container">
-          <div class="col-sm-2 ">
+          <div class="col-sm-2 col-xs-3">
             <a id="portal-logo" href="{{site.get_absolute_url}}" title="{{site.titulo}}">
               <img id="logo" src="{% if site.logo %} {{site.logo.url}} {% else %} {% static 'img/brasao.png' %} {% endif %}" class="img-responsive" title="{{site.titulo}}" alt="Link para {{site.titulo}}"/>
             </a>
           </div>
-          <div class="col-sm-10" id="topo-titulo">
+          <div class="col-sm-10 col-xs-9" id="topo-titulo">
             <h3>UNIVERSIDADE FEDERAL DO OESTE DO PARÁ</h3></br>
-            <h2 id="portal-titulo">{{site.titulo}}</h2><h5>{{site.descricao}}</h5>
+            <h1 id="portal-titulo">{{site.titulo}}</h1><h5 class="hidden-xs">{{site.descricao}}</h5>
             <a id="busca" href="#" class="btn-search" title="Buscar por">
               <i class="fa fa-search" aria-hidden="true"></i>
             </a>

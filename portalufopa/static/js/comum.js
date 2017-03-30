@@ -47,10 +47,18 @@ $(document).ready(function () {
         }, function() {
         $(this).find('.dropdown-menu1').stop(true, true).delay(0).fadeOut(50);
       });
+
+    // fix lateral comum  
+  $('#lateral').affix({
+    offset: {     
+      top: 500,
+      bottom:  $('.rodape').outerHeight(true)
+    }
+  });
   }
 
   // fim meunu hover
-
+  
 // alto-contraste
   $("body").on('click', '.ativa-contraste', function(event) {
     event.preventDefault();
@@ -78,7 +86,7 @@ $(document).ready(function () {
   $(".res-font").click(function () {
     $("body").animate({'font-size' : '14px'});
   });
-
+//nano 
   $(".nano").nanoScroller();
   $(".nanoAgenda").nanoScroller();
   
