@@ -1,5 +1,5 @@
 {% extends 'manage/index.html' %}
-{% load bootstrap %}
+{% load bootstrap manage_admin_tags %}
 
 {% block container %}
 	{% if operacao %}
@@ -14,22 +14,29 @@
 	{% else %}
 	<p>
 	<a href="?new=group"><i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp;Cadastrar novo grupo</a>
-	{% if grupo_papel %}
+	{% if grupo_papeis %}
 	&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" data-toggle="modal" data-target="#vincula_permiisao_"><i class="fa fa-exchange" aria-hidden="true"></i>&nbsp;Vincular permissão</a>
 	&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{request.path}}" title="Retornar"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Retornar</a>
 	{% endif %}
 	</p>
 	
-	{% if grupo_papel %}
+	{% if grupo_papeis %}
 	{{ grupo.grupo_name }}
 	<table class="table">
-		{% with permissoes=grupo_papel.papeis.all%}
-		<thead><tr><th>Permissão</th><th>Tipo de conteúdo</th><th>&nbsp;</th></tr></thead>
+		{% with permissoes=grupo_papeis.papeis.all %}
+		{% has_list_permissoes_from_grupo_papel papeis=permissoes as contents_type %}
+		<thead><tr><th>Conteúdo</th><th>Permissão</th><th>&nbsp;</th></tr></thead>
 		<tbody>
-			{% if grupo_papel.grupo %}
-			{% for p in permissoes %}
-			<tr><th>{{p.papel_name}}</th><th>{{p.content_type.descricao}}</th>
-			<td><a href="?desvincular_permissao={{grupo.id}}_{{p.id}}"><i class="fa fa-fw fa-trash"></i></a></td>
+			{% if grupo_papeis.grupo %}
+			{% for c_type in contents_type %}
+			<tr><th>{{c_type.descricao}}</th>
+			<th>
+				{% has_list_permissoes_from_grupo_papel permissoes=permissoes tipo=c_type as papeis %}
+				{% for p in papeis %}
+					{{ p.papel_name }}<a href="?desvincular_permissao={{grupo.id}}_{{p.id}}"><i class="fa fa-fw fa-trash"></i></a>
+				{% endfor %}
+			</th>
+			<td></td>
 			</tr>
 			{% endfor %}
 			{% else %}

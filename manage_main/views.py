@@ -54,8 +54,6 @@ def open_site(request, url):
 
 def new_or_edit_site(request, url=None, opcao=None):
     
-        
-    
     try:
         _object_site = Site.objects.get(url=url)
         action = 'edit'
@@ -288,7 +286,7 @@ def create_or_edit_permissao(request, url):
     _grupo = None
     _form = None
     _object_site = Site.objects.get(url=url)
-    _grupo_papel = None
+    _grupo_papeis = None
     
     action = False
     if 'edit' in request.GET:
@@ -311,26 +309,26 @@ def create_or_edit_permissao(request, url):
         _list=request.POST.getlist('content_permissao')
         _grupo = Grupo.objects.get(grupo_name=_grupo_name)
         try:
-            _grupo_papel = GrupoPapel.objects.get(grupo=_grupo) 
+            _grupo_papeis = GrupoPapel.objects.get(grupo=_grupo) 
         except:
-            _grupo_papel = GrupoPapel(grupo=_grupo)
-            _grupo_papel.save()
+            _grupo_papeis = GrupoPapel(grupo=_grupo)
+            _grupo_papeis.save()
         for gid in _list:
-            _grupo_papel.papeis.add(gid)
+            _grupo_papeis.papeis.add(gid)
         return redirect(request.path)
     
     if 'permissao' in request.GET:
         _grupo = Grupo.objects.get(grupo_name=request.GET['permissao'])
         try:
-            _grupo_papel = GrupoPapel.objects.get(grupo=_grupo)
+            _grupo_papeis = GrupoPapel.objects.get(grupo=_grupo)
         except:
-            _grupo_papel = GrupoPapel()
+            _grupo_papeis = GrupoPapel()
     
     if 'desvincular_permissao' in request.GET:
         gp = request.GET['desvincular_permissao'].split('_')
-        _grupo_papel = GrupoPapel.objects.get(grupo__id=gp[0])
-        _grupo_papel.papeis.remove(gp[1])
-        return redirect("%s?permissao=%s" % (request.path, _grupo_papel.grupo.grupo_name))
+        _grupo_papeis = GrupoPapel.objects.get(grupo__id=gp[0])
+        _grupo_papeis.papeis.remove(gp[1])
+        return redirect("%s?permissao=%s" % (request.path, _grupo_papeis.grupo.grupo_name))
     
     if action:
         if _form.is_valid():
@@ -347,6 +345,6 @@ def create_or_edit_permissao(request, url):
         'grupo' : _grupo,
         'action' : 'groups',
         'operacao' : action,
-        'grupo_papel' : _grupo_papel
+        'grupo_papeis' : _grupo_papeis
         }
     return render(request, template, context)  
