@@ -48,13 +48,17 @@ $(document).ready(function () {
         $(this).find('.dropdown-menu1').stop(true, true).delay(0).fadeOut(50);
       });
 
-    // fix lateral comum  
-  $('#lateral').affix({
-    offset: {     
-      top: 500,
-      bottom:  $('.rodape').outerHeight(true)
+    // fix lateral comum
+    var alturaPaginas = document.getElementById('conteudo-paginas').clientHeight;
+    var alturaLateral = document.getElementById('lateral').clientHeight; 
+    if(alturaPaginas > alturaLateral){  
+      $('#lateral').affix({
+        offset: {     
+          top: 400,
+          bottom:  $('.rodape').outerHeight(true)
+        }
+      });
     }
-  });
   }
 
   // fim meunu hover
