@@ -987,32 +987,52 @@ body.contraste a, .contraste .titulo, .contraste .data, .contraste #buscar{
 }
 
 
+
+
 @media (max-width: 767px) { 
 #topo{
   background: #00656D url('../img/topo3.jpg')no-repeat center center; 
+}
+#topo .col-sm-2 {
+  padding: 0;
 }
 #logo {
   margin: 2em auto;
   width: auto;
 }
+.navbar-brand{
+  clear: left;
+  color:#fff;
+  font-weight: 600;
+}
 #redes-sociais a {
     margin: 0;
 }
-#topo-titulo h1{
-    font-size: 2em;
-}
-#topo-titulo h3{
-    font-size: 1em; 
-}
+
 #topo-titulo {
-   margin: 2em 0 0.5em;
+   margin: 11% 0 0;
 }
 #topo-titulo i {
     margin: 3em 0 0;
 }
-.direita {
-    right: 0;
+#menu li a {
+  font-size: 1.4em; 
+  padding: 1.2em;
 }
+#menu .dropdown-menu {
+  background: #fff;
+  padding: 1px 0;
+}
+.dropdown-menu a{
+  padding-left: 2em!important; 
+}
+.dropdown-menu .dropdown-submenu ul {
+  padding: .2em !important; 
+} 
+#conteudo-paginas{
+  padding: 0;
+}
+
 #comum .titulo {
     font-size: 1.8em;
     padding: 1em 0.5em 0.5em;
@@ -1038,12 +1058,16 @@ body.contraste a, .contraste .titulo, .contraste .data, .contraste #buscar{
 }
 
 }
-@media (min-width: 480px) and (max-width: 767px) {
-#logo {
-    margin: .5em auto;
-    width:20%;
+@media (max-width: 576px) {
+#topo-titulo h1{
+    font-size: 2em;
 }
-
+#topo-titulo h3{
+    font-size: 1em; 
+}
+#topo-titulo {
+    margin: 15% 0 0;
+}
 }
 @media (min-width: 768px) and (max-width: 991px) {
 #acessibilidade .container{
