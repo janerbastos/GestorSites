@@ -5,16 +5,24 @@
 {% block container %}
   <!-- Sessão que abrange conteudo de destaque, banner rotativo e informes -->
   {% has_list_object_sessao 'banner-destaque' as destaque_banner %}
-  <div class="row " id="destaque">
+  <div class="row" id="destaque">
     <!-- Sessão de banner rotativo destaque -->
-    <div class="col-sm-9 destaque">
+    <div class="col-sm-8 destaque">
       <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+          </ol>
           <div class="carousel-inner" role="listbox">
           	{% if destaque_banner %}
           		{% for obj in destaque_banner %}
           			{% has_content_by_portal_catalog obj as banner %}
           			<div class="item {% if forloop.counter == 1 %}active{% endif %}">
 	               	<img src="{{ banner.imagem.url }}" alt="{{ banner.descricao }}">
+                  <div class="carousel-caption">
+                    <h3>{{ banner.titulo }}</h3>
+                    <p>{{ banner.descricao }}</p>
+                  </div>
 	            	</div>
           		{% endfor %}
           	{% else %}
@@ -26,104 +34,303 @@
 	            </div>
             {% endif %}
           </div>
-          <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+          <!-- <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
           </a>
           <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
-          </a>
+          </a> -->
       </div>
     </div>
-	<!-- end banner rotativo destaque -->
+	  <!-- end banner rotativo destaque -->
 
-	<!-- Sessão de informes em destaques -->
+	  <!-- Sessão de informes em destaques -->
 	
-      <div class="col-sm-3 informes">
-        <!-- <div class="dgdp comum-titulo">
-          <h2>DGDP</h2>
-          <p class="hidden-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis nisl nec leo gravida, a accumsan magna vehicula. Aliquam erat volutpat. hendrerit.</p>
+    <div class="col-sm-4 informes">       
+      {% has_list_object_by_type 'informe' 10 as destaque_informes %}
+        <div class="titulo-barra">
+          <h2 class="titulo">INFORMES</h2>
         </div>
-        <div class="dsqv">
-          <h2>DSQV</h2>
-          <p class="hidden-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis nisl nec leo gravida, a accumsan magna vehicula. Aliquam erat volutpat. hendrerit.</p>
-        </div> -->
-        
-        {% has_list_object_by_type 'informe' 10 as destaque_informes %}
-        <h2 class="titulo">INFORMES</h2>
-          <div class="nano">
-            <ul class="nano-content">
-              {% if destaque_informes %}
-            		{% for obj in destaque_informes %}
-            			<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-                  	<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3></li>
-            		{% endfor %}
-            	{% else %}
-  	            <li>
-  	                <span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
-  	                <h3><a href="" title="">Nenhum informe cadastrado até o momento</a></h3>
-  	            </li>
-              {% endif %}
-            </ul>
-          </div>
-          <a class="mais pull-right" href="" title="mais informes">mais informes</a>
-      </div>
+        <div class="nano">
+          <ul class="nano-content">
+            {% if destaque_informes %}
+          		{% for obj in destaque_informes %}
+          			<li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+                	<h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3>
+                </li>
+          		{% endfor %}
+          	{% else %}
+	            <li>
+	                <span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
+	                <h3><a href="" title="">Nenhum informe cadastrado até o momento</a></h3>
+	            </li>
+            {% endif %}
+          </ul>
+        </div>
+        <a class="mais pull-right" href="" title="mais informes">mais informes</a>
+    </div>
     <!-- end informes destaque -->
   </div>
   <!-- end conteudo de destaque -->
+  <!--  Banner fixo -->
+  {% has_list_object_sessao 'banner-fixo' as banner_fixo %}
+        <!-- Sessão com conteúdo de imagens com banner fixo -->
+        {% if banner_fixo %}
+        <div class="row banner-fixo-admin">
+            {% for obj in banner_fixo %}
+                {% has_content_by_portal_catalog obj as banner %}
+                <div class="col-sm-6">
+                  <div class="callout callout-info">
+                    <a href="{{banner.link}}" target={{banner.target}}><img src="{{banner.imagem.url}}" class="img-responsive" title="banner.titulo" alt="banner.descricao"/></a> 
+                  </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
+           <p>Nenhum banner cadastrado </p>
+        {% endif %}
+        <!-- end conteúdo de imagens com Banner fixo -->
 
   <div class="row">
   	{% has_list_object_sessao 'pagina-de-destaque' as paginas_destaques %}
   	<!-- Sessão com conteudo singular de destaque -->
-    <div class="col-sm-9 conteudo-proppit">
-      {% if paginas_destaques %}
-      	{% for p in paginas_destaques %}
-	      <h2>{{p.titulo}}</h2>
-	      <p>{{p.descricao}}</p>
-      	{% endfor %}
-	  {% else %}
-	  	<h2>Conteúdo de destaque não informado</h2>
-      {% endif %}
-    </div>
-    <!-- end conteúdo singular de destaque -->
+    <div class="col-sm-8 destaque-noticias">
+        <div class="titulo-barra titulo-barra-noticias">
+          <h2 class="titulo">NOTÍCIAS EM DESTAQUE</h2>
+          <a class="mais pull-right" href="" title="mais noticias">mais notícias</a>
+        </div>
+        <div class="row destaque-nivel-1">
+          {% if paginas_destaques %}
+        	 {% for p in paginas_destaques %}
+            <div class="col-sm-6 noticia-com-img">
+              <div class="bordas">
+                <div class="hoverzoom">
+                  {% with noticia=p.get_content_object %}
+                  {% if noticia.tag %}
+                    <div class="tag tag_{{noticia.tag}}"> 
+                      <a href="comunica/noticias/?tag={{noticia.tag}}"><span>{{noticia.tag}}</span> 
+                      </a>
+                    </div>
+                  {% endif %}
+                  <a href="{{portal_catalog.path_url}}" class="feed-post-figure-link ">
+                    {% if noticia.imagem %}
+                    <img src="{{noticia.imagem.url}}" alt="Foto:" width="365" height="203">
+                    {% else %}
 
-	{% has_list_object_sessao 'utilitarios' as utilitarios %}
-	<!-- Sessão com conteúdo utilitário -->
-    <div class="col-sm-3">
-      <h2 class="titulo">Utilitários</h2>
-	  <div id="utilitarios">
-      {% if utilitarios %}
-      	{% for obj in utilitarios %}
-      		{% has_content_by_portal_catalog obj as link %}
-        	<a class="btn btn-lg btn-utilitarios " href="{{link.link}}" role="button" target="{{link.target}}">{{link.titulo}}</a>
-        {% endfor %}
-	  {% else %}
-	    <a class="btn btn-lg btn-utilitarios " href="#_" role="button" target="">Nenhum link informado</a>
-      {% endif %}
-	  </div>
-    </div>
-    <!-- end conteúdo utilitário -->
-  </div>
+                    {% endif %}
+                  </a>
+                </div>
+                <span class="data">10 de Outubro de 2015</span>
+                <a href=""><h2>{{p.titulo}} {{ p.tag}}</h2><p>{{p.descricao}}</p></a>
+                {% endwith %}
+              </div>
+            </div>
+        	 {% endfor %}
+  	      {% else %}
+  	  	  <h2>Conteúdo de destaque não informado</h2>
+          {% endif %}
+        </div>
 
-  {% has_list_object_sessao 'banner-link' as banner_link %}
-  <!-- Sessão com conteúdo de imagens com links -->
-  {% if banner_link %}
-  <div class="row links-botoes">
-  	  {% for obj in banner_link %}
-  	  	  {% has_content_by_portal_catalog obj as banner %}
-	      <a href="{{banner.link}}" target={{banner.target}}><img src="{{banner.imagem.url}}" class="img-responsive col-sm-2" title="banner.titulo" alt="banner.descricao"/></a>
-      {% endfor %}
+        <!-- end conteúdo singular de destaque -->
+        {% has_list_object_sessao 'mini-destaque' as mini_destaques %}
+        <div class="row destaque-nivel-2">
+          {% if mini_destaques %}
+            {% for p in mini_destaques %}
+              <div class="col-sm-6 noticia-img-men">
+                <div class=" row bordas-men">
+                  <div class="col-md-4 hidden-xs">
+                    {% with noticia=p.get_content_object %}
+                      <a href="{{portal_catalog.path_url}}" class="feed-post-figure-link ">
+                      {% if noticia.imagem %}
+                      <img src="{{noticia.imagem.url}}" alt="Foto:" width="120" height="80">
+                      {% else %}
+
+                      {% endif %}
+                      </a>
+                  </div>
+                  <div class="col-md-8">
+                    {% if noticia.tag %}
+                    <div class="tag tag-men tag_{{noticia.tag}}"> 
+                      <a href="comunica/noticias/?tag={{noticia.tag}}"><span>{{noticia.tag}}</span> 
+                      </a>
+                    </div>
+                    {% endif %}
+                    <!-- <span class="data">10 de Outubro de 2015</span> -->
+                    <a href=""><p class="feed-post-body-title  gui-color-primary col-md-12">{{p.titulo}} {{ p.tag}}</p></a>
+                  </div>
+                  {% endwith %}
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <h2>Conteúdo de destaque não informado</h2>
+          {% endif %}
+        </div>
+    </div>
+	  <!-- {% has_list_object_sessao 'utilitarios' as utilitarios %} -->
+	   <!-- Sessão com conteúdo utilitário -->
+
+    <div class="col-sm-4 l-uteis">
+
+            <div class="titulo-barra">
+                <h2 class="titulo">LINKS ÚTEIS</h2>
+            </div>  
+
+        <div class="row links-uteis">
+              <div class="hoverzoom2 icone-1 col-md-12 col-sm-6">
+                <a href="" title="Direciona a Página do botão 1"><img alt="descrição imagem 1" title="imagem 1" src="{% static 'img/icone-1.svg' %}" class="img-responsive"><span class="hidden">links úteis</span></a>
+              </div>
+              <div class="hoverzoom2 icone-2 col-md-12 col-sm-6">
+                <a href="" title="Direciona a Página do botão 2"><img alt="descrição imagem 2" title="imagem 2" src="{% static 'img/icone-2.svg' %}" class="img-responsive"><span class="hidden">links úteis</span></a>
+              </div>
+              <div class="hoverzoom2 icone-3 col-md-12 col-sm-6">
+                <a href="" title="Direciona a Página do botão 3"><img alt="descrição imagem 3" title="imagem 3" src="{% static 'img/icone-3.svg' %}" class="img-responsive"><span class="hidden">links úteis</span></a>
+              </div>
+              <div class="hoverzoom2 icone-4 col-md-12 col-sm-6">
+                <a href="" title="Direciona a Página do botão 4"><img alt="descrição imagem 4" title="imagem 4" src="{% static 'img/icone-4.svg' %}" class="img-responsive"><span class="hidden">links úteis</span></a>
+              </div>
+              <div class="hoverzoom2 icone-5 col-md-12 col-sm-6">
+                <a href="" title="Direciona a Página do botão 5"><img alt="descrição imagem 5" title="imagem 5" src="{% static 'img/icone-5.svg' %}" class="img-responsive"><span class="hidden">links úteis</span></a>
+              </div>
+              <div class="hoverzoom2 icone-6 col-md-12 col-sm-6">
+                <a href="" title="Direciona a Página do botão 6"><img alt="descrição imagem 6" title="imagem 6" src="{% static 'img/icone-6.svg' %}" class="img-responsive"><span class="hidden">links úteis</span></a>
+              </div>
+              <div class="hoverzoom2 icone-7 col-md-12 col-sm-6">
+                <a href="" title="Direciona a Página do botão 7"><img alt="descrição imagem 7" title="imagem 7" src="{% static 'img/icone-7.svg' %}" class="img-responsive"><span class="hidden">links úteis</span></a>
+              </div>
+              <div class="hoverzoom2 icone-8 col-md-12 col-sm-6">
+                <a href="" title="Direciona a Página do botão 8"><img alt="descrição imagem 8" title="imagem 8" src="{% static 'img/icone-8.svg' %}" class="img-responsive"><span class="hidden">links úteis</span></a>
+              </div>
+              <div class="hoverzoom2 icone-9 col-md-12 col-sm-6">
+                <a href="" title="Direciona a Página do botão 9"><img alt="descrição imagem 9" title="imagem 9" src="{% static 'img/icone-9.svg' %}" class="img-responsive"><span class="hidden">links úteis</span></a>
+              </div>
+              <div class="hoverzoom2 icone-10 col-md-12 col-sm-6">
+                <a href="" title="Direciona a Página do botão 10"><img alt="descrição imagem 10" title="imagem 10" src="{% static 'img/icone-10.svg' %}" class="img-responsive"><span class="hidden">links úteis</span></a>
+              </div>
+              <div class="hoverzoom2 icone-11 col-md-12 col-sm-6">
+                <a href="" title="Direciona a Página do botão 11"><img alt="descrição imagem 11" title="imagem 11" src="{% static 'img/icone-11.svg' %}" class="img-responsive"><span class="hidden">links úteis</span></a>
+              </div>
+              <div class="hoverzoom2 icone-12 col-md-12 col-sm-6">
+                <a href="" title="Direciona a Página do botão 12"><img alt="descrição imagem 12" title="imagem 12" src="{% static 'img/icone-12.svg' %}" class="img-responsive"><span class="hidden">links úteis</span></a>
+              </div>
+              <div class="hoverzoom2 icone-13 col-md-12 col-sm-6">
+                <a href="" title="Direciona a Página do botão 13"><img alt="descrição imagem 13" title="imagem 13" src="{% static 'img/icone-13.svg' %}" class="img-responsive"><span class="hidden">links úteis</span></a>
+              </div>
+        </div>
+    	  <!-- <div id="utilitarios">
+          {% if utilitarios %}
+          	{% for obj in utilitarios %}
+          		{% has_content_by_portal_catalog obj as banner %}
+            	   <a class="btn btn-lg btn-utilitarios " href="{{link.link}}" role="button" target="{{link.target}}"><img src="{{ banner.imagem.url }}" alt="{{ banner.descricao }}"></a>
+            {% endfor %}
+    	    {% else %}
+    	     <a class="btn btn-lg btn-utilitarios " href="#_" role="button" target="">Nenhum link informado</a>
+          {% endif %}
+    	  </div> -->
+        <!-- end conteúdo utilitário -->
+
+        {% has_list_object_sessao 'banner-link' as banner_link %}
+        <!-- Sessão com conteúdo de imagens com links -->
+        {% if banner_link %}
+        <div class="links-botoes institutos">
+        	  {% for obj in banner_link %}
+        	  	  {% has_content_by_portal_catalog obj as banner %}
+                <div class="hoverzoom2 col-md-12 col-sm-6">
+      	           <a href="{{banner.link}}" target={{banner.target}}><img src="{{banner.imagem.url}}" class="img-responsive" title="banner.titulo" alt="banner.descricao"/></a>
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        	 <p>Nenhum banner cadastrado </p>
+        {% endif %}
+        <!-- end conteúdo de imagens com links -->
+    </div>
   </div>
-  {% else %}
-  	 <p>Nenhum banner cadastrado </p>
-  {% endif %}
-  <!-- end conteúdo de imagens com links -->
+  <div class="row">
+    <div class="col-sm-6" id="agenda">       
+      {% has_list_object_by_type 'evento' 10 as destaque_agenda %}
+        <div class="titulo-barra">
+          <h2 class="titulo">AGENDA DA UFOPA</h2>
+          <a class="mais pull-right" href="" title="agenda">veja agenda completa</a>
+        </div>
+        <div class="nanoAgenda nano">
+          <ul class="nano-content">
+            {% if destaque_agenda %}
+              {% for obj in destaque_agenda %}
+                <li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
+                  <h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3>
+                </li>
+              {% endfor %}
+            {% else %}
+              <li>
+                  <span class="data">Hojé {% data_atual '%d-%m-%Y' %}</span>
+                  <h3><a href="" title="">Nenhum Evento cadastrado até o momento</a></h3>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+    </div>
+    <div id="redes-sociais" class="col-sm-6">
+
+            <div class="col-sm-6">
+              <div class="titulo-barra">
+                <h2 class="titulo">FACEBOOK</h2>
+              </div>
+              <div class="embed-responsive embed-responsive-4by3">
+
+              <div class="fb-page" data-href="https://www.facebook.com/ufopa" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="
+
+                  fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/ufopa"><a href="https://www.facebook.com/ufopa">UFOPA 
+
+                  COMUNICA</a></blockquote></div></div>
+
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="titulo-barra">
+                <h2 class="titulo">TWITTER</h2>
+              </div>
+              <div class="embed-responsive embed-responsive-4by3">
+
+              <a class="twitter-timeline" href="https://twitter.com/UFOPA" data-widget-id="658659137895690240">Tweets de @UFOPA</a>
+
+              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="titulo-barra">
+                <h2 class="titulo">YOUTUBE</h2>
+              </div>
+              <div class="embed-responsive embed-responsive-4by3">
+
+                <iframe title="canal oficial do Youtube ufopa" class="embed-responsive-item"  src="https://www.youtube.com/embed/VPPa7WtIxuo" frameborder="0" allowfullscreen></iframe>
+
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="titulo-barra">
+                <h2 class="titulo">FLICKR</h2>
+              </div>
+              <div class="embed-responsive embed-responsive-4by3">
+
+                <a data-flickr-embed="true" href="https://www.flickr.com/photos/132566521@N05/albums/72157659812727289" title="8ª Reunião Extraordinária do Consepe - Ajuste do Calendário Acadêmico - 23.10.2015 - Talita Baena"><img src="https://farm1.staticflickr.com/591/22223856260_b47220709d_n.jpg" alt="8ª Reunião Extraordinária do Consepe - Ajuste do Calendário Acadêmico - 23.10.2015 - Talita Baena"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+
+              </div>
+            </div>
+
+          </div>
+  </div>
 {% endblock container %}
 
 {% block footer %}
 	<div class="container">
-    <div class="row topo-rodape">
+        <div class="row topo-rodape">
           <div class="col-sm-6">
             <a href="{{site.get_absolute_url}}" title="{{site.titulo}}">
               <img id="logo-footer" src="{% if site.logo %} {{site.logo.url}} {% else %} {% static 'img/brasao.png' %} {% endif %}" class="img-responsive" title="{{site.titulo}}" alt="Link para {{site.titulo}}"/>
@@ -149,13 +356,13 @@
             {% endif %}
           </div>
         </div>
-	  <div class="row conteudo-rodape">
-	    
-	    {% has_menu_footer %}
+  	    <div class="row conteudo-rodape">
+  	    
+        {% has_menu_footer %}
 
-	  </div>
+  	    </div>
   </div>
-  <div id="copy">
+    <div id="copy">
       <div class="container">
         <div class="row copy">
           <p>{{site.titulo}}</p>
@@ -163,5 +370,5 @@
           <p>© Todos os diretos reservados. Desenvolvido por <a href="" title="UFOPA/CTIC">UFOPA/CTIC</a></p>
         </div>
       </div>
-  </div>
+    </div>
   {% endblock footer %}
