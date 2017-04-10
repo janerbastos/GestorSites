@@ -259,9 +259,22 @@
           <ul class="nano-content">
             {% if destaque_agenda %}
               {% for obj in destaque_agenda %}
-                <li><span class="data">{% if obj.public_at %}{{obj.public_at}}{% else %} Aguardando publicação {% endif %}</span>
-                  <h3><a href="{{obj.path_url}}" title="{{obj.descricao}}">{{obj.titulo}}</a></h3>
+                {% with portal_catalog=obj.get_content_object %}
+                <li>
+                  <div class="media">
+                    <div class="media-left {{ obj.inicio_at|date:'d-m'}}">
+                      <span class="data-agenda">{% has_get_data data=portal_catalog.inicio_at formato_dia_mes='True' %}</span>
+                    </div>
+                    <div class="media-body">
+                      
+                      <a href="{{ portal_catalog.path_url }}" class="feed-post-link gui-image-hover gui-color-primary-link">
+                       <p class="feed-post-body-title gui-color-primary">{{ obj.titulo }}</p>
+                      </a>
+                      <p class="agenda-local"><span class="glyphicon glyphicon-map-marker"></span>{{ portal_catalog.local }}</p>
+                    </div>
+                  </div>
                 </li>
+              {% endwith %}
               {% endfor %}
             {% else %}
               <li>

@@ -684,7 +684,6 @@ color:#3379B7;
 }
 /*visão agenda*/
 .list-compromissos{
-
   margin-left: 0;
   border-bottom: 1px solid #d6dcd7;
 }
@@ -706,11 +705,10 @@ color:#3379B7;
 }
 .agenda-dados {
   padding-left: 2em;
-  border-left: 1px dotted #d6dcd7;
-
+  border-left: 1px dotted #d6dcd7;0
 }
 /*visão evento*/
-.agenda li{
+.agenda li, #agenda li{
   border-bottom: 2px solid #C8C8C8;
   padding: 15px 0px;
 }
@@ -747,8 +745,12 @@ color:#3379B7;
 .agenda .active{
   background: #405425 !important;
 }
-.nanoAgenda {
-  height: 410px; 
+.agenda .media-body,  #agenda .media-body {
+  vertical-align: top;
+}
+.agenda .feed-post-body-title{
+  margin-top: 0;
+  font-weight: 400;
 }
 /* index Ufopa
 */
@@ -782,7 +784,6 @@ color:#3379B7;
 }
 .noticia-com-img{
   padding-left: 0;
- /* clear: right;*/
 }
 .noticia-com-img .tag{
   position: absolute;
@@ -834,13 +835,24 @@ color:#3379B7;
   margin-top: 10px;
   font-size: 14px;
 }
-.feed-post-body-title {
+#agenda .nanoAgenda {
+  height: 410px;
+  font-size: 1.7em; 
+}
+#agenda .data-agenda {
+ font-size: 1.3em;
+}
+#agenda .feed-post-body-title{
   border-top: 0 none;
   letter-spacing: -1px;
   line-height: 1.2;
-  margin: 0.5em 0;
   padding: 0;
   word-wrap: break-word;
+  margin-top: -3px;
+}
+#agenda .agenda-local{
+  font-size: 14px;
+  margin: 0;
 }
 .btn-utilitarios {
   padding: 1px 0;
