@@ -17,6 +17,9 @@ from .comum.contents import reescrever_url, get_url_id_content, get_site_url_id,
 from portalufopa.comum.contents import fraguiment_url
 from portalufopa.comum import portlets
 from portalufopa.models import Imagem
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 
 # Create your views here.
@@ -65,6 +68,7 @@ def __workflowObject(request):
     
     return redirect(_url)
 
+@login_required(login_url='/security/login/')
 def __createObject(request):
     request.session['action'] = 'create'
     type_name = ''
@@ -453,6 +457,24 @@ def index(request, url=None):
         template = '%s/index.html' % 'comum'
         return render(request, template, context)
 
-def login(request):
+def _login(request):
     request.session['action'] = None
-    return redirect('evento:index')
+    template = 'login.html'
+    context = {}
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                try:
+                    url_next = request.GET['next']
+                except:
+                    pass
+                return redirect(url_next)
+            else:
+                messages.warning(request, 'Conta de usuário esta bloqueada para acessar ao sistema.', 'success')
+        else:
+            messages.warning(request, 'Usuário ou senha invalida! Corrija e tente novamente.', 'warning')
+    return render(request, template, context)
