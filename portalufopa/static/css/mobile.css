@@ -1,0 +1,154 @@
+
+@media (max-width: 767px) { 
+#topo{
+  background: #00656D url('../img/topo3.jpg')no-repeat center center; 
+}
+#topo .col-sm-2 {
+  padding: 0;
+}
+#logo {
+  margin: 2em auto;
+  width: auto;
+}
+.navbar-brand{
+  clear: left;
+  color:#fff;
+  font-weight: 600;
+}
+#redes-sociais a {
+    margin: 0;
+}
+#topo-titulo {
+   margin: 11% 0 0;
+}
+#topo-titulo i {
+    margin: 3em 0 0;
+}
+#menu li a {
+  font-size: 1.4em; 
+  padding: 1.2em;
+}
+#menu .dropdown-menu {
+  background: #fff;
+  padding: 1px 0;
+}
+.dropdown-menu a{
+  padding-left: 2em!important; 
+}
+.dropdown-menu .dropdown-submenu ul {
+  padding: .2em !important; 
+} 
+#conteudo-paginas{
+  padding: 0;
+}
+#comum .titulo {
+    font-size: 1.8em;
+    padding: 1em 0.5em 0.5em;
+}
+.titulo i {
+    margin-top: 0em;
+}
+.comum-todos ul{
+    padding-left: 2.5em; 
+}
+#comum a {
+    font-size: 1.45em;
+}
+#comum .mais {
+    margin-top: 1em;
+}
+.endereco {
+    padding: 0 1em;
+}
+.endereco p {
+    font-size: 1.2em;
+    letter-spacing: 1px;
+}
+
+}
+@media (max-width: 576px) {
+#topo-titulo h1{
+    font-size: 2em;
+}
+#topo-titulo h3{
+    font-size: 1em; 
+}
+#topo-titulo {
+    margin: 15% 0 0;
+}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+#acessibilidade .container{
+    padding:0;
+    width:100%;
+}
+#acessibilidade .col-sm-5{
+    width:37%;
+    padding: 0 0 0 .8em;
+}
+#acessibilidade .col-sm-7{
+    width:60%;
+    padding: 0 0 0 1em;
+}
+#acessibilidade .nav.nav-pills a {
+    padding:1em .5em;
+}
+#logo{
+    margin: 3.4em 0;
+}
+#topo-titulo h1 {
+    font-size: 1.9em;
+    margin: 2.5em 0 -1em 0.1em;
+}
+#topo-titulo h1 {
+    /*font-size: 4.5em;*/
+}
+#topo-titulo {
+ margin:0 0 -1em -3.5em;
+}
+#redes-sociais {
+    font-size: 1em;
+    margin-left: 0em;
+    margin-top: 1em;
+    width: 20%;
+    left: 3.5em;
+}
+#comum .titulo {
+    padding: 0 0.2em 0.3em 0.5em;
+}
+
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    #acessibilidade .container{
+    padding:0;
+    width:100%;
+}
+}
+@media  (max-width: 1199px) {
+#topo{
+    background-size:100% 100%;
+}
+} 
+#faixa{
+    height: 4px;
+    width: 100%;
+    background:#184139;
+}
+#destaque, #noticias, #agenda, #rodape, #links, #banners{
+    margin: 30px 0 0;
+}
+.text-private{
+    color:red !important;
+}
+.text-para-publicacao{
+    color:orange !important;
+}
+.callout {
+    border-left: 5px solid #eee;
+    border-radius: 3px;
+    padding: 0px;
+    margin-bottom: 2px;
+}
+.callout.callout-info {
+    border-color: #0097bc;
+}

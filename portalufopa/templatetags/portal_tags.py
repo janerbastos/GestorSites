@@ -284,7 +284,7 @@ def has_workflow_color(workflow):
 
 @register.simple_tag(takes_context=True)
 def has_breadcrumbs(context):
-    _html = " <div class='linha-inicio'> <ol>"
+    _html = " <div class='linha-inicio hidden-xs'> <ol>"
     _site_url = get_site_url_id(context.request)
     _p = PortalCatalog.objects.filter(site__url=_site_url,)
     aux = '/'

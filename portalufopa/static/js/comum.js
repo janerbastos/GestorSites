@@ -1,45 +1,6 @@
-// $(".nano").nanoScroller();
-
-// // Busca
-// $("#topo").on('click', '.btn-search', function(event) {
-//           event.preventDefault();
-//           $("body").addClass('search-active');
-//         });
-
-// $(".search-popup-bg").on('click', function(event) {
-//           $("body").removeClass('search-active');
-//         });
-
-// // alto-contraste
-// $("body").on('click', '.ativa-contraste', function(event) {
-//           event.preventDefault();
-//           /* Act on the event */
-//           $('body').toggleClass('contraste');
-//       });
-
-//  // aumentando a fonte
-//  $(".inc-font").click(function () {
-//           var size = $("body").css('font-size');
-//           size = size.replace('px', '');
-//           size = parseInt(size) + 1.4;
-//           $("body").animate({'font-size' : size + 'px'});
-//       });
-
-//  //diminuindo a fonte
-// $(".dec-font").click(function () {
-//         var size = $("body").css('font-size');
-//         size = size.replace('px', '');
-//         size = parseInt(size) - 1.4;
-//         $("body").animate({'font-size' : size + 'px'});
-//       });
-
-// // resetando a fonte
-// $(".res-font").click(function () {
-//         $("body").animate({'font-size' : '10px'});
-//       });
 
 $(document).ready(function () {
-  // menu hover
+// menu hover
 
   if(screen.width > 767){  
     $('ul.nav li.dropdown').hover(function() {
@@ -54,14 +15,14 @@ $(document).ready(function () {
     if(alturaPaginas > alturaLateral){  
       $('#lateral').affix({
         offset: {     
-          top: 400,
+          top: 450,
           bottom:  $('.rodape').outerHeight(true)
         }
       });
     }
   }
 
-  // fim meunu hover
+// fim meunu hover
   
 // alto-contraste
   $("body").on('click', '.ativa-contraste', function(event) {
@@ -70,7 +31,7 @@ $(document).ready(function () {
   $('body').toggleClass('contraste');
   });
   
-  // aumentando a fonte
+// aumentando a fonte
   $(".inc-font").click(function () {
     var size = $("body").css('font-size');
     size = size.replace('px', '');
@@ -78,7 +39,7 @@ $(document).ready(function () {
     $("body").animate({'font-size' : size + 'px'});
   });
 
-  //diminuindo a fonte
+//diminuindo a fonte
   $(".dec-font").click(function () {
     var size = $("body").css('font-size');
     size = size.replace('px', '');
@@ -86,7 +47,7 @@ $(document).ready(function () {
     $("body").animate({'font-size' : size + 'px'});
   });
 
-  // resetando a fonte
+// resetando a fonte
   $(".res-font").click(function () {
     $("body").animate({'font-size' : '14px'});
   });
@@ -94,7 +55,7 @@ $(document).ready(function () {
   $(".nano").nanoScroller();
   $(".nanoAgenda").nanoScroller();
   
-
+//Mneu fixo topo
   $(document).ready(function() {
       var navpos = $('#menu').offset();
       console.log(navpos.top);
@@ -120,7 +81,7 @@ $(document).ready(function () {
   });
 
 
-    // busca
+  // busca
     $("#topo").on('click', '.btn-search', function(event) {
       event.preventDefault();
       $("body").addClass('search-active');
@@ -129,8 +90,8 @@ $(document).ready(function () {
       $("body").removeClass('search-active');
     });
 
-              // redes sociais
-              // facebook
+  // redes sociais
+  // facebook
               (function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
           if (d.getElementById(id)) return;
