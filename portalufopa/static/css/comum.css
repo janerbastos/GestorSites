@@ -863,7 +863,72 @@ color:#3379B7;
 
 /* Fim index Ufopa
 */
-
+/*
+ index-padrao
+ */
+ .destaque-padrao, .noticias-destaque-padrao{
+  margin-top: 30px;
+ }
+.titulo-padrao{
+  margin-bottom: 10px;
+}
+.titulo-padrao .titulo{
+    width: auto;
+}
+.titulo-padrao .mais{
+  margin-top: -30px;
+}
+.noticias-padrao{
+  margin-right: -15px;
+}
+.noticia-padrao{
+    min-height: 250px;
+    padding: 0 15px 0 0;
+    margin-bottom: 10px;
+}
+.noticias-padrao a h3{
+  color: #474747;
+  font-size: 20px;
+  font-weight: 400;
+}
+.saude {
+  background: #53656B;
+  width: 49%;
+  margin-right: 15px;
+  min-height: 383px;
+}
+.desempenho {
+  background: #758387;
+  width: 49%;
+  min-height: 383px;
+}
+.saude h3, .desempenho h3{
+  font-size: 20px;
+  color: #fff;
+  font-weight: bold;
+}
+.saude ul, .desempenho ul {
+  list-style-image: url("../img/bullet.png");
+}
+.saude ul li, .desempenho ul li {
+  padding: 1em;
+}
+.saude a, .desempenho a {
+  color: #fff;
+  font-size: 1.8em;
+}
+.btn-links{
+  margin-top:30px;
+  padding-left: 0px;
+}
+.btn-links li {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+ /*
+ fim index-padrao
+ */
 /* 
 início barra lateral comum*/
 

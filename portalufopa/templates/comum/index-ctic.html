@@ -1,0 +1,403 @@
+{% extends 'base.html' %}
+
+{% load portal_tags staticfiles %}
+
+{% block container %}
+<!--  -->
+<div class="row" id="conteudo-ctic">
+      {% has_list_object_sessao 'coordenacoes' as coordenacoes %}
+      <div class=" hidden-xs">
+        <div class="row">
+          <div class="col-sm-12">
+            <img src="{% static 'img/servidores-ctic.png' %}" class="img-responsive">
+          </div>
+        </div>
+      </div>
+      <div class="coordenacoes row">
+            {% if coordenacoes %}
+              {% for obj in coordenacoes %}
+                {% has_content_by_portal_catalog obj as link %}
+                <div class="col-sm-3 box coor_{{link.titulo}}">
+                  <a class="" href="{{link.link}}" role="button" target="{{link.target}}">
+                    <div class="box-header">
+                      <h2>{{link.titulo}}</h2>
+                    </div>
+                    <div class="box-container hidden-xs">
+                      <p>{{link.descricao}}</p>
+                    </div>
+                    <div class="box-footer">
+                      <a href="#" class="btn btn-saiba btn-lg hidden-xs">SAIBA MAIS</a>
+                    </div> 
+                  </a>
+                </div>
+              {% endfor %}
+            {% else %}
+              <a href="#_" role="button" target="">Nenhum link informado</a>
+            {% endif %}
+      </div>
+<!--  -->
+<div class="row">
+      {% has_list_object_sessao 'pagina-de-destaque' as paginas_destaques %}
+      <div class="ctic-informes-index" >
+        <div class="row">
+          <div class="col-sm-4 hidden-xs"></div>
+          <div class="col-sm-4 tablet">
+            <div class="col-sm-3"style="padding-right: 0px; padding-left: 0px;"> <hr/></div>
+            <div class="col-sm-6"style="padding-right: 0px; padding-left: 0px;">
+              <h2 class="titulo-ctic">INFORMES</h2>
+            </div>
+            <div class="col-sm-3"style="padding-right: 0px; padding-left: 0px;"> <hr/></div>     
+          </div>
+          <div class="col-sm-4">
+            <div class="pull-right mais-ctic">
+              <a href="#">mais informes</a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          {% if paginas_destaques %}
+           {% for p in paginas_destaques %}
+            <div class="col-sm-3 informes-ctic">
+                {% with noticia=p.get_content_object %}
+                <a href="{{portal_catalog.path_url}}" class=" ">
+                  {% if noticia.imagem %}
+                  <img src="{{noticia.imagem.url}}" alt="Foto:" width="262.5" height="174.1">
+                  {% else %}
+
+                  {% endif %}
+                </a>
+                <span class="data">{{p.data}}</span>
+                <a href=""><h3>{{p.titulo}} {{ p.tag}}</h3><p>{{p.descricao}}</p></a>
+                {% endwith %}
+            </div>
+           {% endfor %}
+          {% else %}
+          <h2>Conteúdo de destaque não informado</h2>
+          {% endif %}
+        </div>  
+      </div>
+      <!--  -->
+      {% has_list_object_sessao 'link-padrao' as link_padrao %}
+        <!-- Sessão com conteúdo de imagens com links -->
+        <div class="row">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-4 tablet">
+            <div class="col-sm-3" style="padding-right: 0px; padding-left: 0px;"> <hr/></div>
+            <div class="col-sm-6" style="padding-right: 0px; padding-left: 0px;">
+              <h2 class="titulo-ctic">SISTEMAS</h2>
+            </div>
+            <div class="col-sm-3" style="padding-right: 0px; padding-left: 0px;"> <hr/></div>          
+          </div>
+          <div class="col-sm-4"></div>
+        </div>
+        <div class="row">
+          {% if link_padrao %}
+          <div class="links-botoes">
+              {% for obj in link_padrao %}
+                  {% has_content_by_portal_catalog obj as banner %}
+                  <div class="col-sm-3">
+                    <a href="{{banner.link}}" target={{banner.target}}><img src="{{banner.imagem.url}}" class="img-responsive" title="banner.titulo" alt="banner.descricao"/></a>
+                  </div>
+              {% endfor %}
+          </div>
+          {% else %}
+             <p>Nenhum banner cadastrado </p>
+          {% endif %}
+        </div>
+</div>
+        <!-- end conteúdo de imagens com links -->
+  <!--  -->
+
+<!--*************************************** serviços ********************** -->
+
+    <section id="servicos">
+      <div class="">      
+        <div class="row">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-4 tablet">
+            <div class="col-sm-3" style="padding-right: 0px; padding-left: 0px;"> <hr/></div>
+            <div class="col-sm-6" style="padding-right: 0px; padding-left: 0px;">
+              <h2 class="titulo-ctic">SERVIÇOS</h2>
+            </div>
+            <div class="col-sm-3" style="padding-right: 0px; padding-left: 0px;"> <hr/></div>          
+          </div>
+          <div class="col-sm-4"></div>
+        </div> 
+        <div class="panel-group container" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default panel-usuarios">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a class="collapsed titulos-servicos" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapseOne">
+                  Apoio a Usuários <span class="caret">
+                </a>
+              </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+              <div class="panel-body">
+                <ul>
+                  <li><a data-toggle="modal" data-target="#myModal" rel="leanModal">Treinamento em Serviços de TI</a></li>    
+                  <li><a rel="leanModal" name="solicitação" href="#solicitação">Solicitação de Perfil aos Sistemas SIG</a></li>
+                  <li><a rel="leanModal" name="suporte" href="#suporte">Suporte a Correção de Erros nos Sistemas</a></li>
+                  <li><a rel="leanModal" name="cadastro" href="#cadastro">Cadastro de Nova Unidade Organizacional</a></li>
+                  <li><a rel="leanModal" name="processo" href="#processo">Processo Seletivo Regular</a></li>
+                  <li><a rel="leanModal" name="processamento" href="#processamento">Processamento de Matricula</a></li>
+                  <li><a rel="leanModal" name="avaliação" href="#avaliação">Avaliação Técnica de Equipamentos</a></li>
+                  <li><a rel="leanModal" name="limpeza" href="#limpeza">Limpeza de Vírus em Computador</a></li>
+                  <li><a rel="leanModal" name="troca" href="#troca">Troca de Suprimentos de Impressora</a></li>
+                  <li><a rel="leanModal" name="licitação" href="#licitação">Licitação de Bens de TI</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default panel-redes">
+            <div class="panel-heading" role="tab" id="headingTwo">
+              <h4 class="panel-title">
+                <a class="collapsed titulos-servicos" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapseTwo">
+                  Redes <span class="caret">
+                </a>
+              </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+              <div class="panel-body">
+                <ul>
+                  <li><a rel="leanModal" name="treinamento" href="#treinamento">Cadastro de Computador na Rede da UFOPA</a></li>
+                  <li><a rel="leanModal" name="Visitantes" href="#Visitantes">Cadastro de Usuários Visitantes da Rede sem Fio</a></li>
+                  <!-- <li><a rel="leanModal" name="regras" href="#regras">Aplicação de regras de acesso</a></li>
+                  <li><a rel="leanModal" name="e-mails" href="#e-mails">Criação de e-mails institucionais setoriais</a></li>
+                  <li><a rel="leanModal" name="rede" href="#rede">Instalação de Ponto de Rede</a></li> -->
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default panel-sistemas">
+            <div class="panel-heading" role="tab" id="headingThree">
+              <h4 class="panel-title">
+                <a class="collapsed titulos-servicos" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapseThree">
+                  Sistemas <span class="caret">
+                </a>
+              </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+              <div class="panel-body">
+                <ul>
+                  <li><a rel="leanModal" name="desenvolvimento" href="#desenvolvimento">Desenvolvimento de Sistemas</a></li>
+                  <li><a rel="leanModal" name="site" href="#site">Desenvolvimento de Site</a></li>
+                 <!--  <li><a rel="leanModal" name="implantação" href="#implantação">Implantação de Módulos SIG</a></li>     --> 
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default panel-telefonia">
+            <div class="panel-heading" role="tab" id="headingThree"  data-target="">
+              <h4 class="panel-title">
+                <a class="collapsed titulos-servicos" role="button"  data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapseThree">
+                  Telefonia <span class="caret">
+                </a>
+              </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+              <div class="panel-body">
+                <ul>
+                  <li><a rel="leanModal" name="ponto" href="#ponto">Instalação de Ponto de Rede Telefônica</a></li>
+                  <li><a rel="leanModal" name="restabelecimento" href="#restabelecimento">Restabelecimento do serviço de telefonia</a></li>   
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default panel-hardware">
+            <div class="panel-heading" role="tab" id="headingThree">
+              <h4 class="panel-title">
+                <a class="collapsed titulos-servicos" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapseThree">
+                 Hardware <span class="caret">
+                </a>
+              </h4>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+              <div class="panel-body">
+                <ul>
+                  <li><a rel="leanModal" name="desenvolvimento" href="#desenvolvimento">Desenvolvimento de Sistemas</a></li>
+                  <li><a rel="leanModal" name="site" href="#site">Desenvolvimento de Site</a></li>
+                  <!-- <li><a rel="leanModal" name="implantação" href="#implantação">Implantação de Módulos SIG</a></li>  -->    
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default panel-sftware">
+            <div class="panel-heading" role="tab" id="headingThree">
+              <h4 class="panel-title">
+                <a class="collapsed titulos-servicos" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false" aria-controls="collapseThree">
+                  Software <span class="caret">
+                </a>
+              </h4>
+            </div>
+            <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+              <div class="panel-body">
+                <ul>
+                  <li><a rel="leanModal" name="desenvolvimento" href="#desenvolvimento">Desenvolvimento de Sistemas</a></li>
+                  <li><a rel="leanModal" name="site" href="#site">Desenvolvimento de Site</a></li>
+                  <!-- <li><a rel="leanModal" name="implantação" href="#implantação">Implantação de Módulos SIG</a></li>   -->   
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default panel-seguranca">
+            <div class="panel-heading" role="tab" id="headingThree">
+              <h4 class="panel-title">
+                <a class="collapsed titulos-servicos" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapseThree">
+                  Segurança da Informação <span class="caret">
+                </a>
+              </h4>
+            </div>
+            <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+              <div class="panel-body">
+                <ul>
+                  <li><a rel="leanModal" name="desenvolvimento" href="#desenvolvimento">Desenvolvimento de Sistemas</a></li>
+                  <li><a rel="leanModal" name="site" href="#site">Desenvolvimento de Site</a></li>
+                  <!-- <li><a rel="leanModal" name="implantação" href="#implantação">Implantação de Módulos SIG</a></li>   -->   
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-content container">
+              <div class="modal-header" id="cab" role="document">
+                <div class="col-sm-5" id="titulo-dia"><h2>Treinamento em Serviços de TI</h2></div>
+                <div class="col-sm-4 col-sm-offset-3" id="sessao"><h5>Apoio a Usuários</h5></div>
+              </div>
+              <div class="modal-body">
+                <div id="corp-1">
+                  <div class="col-sm-5 col-sm-offset-1">
+                    <h4>DESCRIÇÃO</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vestibulum, velit at pharetra venenatis, libero ex convallis metus, eu porttitor magna metus sit amet orci. Donec pharetra purus eu ex tempor porttitor. Vivamus tempor, neque ac condimentum elementum, nibh libero sagittis nulla, vel vestibulum ligula neque et justo.</p>
+                  </div>
+                  <div class="col-sm-4 col-sm-offset-2 hidden-xs" id="icon-1">
+                    <!-- <img src="img/icon-1.png" alt="" class="img-responsive hidden-xs"> -->
+                  </div>
+                </div>
+                <div id="corp-2">
+                  <div class="col-sm-4  hidden-xs" id="icon-2">
+                    <!-- <img src="img/icon-3.png" alt="" class="img-responsive hidden-xs"> -->
+                  </div>
+                  <div class="col-sm-7 col-sm-offset-1">
+                    <h4>REQUISITOS</h4>
+                    <p>In magna lectus, dignissim sit amet felis et, sollicitudin dictum erat. Fusce euismod et metus sed lobortis. Nunc vestibulum vitae tortor non viverra. In tincidunt mi erat, et feugiat elit ornare sed. Quisque bibendum ante nunc, id viverra sapien faucibus ac.</p> 
+                  </div>   
+                </div>
+              </div>
+              <div class="modal-footer">  
+                <div class="col-sm-3 " id="icone-3">
+                  <div class="col-sm-2 hidden-xs"><i class="fa fa-users fa-3x" aria-hidden="true"></i></div>
+                  <div class="col-sm-10 ">
+                    <h4> QUEM PODE SOLICITAR?</h4>
+                    <p>In magna lectus, dignissim sit amet felis et.</p>
+                  </div>
+                </div>
+                <div class="col-sm-3 col-sm-offset-1" id="icone-como">
+                  <div class="col-sm-2 hidden-xs"><i class="fa fa-handshake-o fa-3x" aria-hidden="true"></i></div>
+                  <div class="col-sm-10 "> 
+                    <h4>COMO SOLICITAR?</h4>
+                    <p>GLPI</p>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-sm-offset-1" id="icone-4">
+                  <div class="col-sm-2 hidden-xs"><i class="fa fa-hourglass-half fa-3x" aria-hidden="true"></i></div>
+                  <div class="col-sm-10 "> 
+                    <h4>PRAZO DE ATENDIMENTO</h4>
+                    <p>15 dias úteis</p>
+                  </div>
+                </div>
+              </div>  
+            </div>                 
+          </div>
+      </div>
+    </section>
+
+<!-- ******************* fim serviços********************************  -->
+        <div class="row">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-4 tablet">
+            <div class="col-sm-2" style="padding-right: 0px; padding-left: 0px;"> <hr/></div>
+            <div class="col-sm-8" style="padding-right: 0px; padding-left: 0px;">
+              <h2 class="titulo-ctic">DOCUMENTOS</h2>
+            </div>
+            <div class="col-sm-2" style="padding-right: 0px; padding-left: 0px;"> <hr/></div>          
+          </div>
+          <div class="col-sm-4"></div>
+        </div>
+        <div class="row">
+          {% has_list_object_sessao 'documentos' as documentos %}
+          <div class="documentos">
+            {% if documentos %}
+              {% for obj in documentos %}
+                {% has_content_by_portal_catalog obj as link %}
+                <div class="col-sm-3 box">
+                  <a class="" href="{{link.link}}" role="button" target="{{link.target}}">
+                    <div class="box-header">
+                      <h3>{{link.titulo}}</h3>
+                    </div>
+                    <div class="box-container hidden-xs">
+                      <p>{{link.descricao}}</p>
+                    </div>
+                  </a>
+                </div>
+              {% endfor %}
+            {% else %}
+              <a href="#_" role="button" target="">Nenhum link informado</a>
+            {% endif %}
+          </div>
+
+
+  <!--  -->
+
+</div>
+
+
+  
+{% endblock container %}
+
+{% block footer %}
+	<div class="container">
+        <div class="row topo-rodape">
+          <div class="col-sm-6">
+            <a href="{{site.get_absolute_url}}" title="{{site.titulo}}">
+              <img id="logo-footer" src="{% if site.logo %} {{site.logo.url}} {% else %} {% static 'img/brasao.png' %} {% endif %}" class="img-responsive" title="{{site.titulo}}" alt="Link para {{site.titulo}}"/>
+            </a>
+          </div>
+          <div class="col-sm-6 text-right">
+            {% if site.facebook_link %}
+            <a target="_blank" href="{{ site.facebook_link }}" title="Facebook">
+               <i class="fa-2x fa fa-facebook-square hidden-xs" aria-hidden="true"></i>
+            </a>
+            {% endif %}
+            
+            {% if site.twitter_link %}
+            <a target="_blank" href="{{ site.twitter_link }}" title="Twitter">
+              <i class="fa-2x fa fa-twitter-square hidden-xs" aria-hidden="true"></i>
+            </a>
+            {% endif %}
+            
+            {% if site.youtube_link %}
+            <a target="_blank" href="{{ site.youtube_link }}" title="youtube">
+              <i class="fa-2x fa fa-youtube-square hidden-xs" aria-hidden="true"></i>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+  	    <div class="row conteudo-rodape">
+  	    
+        {% has_menu_footer %}
+
+  	    </div>
+  </div>
+    <div id="copy">
+      <div class="container">
+        <div class="row copy">
+          <p>{{site.titulo}}</p>
+          <p>{% if site.texto_rodape %} {{site.texto_rodape}} {% else %} Reitoria: Rua Vera Paz, s/n (Unidade Tapajós)  Bairro Salé  CEP 68035-110  Telefone (93) 2101-4911  E-Mail reitoria@ufopa.edu.br  Santarém, Pará, Brasil {% endif %}</p>
+          <p>© Todos os diretos reservados. Desenvolvido por <a href="" title="UFOPA/CTIC">UFOPA/CTIC</a></p>
+        </div>
+      </div>
+    </div>
+  {% endblock footer %}
