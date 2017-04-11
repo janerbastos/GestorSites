@@ -2,12 +2,12 @@
 
 from django.conf.urls import url
 
-from .views import index, login
+from .views import index, _login
 
 
 app_name = 'portais'
 urlpatterns = [
     url(r'^$', index, name='index'),
-    url(r'^login/$', login, name='login'),
+    url(r'^security/login/$', _login, name='login'),
     url(r'^(?P<url>\S+)/$', index, name='index'),
     ]
