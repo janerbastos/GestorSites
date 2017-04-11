@@ -23,6 +23,7 @@ from django.contrib import messages
 
 
 # Create your views here.
+@login_required(login_url='/security/login/')
 def __workflowObject(request):
     _site_url = get_site_url_id(request)
     
@@ -125,6 +126,7 @@ def __createObject(request):
     
     return redirect('portal:index')
 
+@login_required(login_url='/security/login/')
 def __updateObject(request):
     _site_url = get_site_url_id(request)
     catalogs = PortalCatalog.objects.filter(site__url=_site_url)
@@ -165,6 +167,7 @@ def __updateObject(request):
     except PortalCatalog.DoesNotExist:
         raise Http404('Página não encontrada.')
 
+@login_required(login_url='/security/login/')
 def __deleteObjec(request):
     _site_url = get_site_url_id(request)
     p = PortalCatalog.objects.filter(site__url=_site_url)
@@ -235,6 +238,7 @@ def __view(request):
     
     return render(request, template, context)
 
+@login_required(login_url='/security/login/')
 def __organizador_content(request):
     _site_url = get_site_url_id(request)
     object_post = request.body
@@ -250,6 +254,7 @@ def __organizador_content(request):
         
     return HttpResponse(json.dumps(response_data), content_type="application/json",)
 
+@login_required(login_url='/security/login/')
 def __image_browse_url(request):
     _url_site = get_site_url_id(request)
     _list_imagens = Imagem.objects.filter(site__url=_url_site)
@@ -258,7 +263,8 @@ def __image_browse_url(request):
         data={'url':img.imagem.url}
         data_json.append(data)
     return HttpResponse(json.dumps(data_json), content_type="application/text")
-       
+
+@login_required(login_url='/security/login/')       
 def __select_default_page(request):
     new_url = reescrever_url(request)
     _content_url = get_url_id_content(request)
@@ -289,6 +295,7 @@ def __select_default_page(request):
     #Faz a subetituição
     return redirect(new_url)
 
+@login_required(login_url='/security/login/')
 def __add_item_session(request):
     _site_url = get_site_url_id(request)
     request.session['action'] = 'sessions_manage'
@@ -339,6 +346,7 @@ def __search(request):
         }
     return render(request, template, context)
 
+@login_required(login_url='/security/login/')
 def __portlet(request):
     
     request.session['action'] = 'portlet'
@@ -465,6 +473,7 @@ def _login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
+        url_next = 'portais:login'
         if user:
             if user.is_active:
                 login(request, user)
@@ -474,7 +483,7 @@ def _login(request):
                     pass
                 return redirect(url_next)
             else:
-                messages.warning(request, 'Conta de usuário esta bloqueada para acessar ao sistema.', 'success')
+                messages.warning(request, 'Conta de usuário esta bloqueada para acessar ao sistema.', 'alert-success')
         else:
-            messages.warning(request, 'Usuário ou senha invalida! Corrija e tente novamente.', 'warning')
+            messages.warning(request, 'Usuário ou senha invalida! Corrija e tente novamente.', 'alert-warning')
     return render(request, template, context)
