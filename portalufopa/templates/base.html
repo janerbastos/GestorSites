@@ -76,7 +76,7 @@
              <li><a accesskey="+" href="#" class="inc-font">A+</a></li> 
              <li><a accesskey="5" class="ativa-contraste" href="#" id="is-normal-contrast">Alto contraste</a></li> 
              <li><a accesskey="6" href="#" id="link-navegacao">Mapa do site</a></li>
-             <li><a href="#" id="acessar">Acessar</a></li>
+             <li>{% if not user.is_authenticated %}{% has_login %}{% else %}{% has_login action='logout'%}{% endif %}</li>
            </ul>
          </div>
        </div>

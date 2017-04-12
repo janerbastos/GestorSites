@@ -18,7 +18,7 @@ from portalufopa.comum.contents import fraguiment_url
 from portalufopa.comum import portlets
 from portalufopa.models import Imagem
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 
@@ -487,3 +487,14 @@ def _login(request):
         else:
             messages.warning(request, 'Usuário ou senha invalida! Corrija e tente novamente.', 'alert-warning')
     return render(request, template, context)
+
+@login_required(login_url='/security/login/')
+def _logout(request):
+    messages.warning(request, 'Sessão encerrada com sucesso.', 'alert-success')
+    logout(request)
+    try:
+        _next = request.GET['next']
+        return redirect(_next)
+    except:
+        return redirect('/security/login')
+
