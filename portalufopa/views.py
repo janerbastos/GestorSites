@@ -382,7 +382,7 @@ def index(request, url=None):
         }
     _site_url = get_site_url_id(request)
     
-    template = '%s/index.html' % _site_url
+    template = '%s/index-%s.html' % ('comum', _site_url)
     
     _fragment_url = fraguiment_url(request)
     
