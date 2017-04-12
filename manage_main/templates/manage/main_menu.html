@@ -16,6 +16,7 @@
 				    <li {% if action == 'edit_redes_sociais' %}class='active'{% endif %}><a href="{% url 'manage_main:edit_site' site.url 'redes_sociais' %}">Redes Sociais</a></li>
 				    <li {% if action == 'edit_desenvolvedor' %}class='active'{% endif %}><a href="{% url 'manage_main:edit_site' site.url 'desenvolvedor' %}">Desenvolvedor</a></li>
 				    <li {% if action == 'edit_estatistica' %}class='active'{% endif %}><a href="{% url 'manage_main:edit_site' site.url 'estatistica' %}">Estatistica</a></li>
+				    <li {% if action == 'edit_arquivos_staticos' %}class='active'{% endif %}><a href="{% url 'manage_main:edit_site' site.url 'arquivos_staticos' %}">Arquivos estaticos</a></li>
 				  	<li role="separator" class="divider"></li>
 				  	<li {% if action == 'edit_sessao' %}class='active'{% endif %}><a href="{% url 'manage_main:new_edit_sessao_site' site.url %}">Sessões</a></li>
 				  	<li {% if action == 'edit_tag' %}class='active'{% endif %}><a href="{% url 'manage_main:new_edit_tag_site' site.url %}">Tags</a></li>

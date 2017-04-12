@@ -1,7 +1,34 @@
 {% extends 'manage/index.html' %}
-{% load bootstrap %}
+{% load bootstrap manage_admin_tags %}
 
 {% block container %}
+
+	{% if action == 'edit_arquivos_staticos' %}
+	
+		<h2>Arquivos estaticos</h2>
+	
+		{% has_test_file_exist site=site.url tipo='html' as file_index %}
+		{% has_test_file_exist site=site.url tipo='css' as custom_css %}
+		<p>{% if file_index %}
+			Esse site possui um arquivo index de customizado&nbsp;-&nbsp;<a href="#" data-toggle="modal" data-target="#run_modal_static_html" ><i class="fa fa-pencil" aria-hidden="true"></i></a>
+			<a href="?excluir=html" ><i class="fa fa-trash" aria-hidden="true"></i></a>
+		{% else %}
+			Configurar arquivo de pagina inicial para o site&nbsp;<a href="#" data-toggle="modal" data-target="#run_modal_static_html" ><i class="fa fa-pencil" aria-hidden="true"></i></a>
+		{% endif %}</p>
+		
+		<p>{% if custom_css %}
+			Esse site possui arquivo de estilo de customizado&nbsp;-&nbsp;<a href="#" data-toggle="modal" data-target="#run_modal_static_css" ><i class="fa fa-pencil" aria-hidden="true"></i></a>
+			<a href="?excluir=css" ><i class="fa fa-trash" aria-hidden="true"></i></a>
+		{% else %}
+			Configurar arquivo de estilo para o site&nbsp;<a href="#" data-toggle="modal" data-target="#run_modal_static_css" ><i class="fa fa-pencil" aria-hidden="true"></i></a>
+		{% endif %}</p>
+		
+		{% include 'manage/m_custom_file_index.html' %}
+		
+		{% include 'manage/m_custom_file_css.html' %}
+		
+	{% else %}
+
 	<form method="post" enctype="multipart/form-data" id="form">
 		{% csrf_token %}
 				
@@ -13,5 +40,6 @@
 		</div>
 	
 	</form>
+	{% endif %}
 
 {% endblock container %}

@@ -6,10 +6,11 @@ from django.utils.text import slugify
 
 from manage_main.forms import CreateSiteForm, EnderecoSiteForm, \
     RedesSociaisSiteForm, DesenvolcedorSiteForm, AnalyticSiteForm, SessaoForm, \
-    TagForm, UserForm, UserEditForm, GrupoForm
+    TagForm, UserForm, UserEditForm, GrupoForm, ArquivoEstaticoForm
 from portalufopa.models import Site, Sessao, Tag, ContentType
 from django.contrib.auth.models import User
 from manage_main.models import UserSite, Grupo, GrupoPapel
+from manage_main.manage_file import handle_uploaded_file, excluir_file
 
 
 # Create your views here.
@@ -76,34 +77,52 @@ def new_or_edit_site(request, url=None, opcao=None):
         form = DesenvolcedorSiteForm(request.POST or None, instance=_object_site)
     if opcao == 'estatistica':
         form = AnalyticSiteForm(request.POST or None, instance=_object_site)
+    if opcao == 'arquivos_staticos':
+        if 'excluir' in request.GET:
+            _excluir = request.GET['excluir']
+            if _excluir == 'html':
+                excluir_file('index-%s.html' % _object_site.url , 'html')
+                return redirect(request.path)
+            elif _excluir == 'css':
+                excluir_file('%s-costom.css' % _object_site.url , 'css')
+                return redirect(request.path) 
+        form = ArquivoEstaticoForm(request.POST or None, request.FILES or None)
         
     if form.is_valid():
-        model = form.save(commit=False)
-        
-        if not opcao:
-            if 'logo' in request.FILES:
-                model.logo = request.FILES['logo']
-                
-            if 'favicon' in request.FILES:
-                model.favicon = request.FILES['favicon']
-            
-            if 'banner_topo' in request.FILES:
-                model.banner_topo = request.FILES['banner_topo']
-        
-        model.save()
-        
-        #Adiciona por padrão todos os Tipos de contents para o site
-        if not opcao:
-            content_types = ContentType.objects.all().values_list('id', flat=True)
-            model.content_type_permissao.add(*content_types)
-            model.save()
-        
-        _url = model.url
-        
-        if action == 'new' : 
-            return redirect('/%s' % _url)
+
+        if opcao == 'arquivos_staticos':
+            site = _object_site.url
+            tipo = request.POST['tipo']
+            print tipo
+            handle_uploaded_file(request.FILES['custom_file'], site, tipo)
+            return redirect(request.path)
         else:
-            return redirect('manage_main:open_site', url=model.url)
+            model = form.save(commit=False)
+            
+            if not opcao:
+                if 'logo' in request.FILES:
+                    model.logo = request.FILES['logo']
+                    
+                if 'favicon' in request.FILES:
+                    model.favicon = request.FILES['favicon']
+                
+                if 'banner_topo' in request.FILES:
+                    model.banner_topo = request.FILES['banner_topo']
+            
+            model.save()
+            
+            #Adiciona por padrão todos os Tipos de contents para o site
+            if not opcao:
+                content_types = ContentType.objects.all().values_list('id', flat=True)
+                model.content_type_permissao.add(*content_types)
+                model.save()
+            
+            _url = model.url
+        
+            if action == 'new' : 
+                return redirect('/%s' % _url)
+            else:
+                return redirect('manage_main:open_site', url=model.url)
     
     context = {
         'form' : form,

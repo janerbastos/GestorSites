@@ -77,6 +77,9 @@ class AnalyticSiteForm(models.ModelForm):
             'analytic_cod' : 'Codigo JS do site de gestor de estatisticas',
             }
 
+class ArquivoEstaticoForm(forms.Form):
+    custom_file = forms.FileField(label="Arquivo customizado")
+
 class SessaoForm(models.ModelForm):
     
     class Meta:

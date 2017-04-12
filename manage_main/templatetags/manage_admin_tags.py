@@ -4,6 +4,7 @@ from django import template
 from django.contrib.auth.models import User
 from manage_main.models import Papel, GrupoPapel
 from portalufopa.models import ContentType
+from manage_main.manage_file import is_file_exist
 
 register = template.Library()
 
@@ -58,4 +59,16 @@ def has_list_permissoes_from_grupo_papel(context, **kwargs):
 def has_list_contents(context, **kwargs):
     _result = ContentType.objects.all()
     return _result
+
+@register.assignment_tag(takes_context=True)
+def has_test_file_exist(context, **kwargs):
+    site = kwargs['site']
+    tipo = kwargs['tipo']
+    if tipo == 'css':
+        _file = '%s-custom.css' % site
+    if tipo == 'html':
+        _file = 'index-%s.html' % site 
+    _file_exist = is_file_exist(_file, tipo)
+    
+    return _file_exist
     
