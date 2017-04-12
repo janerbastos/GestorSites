@@ -1,0 +1,22 @@
+{% load portal_tags bootstrap %}
+<div class="modal fade" tabindex="-1" role="dialog" id="run_modal_static_css">
+  <div class="modal-dialog" role="document">
+    <form method="POST" enctype="multipart/form-data" id="form"> {% csrf_token %}
+    <input type="hidden" value="css" name="tipo">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Arquivo estatico de estilo.</h4>
+      </div>
+      <div class="modal-body">
+        <p>Por favor, selecione arquivo de estilo customizado para este site</p>
+        {{ form|bootstrap }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </div><!-- /.modal-content -->
+    </form>
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
