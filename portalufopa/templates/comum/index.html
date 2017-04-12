@@ -49,7 +49,7 @@
                 {% with noticia=p.get_content_object %}
                 <a href="{{portal_catalog.path_url}}" class=" ">
                   {% if noticia.imagem %}
-                  <img src="{{noticia.imagem.url}}" alt="Foto:" width="265" height="115">
+                  <img src="{{noticia.imagem.url}}" alt="Foto:" width="265" height="125">
                   {% else %}
 
                   {% endif %}
@@ -65,73 +65,115 @@
         </div>  
       </div>
       <!--  -->
-
-      {% has_list_object_sessao 'padrao-destaque' as padrao_destaque %}
-
-      <div class="col-sm-6 saude">
+      <div class="listas-links">
+        {% has_list_object_sessao 'padrao-destaque' as padrao_destaque %}
+        <div class="col-sm-6 saude">
           <h3 class="">Saúde e Qualidade de Vida</h3>
-        <div>
-          {% if padrao_destaque %}
-            <ul class="">
-            {% for obj in padrao_destaque %}
-              {% has_content_by_portal_catalog obj as link %}
-                <li><a class="" href="{{link.link}}" role="button" target="{{link.target}}">{{link.titulo}}</a></li>
-            {% endfor %}
-            </ul>
-          {% else %}
-            <a href="#_" role="button" target="">Nenhum link informado</a>
-          {% endif %}
+          <div>
+            {% if padrao_destaque %}
+              <ul class="">
+              {% for obj in padrao_destaque %}
+                {% has_content_by_portal_catalog obj as link %}
+                  <li><a class="" href="{{link.link}}" role="button" target="{{link.target}}">{{link.titulo}}</a></li>
+              {% endfor %}
+              </ul>
+            {% else %}
+              <a href="#_" role="button" target="">Nenhum link informado</a>
+            {% endif %}
+          </div>
         </div>
-      </div>
-
-      {% has_list_object_sessao 'padrao-destaque-2' as padrao_destaque_2 %} 
-
-      <div class="col-sm-6 desempenho" >
+        {% has_list_object_sessao 'padrao-destaque-2' as padrao_destaque_2 %} 
+        <div class="col-sm-6 desempenho" >
           <h3 class="">Desenpenho e Desenvolvimento</h3>
-        <div>
-          {% if padrao_destaque_2 %}
-            <ul class="">
-            {% for obj in padrao_destaque_2 %}
-              {% has_content_by_portal_catalog obj as link %}
+          <div>
+            {% if padrao_destaque_2 %}
+              <ul class="">
+              {% for obj in padrao_destaque_2 %}
+                {% has_content_by_portal_catalog obj as link %}
                 <li><a class="" href="{{link.link}}" role="button" target="{{link.target}}">{{link.titulo}}</a></li>
-            {% endfor %}
-            </ul>
-          {% else %}
-            <a href="#_" role="button" target="">Nenhum link informado</a>
-          {% endif %}
+              {% endfor %}
+              </ul>
+            {% else %}
+              <a href="#_" role="button" target="">Nenhum link informado</a>
+            {% endif %}
+          </div>
         </div>
       </div>       
       <!--  -->
     </div>
 	  <!-- Sessão de coluna lateral -->
 
-    <div class="col-sm-3">       
-      {% if conteudos %}
-            <div class="portlet-sem-titulo {{i.layout}} list-group">
-              {% for p in conteudos %}
-                  {% if p.tipo == 'ATLink' %}
-                  {% with link=p.get_content_object %}
-                    <a class="link_{{ forloop.counter }} list-group-item" href="{{link.link}}" title="{{p.descricao}}" target="link.target">
-                    <h2>{{p.titulo}}</h2>
-                      <p class="hidden-xs hidden-sm ">{{p.descricao}}</p>
-                  </a>
-                  {% endwith %}
-                  {% else %}
-                      <a href="{{p.path_url}}" title="{{p.descricao}}">
-                    <h2 class="_{{ forloop.counter }}">{{p.titulo}}</h2>
-                      <p class="hidden-xs hidden-sm ">{{p.descricao}}</p>
-                  </a>
+    <div class="col-sm-3 lateral-padrao">  
+    {% has_list_object_sessao 'padrao-sem-titulo' as padrao_sem_titulo %} 
+        <div class="padrao_sem_titulo row">
+                {% if padrao_sem_titulo %}
+                  {% for obj in padrao_sem_titulo %}
+                    {% has_content_by_portal_catalog obj as link %}
+                    <div class="coor_{{link.titulo}}">
+                      <a class="" href="{{link.link}}" role="button" target="{{link.target}}">
+                          <h2>{{link.titulo}}</h2> 
+                          <p class=" hidden-xs">{{link.descricao}}</p>
+                      </a>
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  <a href="#_" role="button" target="">Nenhum link informado</a>
                 {% endif %}
-              {% endfor %}
-            </div>
-          {% else %}
-              <p> Nenhum item informado.</p>
-          {% endif %}
-    </div>
+          </div>     
+         <!--  -->
+         {% has_list_object_sessao 'padrao-com-titulo' as padrao_com_titulo %} 
+        <div class="padrao_com_titulo row">
+              <h2 class="titulo">Ferramentas de gestão</h2>
+                {% if padrao_com_titulo %}
+                  {% for obj in padrao_com_titulo %}
+                    {% has_content_by_portal_catalog obj as link %}
+                    <div class="coor_ coor_{{ forloop.counter }}">
+                      <a class="btn btn-lg btn-utilitarios" href="{{link.link}}" role="button" target="{{link.target}}">
+                          <h2 class="_{{ forloop.counter }}">{{link.titulo}}</h2> 
+                      </a>
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  <a href="#_" role="button" target="">Nenhum link informado</a>
+                {% endif %}
+          </div>
+          {% has_list_object_sessao 'padrao-com-titulo-2' as padrao_com_titulo_2 %} 
+        <div class="padrao_com_titulo_2 row">
+              <h2 class="titulo">Admissão de Pessoal</h2>
+                {% if padrao_com_titulo_2 %}
+                  {% for obj in padrao_com_titulo_2 %}
+                    {% has_content_by_portal_catalog obj as link %}
+                    <div class="coor_ coor_{{ forloop.counter }}">
+                      <a class="btn btn-lg btn-utilitarios" href="{{link.link}}" role="button" target="{{link.target}}">
+                          <h2 class="_{{ forloop.counter }}">{{link.titulo}}</h2> 
+                      </a>
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  <a href="#_" role="button" target="">Nenhum link informado</a>
+                {% endif %}
+          </div>
+          {% has_list_object_sessao 'padrao-com-titulo-3' as padrao_com_titulo_3 %} 
+        <div class="padrao_com_titulo_3 row">
+              <h2 class="titulo">Processos seletivos</h2>
+                {% if padrao_com_titulo_3 %}
+                  {% for obj in padrao_com_titulo_3 %}
+                    {% has_content_by_portal_catalog obj as link %}
+                    <div class="coor_ coor_{{ forloop.counter }}">
+                      <a class="btn btn-lg btn-utilitarios" href="{{link.link}}" role="button" target="{{link.target}}">
+                          <h2 class="_{{ forloop.counter }}">{{link.titulo}}</h2> 
+                      </a>
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  <a href="#_" role="button" target="">Nenhum link informado</a>
+                {% endif %}
+          </div> 
+      </div>
   </div>
   <!--  -->
   {% has_list_object_sessao 'link-padrao' as link_padrao %}
-        <!-- Sessão com conteúdo de imagens com links -->
+ 
         {% if link_padrao %}
         <div class="links-botoes">
             <ul class="btn-links text-center">
@@ -144,8 +186,6 @@
         {% else %}
            <p>Nenhum banner cadastrado </p>
         {% endif %}
-        <!-- end conteúdo de imagens com links -->
-   
   <!--  -->
   <!-- end conteudo de destaque -->
   

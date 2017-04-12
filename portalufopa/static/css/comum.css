@@ -866,14 +866,25 @@ color:#3379B7;
 /*
  index-padrao
  */
- .destaque-padrao, .noticias-destaque-padrao{
+ #carousel-example-generic, .noticias-destaque-padrao, .listas-links{
+  margin-right: 30px;
+ }
+ .lateral-padrao{
+  padding: 0;
+ }
+ .destaque-padrao{
+  padding: 0;
+ }
+ .destaque-padrao, .noticias-destaque-padrao, .listas-links {
   margin-top: 30px;
  }
 .titulo-padrao{
   margin-bottom: 10px;
+  margin-top: 22px;
 }
 .titulo-padrao .titulo{
     width: auto;
+    padding: 0;
 }
 .titulo-padrao .mais{
   margin-top: -30px;
@@ -882,7 +893,7 @@ color:#3379B7;
   margin-right: -15px;
 }
 .noticia-padrao{
-    min-height: 250px;
+    min-height: 260px;
     padding: 0 15px 0 0;
     margin-bottom: 10px;
 }
@@ -891,16 +902,17 @@ color:#3379B7;
   font-size: 20px;
   font-weight: 400;
 }
+.listas-links 
 .saude {
   background: #53656B;
   width: 49%;
   margin-right: 15px;
-  min-height: 383px;
+  min-height: 380px;
 }
 .desempenho {
   background: #758387;
   width: 49%;
-  min-height: 383px;
+  min-height: 380px;
 }
 .saude h3, .desempenho h3{
   font-size: 20px;
@@ -926,6 +938,53 @@ color:#3379B7;
   margin-right: 10px;
   margin-bottom: 10px;
 }
+/**/
+.padrao_sem_titulo,.padrao_com_titulo, .padrao_com_titulo_2, .padrao_com_titulo_3{
+  margin-top: 30px;
+}
+.coor_DGDP, .coor_DSQV {
+  background: #e8f2f4;
+}
+.coor_DSQV h2, .coor_DGDP h2 {
+  font-size: 1.7em;
+  font-weight: 700;
+  color: #467f7c;
+  padding:1em;
+  margin: 0;
+
+}
+.coor_DSQV h2{
+  margin-top: 5px; 
+}
+.coor_DGDP p, .coor_DSQV  p {
+  padding: 0 1em 1.1em;
+  font-size: 1.5em;
+  font-weight: 300;
+  margin-bottom: 0;
+  color: #54656b;
+}
+.padrao_com_titulo a:hover, .padrao_com_titulo_2 a:hover , .padrao_com_titulo_3 a:hover {
+  background: #A5C4C8;
+}
+.padrao_com_titulo a, .padrao_com_titulo_2 a, .padrao_com_titulo_3 a {
+  background: #BaD9DD;
+  border-radius: 0px !important;
+  width: 100%;
+  color: #4A4949;
+  margin-bottom: .2em;
+  font-size: 2em;
+  padding: 13px 0;
+  border: none;
+  text-align: center;
+}
+.padrao_com_titulo_3 a{
+  padding: 2em 0;
+}
+.coor_ h2 {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
  /*
  fim index-padrao
  */
