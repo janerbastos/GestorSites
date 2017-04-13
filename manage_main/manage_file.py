@@ -32,6 +32,7 @@ def excluir_file(_file, tipo):
        
     if tipo == 'css':
         _path = "%s/portalufopa/static/css/%s" % (unicode(settings.BASE_DIR), _file)
+        print _path
         _status = os.remove(_path)
     
     return _status

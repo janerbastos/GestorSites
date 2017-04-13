@@ -26,10 +26,7 @@
 	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
 	<link rel="stylesheet" href="{% static 'fonts/Roboto-Regular.ttf' %}" type="text">
 	{% has_test_file_exist site=site.url tipo='css' as custom_css %}
-	{% if custom_css %}
-		<link rel="stylesheet" href="/static/css/{{site.url}}-custom.css" type="text">
-	{% endif %}
-	
+	{% if custom_css %}<link rel="stylesheet" href="/static/css/{{site.url}}-custom.css" type="text">{% endif %}
 	{% block static_file_top %}{% endblock static_file_top %}
 	{% if site.banner_topo %}<style type="text/css">#topo{background: #00656D  url('{{site.banner_topo.url}}')no-repeat center center;}</style>{% endif %}
 </head>

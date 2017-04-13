@@ -84,7 +84,7 @@ def new_or_edit_site(request, url=None, opcao=None):
                 excluir_file('index-%s.html' % _object_site.url , 'html')
                 return redirect(request.path)
             elif _excluir == 'css':
-                excluir_file('%s-costom.css' % _object_site.url , 'css')
+                excluir_file('%s-custom.css' % _object_site.url , 'css')
                 return redirect(request.path) 
         form = ArquivoEstaticoForm(request.POST or None, request.FILES or None)
         
