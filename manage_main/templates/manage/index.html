@@ -11,6 +11,6 @@
 		<p>nenhum site cadastrado</p>
 	{% endif %}
 	
-	<p><a href="{% url 'manage_main:new_site' %}">Cadastra novo site</a></p>
+	<p><a href="{% url 'manage_main:new_site' %}">Cadastra novo site</a>&nbsp;-&nbsp;<a href="{% url 'security:logout' %}">Sair</a></p>
 
 {% endblock container %}
