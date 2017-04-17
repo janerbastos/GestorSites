@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 
 
 def __path_to__(request):
-    messages.warning(request, 'Usuário sem premissão para acessar essa pagina')
+    messages.warning(request, 'Usuário sem premissão para acessar essa pagina', 'alert-danger')
     url = ''
     try:
         url = '?next='+request.path
