@@ -1,6 +1,5 @@
 eclipse.preferences.version=1
 encoding//manage_main/__init__.py=utf-8
-encoding//manage_main/anotation.py=utf-8
 encoding//manage_main/forms.py=utf-8
 encoding//manage_main/models.py=utf-8
 encoding//manage_main/on_start.py=utf-8
@@ -24,3 +23,6 @@ encoding//portalufopa/models.py=utf-8
 encoding//portalufopa/templatetags/portal_tags.py=utf-8
 encoding//portalufopa/urls.py=utf-8
 encoding//portalufopa/views.py=utf-8
+encoding//security/anotation.py=utf-8
+encoding//security/urls.py=utf-8
+encoding//security/views.py=utf-8
