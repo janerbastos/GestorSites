@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'captcha',
     'manage_main',
-    'portalufopa'
+    'portalufopa',
+    'security',
 ]
 
 MIDDLEWARE = [

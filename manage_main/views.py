@@ -11,21 +11,25 @@ from portalufopa.models import Site, Sessao, Tag, ContentType
 from django.contrib.auth.models import User
 from manage_main.models import UserSite, Grupo, GrupoPapel
 from manage_main.manage_file import handle_uploaded_file, excluir_file
+from security.anotation import permission_root
 
 
 # Create your views here.
 TEMPLATE = 'manage/%s.html'
 
+@permission_root(login_url='/security/login/')
 def __excluir_sessao(request, url, sessao):
       
     sessao.delete()
     return redirect('manage_main:new_edit_sessao_site', url=url )
 
+@permission_root(login_url='/security/login/')
 def __excluir_tag(request, url, tag):
       
     tag.delete()
     return redirect('manage_main:new_edit_tag_site', url=url )
 
+@permission_root(login_url='/security/login/')
 def index(request):
     template = TEMPLATE % 'index'
     _list_site = Site.objects.all()
@@ -35,6 +39,7 @@ def index(request):
         }
     return render(request, template, context)
 
+@permission_root(login_url='/security/login/')
 def open_site(request, url):
     
     if 'action' in request.GET:
@@ -53,6 +58,7 @@ def open_site(request, url):
         }
     return render(request, template, context)
 
+@permission_root(login_url='/security/login/')
 def new_or_edit_site(request, url=None, opcao=None):
     
     try:
@@ -82,18 +88,15 @@ def new_or_edit_site(request, url=None, opcao=None):
             _excluir = request.GET['excluir']
             if _excluir == 'html':
                 excluir_file('index-%s.html' % _object_site.url , 'html')
-                return redirect(request.path)
             elif _excluir == 'css':
                 excluir_file('%s-custom.css' % _object_site.url , 'css')
-                return redirect(request.path) 
+            return redirect(request.path) 
         form = ArquivoEstaticoForm(request.POST or None, request.FILES or None)
         
     if form.is_valid():
-
         if opcao == 'arquivos_staticos':
             site = _object_site.url
             tipo = request.POST['tipo']
-            print tipo
             handle_uploaded_file(request.FILES['custom_file'], site, tipo)
             return redirect(request.path)
         else:
@@ -132,6 +135,7 @@ def new_or_edit_site(request, url=None, opcao=None):
     
     return render(request, template, context)
 
+@permission_root(login_url='/security/login/')
 def new_or_edit_sessao(request, url, sessao=None,):
     try:
         _object_site = Site.objects.get(url=url)
@@ -170,6 +174,7 @@ def new_or_edit_sessao(request, url, sessao=None,):
     
     return render(request, template, context)
 
+@permission_root(login_url='/security/login/')
 def new_or_edit_tag(request, url, tag=None):
     try:
         _object_site = Site.objects.get(url=url)
@@ -212,6 +217,7 @@ def new_or_edit_tag(request, url, tag=None):
     
     return render(request, template, context)
 
+@permission_root(login_url='/security/login/')
 def permissao_content(request, url):
     template = TEMPLATE % 'permissao_content'
     _object_site = Site.objects.get(url=url)
@@ -239,6 +245,7 @@ def permissao_content(request, url):
         }
     return render(request, template, context)
 
+@permission_root(login_url='/security/login/')
 def create_or_edit_user(request, url):
     template = TEMPLATE % 'create_or_edit_usuario_form'
     _user = None
@@ -300,6 +307,7 @@ def create_or_edit_user(request, url):
         }
     return render(request, template, context)
 
+@permission_root(login_url='/security/login/')
 def create_or_edit_permissao(request, url):
     _grupos = Grupo.objects.all()
     _grupo = None

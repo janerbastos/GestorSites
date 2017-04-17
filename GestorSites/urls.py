@@ -22,6 +22,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^manage_main/', include('manage_main.urls')),
+    url(r'^security/', include('security.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('portalufopa.urls'))
 ]

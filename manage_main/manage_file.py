@@ -6,7 +6,8 @@ def handle_uploaded_file(f, site, tipo):
         _path = "%s/portalufopa/templates/comum/index-%s.%s" % (unicode(settings.BASE_DIR), site, tipo)
     else:
         _path = "%s/portalufopa/static/css/%s-custom.%s" % (unicode(settings.BASE_DIR), site, tipo)
-        
+    
+    print _path
     with open(_path, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
@@ -32,7 +33,6 @@ def excluir_file(_file, tipo):
        
     if tipo == 'css':
         _path = "%s/portalufopa/static/css/%s" % (unicode(settings.BASE_DIR), _file)
-        print _path
         _status = os.remove(_path)
     
     return _status
