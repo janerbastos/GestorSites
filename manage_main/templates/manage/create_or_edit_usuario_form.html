@@ -12,8 +12,30 @@
 				<button type="button" id="_cancelar_" class="btn btn-danger" name="_cancelar_" onclick="clicked()"><i class="fa fa-fw fa-times"></i>&nbsp;Cancelar</button>
 			</div>
 		</form>
+	{% else %}
+	
+		{% if is_permissoes %}
+		<p><a href="?new=user"><i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp;Cadastrar novo usuário</a>
+		&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#_" data-toggle="modal" data-target="#vincula_permissao_usuario_"><i class="fa fa-exchange" aria-hidden="true"></i>&nbsp;Adicionar permissão</a>
+		&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{request.path}}" title="Retornar"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Retornar</a></p>
+		<table class="table">
+			<thead>
+				<tr><th>Grupo</th><th>&nbsp;</th></tr>
+			</thead>
+			<tbody>
+				{% if grupos %}
+				{% for grupo in grupos %}
+					<tr><td>{{ grupo.grupo_name}}</td><td><a href="?permissao={{user.username}}&excluir={{grupo.grupo_name}}" title="Remover Permissão"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td></tr>
+				{% endfor %}
+				{% else %}
+					<tr><td colspan="2" >Nenhuma permissão vinculada</td></tr>
+				{% endif %}
+			</tbody>
+		</table>
+		{% include 'manage/m_vincula_permissao_usuario.html' %}
 		{% else %}
-		<p><a href="?new=user"><i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp;Cadastrar novo usuário</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#_" data-toggle="modal" data-target="#vincula_usuario_"><i class="fa fa-exchange" aria-hidden="true"></i>&nbsp;Vincular usuário ao site</a></p>
+		<p><a href="?new=user"><i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp;Cadastrar novo usuário</a>
+		&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#_" data-toggle="modal" data-target="#vincula_usuario_"><i class="fa fa-exchange" aria-hidden="true"></i>&nbsp;Vincular usuário ao site</a></p>
 		<table class="table">
 			<thead>
 				<tr><th>Nome</th><th>Username</th><th>Email</th><th>Status</th><th>&nbsp;</th></tr>
@@ -25,7 +47,7 @@
 				<td>
 					<a href="?edit={{u.user.username}}" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 					{% if u.user.is_active %}&nbsp;
-						<a href="#_" title="Permissões"><i class="fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;
+						<a href="?permissao={{u.user.username}}" title="Permissões"><i class="fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;
 						<a href="?desvincular={{u.user.username}}" title="Desvincular usuário do site"><i class="fa fa-plug" aria-hidden="true"></i></a>&nbsp;
 						<a href="?bloquear={{u.user.username}}" title="Bloquear"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 					{% else %}
@@ -36,6 +58,7 @@
 			</tbody>
 		</table>
 		{% include 'manage/m_vincula_usuario.html' %}
+		{% endif %}
 	{% endif %}
 	
 {% endblock container %}

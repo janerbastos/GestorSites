@@ -251,6 +251,8 @@ def create_or_edit_user(request, url):
     _user = None
     form  = None
     _object_site = Site.objects.get(url=url)
+    grupos = None
+    is_permissoes = False
     
     action = False
     if 'edit' in request.GET:
@@ -287,8 +289,27 @@ def create_or_edit_user(request, url):
         user = UserSite.objects.filter(site=_object_site).get(user__username=username)
         user.delete()
         return redirect(request.path)
-        
     
+    if 'permissao' in request.GET:
+        username = request.GET['permissao']
+        _user = User.objects.get(username=username)
+        if request.POST:
+            permissao = UserSite.objects.filter(site=_object_site).get(user__username=username)
+            _list=request.POST.getlist('content_grupo')
+            for nome_grupo in _list:
+                grupo = Grupo.objects.get(grupo_name=nome_grupo)
+                permissao.grupo.add(grupo)
+                #permissao.save()
+            return redirect('%s?permissao=%s' % (request.path, username))
+        if 'excluir' in request.GET:
+            nome_grupo = request.GET['excluir']
+            grupo = Grupo.objects.get(grupo_name=nome_grupo)
+            permissoes = UserSite.objects.filter(site=_object_site).get(user__username=username)
+            permissoes.grupo.remove(grupo)
+            return redirect('%s?permissao=%s' % (request.path, username))
+        
+        grupos = UserSite.objects.filter(site=_object_site).get(user__username=username).grupo.all()
+        is_permissoes = True
     if action:
         if form.is_valid():
             model = form.save(commit=False)
@@ -304,6 +325,9 @@ def create_or_edit_user(request, url):
         'action' : 'users',
         'users' : _users,
         'operacao' : action,
+        'grupos' : grupos,
+        'is_permissoes' : is_permissoes,
+        'user' : _user,
         }
     return render(request, template, context)
 

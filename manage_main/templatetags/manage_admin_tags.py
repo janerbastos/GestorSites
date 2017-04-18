@@ -2,7 +2,7 @@
 
 from django import template
 from django.contrib.auth.models import User
-from manage_main.models import Papel, GrupoPapel
+from manage_main.models import Papel, GrupoPapel, Grupo
 from portalufopa.models import ContentType
 from manage_main.manage_file import is_file_exist
 
@@ -31,6 +31,15 @@ def has_list_papeis(context, **kwargs):
             pass
    
     return list_papeis
+@register.assignment_tag(takes_context=True)
+def has_list_grupos(context, **kwargs):
+    grupos = None
+    if 'permissoes' in kwargs:
+        permissoes = kwargs['permissoes'].values_list('grupo_name', flat=True)
+        grupos = Grupo.objects.exclude(grupo_name__in=permissoes)
+    else:
+        grupos = Grupo.objects.all()
+    return grupos
 
 @register.assignment_tag
 def has_list_permissoes(**kwargs):
