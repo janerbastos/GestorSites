@@ -1,0 +1,28 @@
+{% load manage_admin_tags %}
+
+<div class="modal fade" id="vincula_permissao_usuario_" tabindex="-1" data-keyboard="false" data-backdrop="static">
+	<div class="modal-dialog">
+		<form action="?permissao={{user.username}}" method="POST">
+			{% csrf_token %}
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Vincular permissão ao usuário.</h4>
+				</div>
+				{% has_list_grupos permissoes=grupos as list_grupos %}
+				<div class="modal-body">
+					<span>Selecione uma permissão a ser vinculado ao grupo.</span>
+					<ul style="list-style: none;">
+					{% for grupo in list_grupos %}
+						<li><input type="checkbox" class="cbx" value="{{grupo.grupo_name}}" name="content_grupo">&nbsp;<span>{{grupo.grupo_name}}</span></li>
+					{% endfor %}
+					</ul>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary" {% if not list_grupos %} disabled="disabled" {% endif %}>Vincular</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
