@@ -5,8 +5,9 @@ from django.template.defaultfilters import slugify
 from django.shortcuts import redirect, render
 from portalufopa.models import PortalCatalog, Portlet
 from portalufopa.comum.utils import CONTENT_BY_TYPE
+from security.anotation import permission_root
 
-
+@permission_root(login_url='/security/login/')
 def create(request):
     path_url = reescrever_url(request)
     content_url = get_url_id_content(request)
@@ -54,6 +55,7 @@ def create(request):
     
     return render(request, template, context)
 
+@permission_root(login_url='/security/login/')
 def edit(request):
     path_url = reescrever_url(request)
     tipo = request.GET['edit']
@@ -80,7 +82,8 @@ def edit(request):
         }
     
     return render(request, template, context)
-    
+
+@permission_root(login_url='/security/login/')    
 def delete(request):
     path_url = reescrever_url(request)
     portlet_url = request.GET['delete']
@@ -90,6 +93,7 @@ def delete(request):
     path_url += '@@manage-portlets'
     return redirect(path_url)
 
+@permission_root(login_url='/security/login/')
 def add_item_portlet(request):
     _site_url = get_site_url_id(request)
     portlet_url = request.GET['portlet']

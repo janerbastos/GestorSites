@@ -3,6 +3,7 @@
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
+from manage_main.models import GrupoPapel
 
 
 def __path_to__(request):
@@ -45,6 +46,31 @@ class permission_sistema(object):
                 sistema = request.session['sistema']
                 if sistema[str(user.id)] == self.sistema and user.is_authenticated():
                     return f(request, *args, **kwargs)
+                else:
+                    return redirect(self.login_url+__path_to__(request))
+            except:
+                return redirect(self.login_url+__path_to__(request))
+        return wrapped_f
+
+class permission_content(object):
+    def __init__(self, tipo, permissao, login_url='config'):
+        self.login_url = login_url
+        self.content = tipo
+        self.permissao = permissao
+        
+    def __call__(self, f):
+        def wrapped_f(request, *args, **kwargs):
+            flag = False
+            try:
+                permissoes = request.session['permissao']
+                for key, _contents in permissoes.items():
+                    if self.content in _contents:
+                        papeis = GrupoPapel.objects.get(grupo__grupo_name=key).papeis.all()
+                        papel = papeis.get(content_type__tipo=self.content, cod_name=self.permissao)
+                        flag = True
+                        break
+                if flag:
+                    return f(request, *args, **kwargs)                
                 else:
                     return redirect(self.login_url+__path_to__(request))
             except:

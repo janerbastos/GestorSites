@@ -8,9 +8,11 @@ from ..forms import EventoForm
 from ..models import Evento
 from ..comum.contents import reescrever_url, get_site_url,\
     save_in_portal_catalog, get_site_url_id, get_url_id_content, save_indice_url, format_visao_by_delete
+from security.anotation import permission_content
 
 TEMPLATE = '%s/documents.html' % 'comum'
 
+@permission_content(tipo='ATEvento', permissao='create', login_url='/security/login/')
 def create(request):
     path_url = reescrever_url(request)
     form = EventoForm(request.POST or None,)
@@ -35,6 +37,7 @@ def create(request):
     
     return render(request, TEMPLATE, context)
 
+@permission_content(tipo='ATEvento', permissao='update', login_url='/security/login/')
 def edit(request):
     _url = reescrever_url(request)
     _site_url = get_site_url_id(request)
@@ -55,6 +58,7 @@ def edit(request):
     
     return render(request, TEMPLATE, context)
 
+@permission_content(tipo='ATEvento', permissao='delete', login_url='/security/login/')
 def delete(request, portal_catalog):
     content_url = get_url_id_content(request)
     content = portal_catalog.get_content_object()
@@ -67,6 +71,7 @@ def delete(request, portal_catalog):
     format_visao_by_delete(_site_url, _new_url)
     return redirect(_new_url)
 
+@permission_content(tipo='ATEvento', permissao='workflow', login_url='/security/login/')
 def workflow(request, portal_catalog, _workflow):
     _site_url = get_site_url_id(request)
     _o = Evento.objects.filter(site__url=_site_url).get(url=portal_catalog.url)

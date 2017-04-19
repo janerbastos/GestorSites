@@ -8,10 +8,12 @@ from ..models import Noticia
 from ..comum.contents import reescrever_url, get_site_url_id,\
     save_in_portal_catalog, get_url_id_content, get_site_url, save_indice_url,\
     format_visao_by_delete
+from security.anotation import permission_content
 
 
 TEMPLATE = '%s/documents.html' % 'comum'
 
+@permission_content(tipo='ATNoticia', permissao='', login_url='/security/login/')
 def create(request):
     path_url = reescrever_url(request)
     site = get_site_url(request)
@@ -37,6 +39,7 @@ def create(request):
     
     return render(request, TEMPLATE, context)
 
+@permission_content(tipo='ATNoticia', permissao='update', login_url='/security/login/')
 def edit(request):
     _url = reescrever_url(request)
     _site_url = get_site_url_id(request)
@@ -58,6 +61,7 @@ def edit(request):
     
     return render(request, TEMPLATE, context)
 
+@permission_content(tipo='ATNoticia', permissao='delete', login_url='/security/login/')
 def delete(request, portal_catalog):
     content_url = get_url_id_content(request)
     content = portal_catalog.get_content_object()
@@ -70,6 +74,7 @@ def delete(request, portal_catalog):
     format_visao_by_delete(_site_url, _new_url)
     return redirect(_new_url)
 
+@permission_content(tipo='ATNoticia', permissao='workflow', login_url='/security/login/')
 def workflow(request, portal_catalog, _workflow):
     _site_url = get_site_url_id(request)
     _o = Noticia.objects.filter(site__url=_site_url).get(url=portal_catalog.url)

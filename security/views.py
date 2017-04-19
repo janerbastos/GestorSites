@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
+from manage_main.models import UserSite, GrupoPapel
 
 
 def _login(request):
@@ -18,13 +19,23 @@ def _login(request):
         if user:
             if user.is_active:
                 login(request, user)
+                contents = []
+                permissoes={}
                 try:
                     url_next = request.GET['next']
+                    permissao_contents = UserSite.objects.filter(site__url=url_next.strip('/').split('/')[0]).get(user=user)
+                    permissao_contents = permissao_contents.grupo.all()
+                    for g in permissao_contents:
+                        grupo_papeis = GrupoPapel.objects.get(grupo=g)
+                        contents = list(grupo_papeis.papeis.distinct().values_list('content_type__tipo', flat=True))
+                        permissoes[g.grupo_name] = contents
+                    request.session['permissao'] = permissoes
                 except:
-                    pass
+                    print 'deu erro'
+                    
                 return redirect(url_next)
             else:
-                messages.warning(request, 'Conta de usuário esta bloqueada para acessar ao sistema.', 'alert-success')
+                messages.warning(request, 'Conta de usuário esta bloqueada para acessar o sistema.', 'alert-warning')
         else:
             messages.warning(request, 'Usuário ou senha invalida! Corrija e tente novamente.', 'alert-warning')
     return render(request, template, context)

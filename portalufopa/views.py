@@ -375,6 +375,10 @@ def index(request, url=None):
         return redirect('manage_main:index')
     
     request.session['action'] = 'index'
+    
+    if request.user.is_authenticated():
+        pass
+    
     context={
         'object' : None,
         }
