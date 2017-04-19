@@ -52,9 +52,12 @@ def has_list_permissoes(**kwargs):
 def has_list_permissoes_from_grupo_papel(context, **kwargs):
     _results = None
     if 'papeis' in kwargs:
-        _list = kwargs['papeis']
-        _list = _list.values_list('content_type__id', flat=True).distinct()
-        _results = ContentType.objects.filter(id__in=_list)
+        try:
+            _list = kwargs['papeis']
+            _list = _list.values_list('content_type__id', flat=True).distinct()
+            _results = ContentType.objects.filter(id__in=_list)
+        except:
+            pass
     
     if 'permissoes' in kwargs:
         permissoes = kwargs['permissoes']
