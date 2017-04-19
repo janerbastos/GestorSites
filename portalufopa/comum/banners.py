@@ -12,7 +12,7 @@ from security.anotation import permission_content
 
 TEMPLATE = '%s/documents.html' % 'comum'
 
-@permission_content(tipo='ATBanner', permissao='', login_url='/security/login/')
+@permission_content(tipo='ATBanner', permissao='create', login_url='/security/login/')
 def create(request):
     path_url = reescrever_url(request)
     form = BannerForm(request.POST or None, request.FILES or None)

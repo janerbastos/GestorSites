@@ -13,7 +13,7 @@ from security.anotation import permission_content
 
 TEMPLATE = '%s/documents.html' % 'comum'
 
-@permission_content(tipo='ATNoticia', permissao='', login_url='/security/login/')
+@permission_content(tipo='ATNoticia', permissao='create', login_url='/security/login/')
 def create(request):
     path_url = reescrever_url(request)
     site = get_site_url(request)
