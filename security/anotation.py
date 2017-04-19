@@ -61,8 +61,8 @@ class permission_content(object):
     def __call__(self, f):
         def wrapped_f(request, *args, **kwargs):
             flag = False
-            user = User.objects.filter(is_superuser=True)
-            if user:
+            user = request.user
+            if user.is_superuser:
                 return f(request, *args, **kwargs) 
             try:
                 permissoes = request.session['permissao']
