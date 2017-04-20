@@ -318,8 +318,8 @@ def has_breadcrumbs(context):
 
 @register.simple_tag(takes_context=True)
 def has_list_sessions_site(context):
-    _site = context['site'] 
-    _list_sessions = Sessao.objects.filter(site=_site)
+    _site = get_site_url_id(context.request) 
+    _list_sessions = Sessao.objects.filter(site__url=_site)
     
     return _list_sessions
 
@@ -434,8 +434,10 @@ def has_permissao_by_site(context, **kwargs):
     
     if context.request.user.is_anonymous():
         return False
+    
     if context.request.user.is_superuser:
         return True
+
     permissoes = context.request.session['permissao']
     _site_url = get_site_url_id(context.request)
     if _site_url.upper()==permissoes['site'].upper():
@@ -452,6 +454,9 @@ def has_permissao_by_site(context, **kwargs):
 
 @register.simple_tag(takes_context=True)
 def has_content_group_by_site(context, **kwargs):
+    if context.request.user.is_superuser:
+        return True
+    
     permissoes = context.request.session['permissao']
     if len(permissoes) > 1:
         return True
