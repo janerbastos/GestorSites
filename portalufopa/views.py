@@ -18,6 +18,7 @@ from portalufopa.comum.contents import fraguiment_url
 from portalufopa.comum import portlets
 from portalufopa.models import Imagem
 from django.contrib.auth.decorators import login_required
+from security.anotation import permission_group
 
 
 # Create your views here.
@@ -294,6 +295,7 @@ def __select_default_page(request):
     return redirect(new_url)
 
 @login_required(login_url='/security/login/')
+@permission_group('Administradores', login_url='/security/login/')
 def __add_item_session(request):
     _site_url = get_site_url_id(request)
     request.session['action'] = 'sessions_manage'

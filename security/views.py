@@ -21,6 +21,7 @@ def _login(request):
                 login(request, user)
                 contents = []
                 permissoes={}
+                #Carra as permissões atribuidas para o site
                 try:
                     url_next = request.GET['next']
                     site_url = url_next.strip('/').split('/')[0]

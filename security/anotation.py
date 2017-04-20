@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from manage_main.models import GrupoPapel
-from portalufopa.comum.contents import get_site_url, get_site_url_id
+from portalufopa.comum.contents import get_site_url_id
 
 
 def __path_to__(request):
@@ -17,20 +17,27 @@ def __path_to__(request):
     return url
 
 class permission_group(object):
-    def __init__(self, grupo, sistema, login_url='config'):
+    def __init__(self, grupo, login_url='config'):
         self.login_url = login_url
         self.grupo = grupo
-        self.sistema = sistema
         
     def __call__(self, f):
         def wrapped_f(request, *args, **kwargs):
             user = request.user
+            if user.is_superuser:
+                return f(request, *args, **kwargs)
+            flag = False
             try:
-                permissao = request.session['permissao']
-                if self.grupo in permissao[str(user.id)] and user.is_authenticated():
-                    return f(request, *args, **kwargs)
-                else:
-                    return redirect(self.login_url+__path_to__(request))
+                permissoes = request.session['permissao']
+                site_url = get_site_url_id(request)
+                if permissoes['site'] == site_url:
+                    for key, _contents in permissoes.items():
+                        if key.upper() == self.grupo.upper():
+                            flag = True
+                            break
+                    if flag:
+                        return f(request, *args, **kwargs)
+                return redirect(self.login_url+__path_to__(request))
             except:
                 return redirect(self.login_url+__path_to__(request))
         return wrapped_f
@@ -71,6 +78,8 @@ class permission_content(object):
                 permissoes = request.session['permissao']
                 if permissoes['site']==site_url:
                     for key, _contents in permissoes.items():
+                        if key.upper() == 'ADMINISTRADORES':
+                            break
                         if self.content in _contents:
                             papeis = GrupoPapel.objects.get(grupo__grupo_name=key).papeis.all()
                             papel = papeis.get(content_type__tipo=self.content, cod_name=self.permissao)
