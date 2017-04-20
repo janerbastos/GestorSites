@@ -5,9 +5,9 @@
 	  
 	  {% has_portlets as portlets %}
 	  
+	  {% has_permissao_by_site permissao='Administradores' as permissao %}
 	  {% for i in portlets %}
 
-			{% has_permissao_by_site permissao='Administradores' as permissao %}
 	  		<!-- Padrão -->
 	  		{% if not i.layout %}
 			  	<h2 class="titulo">{{i.titulo}}</h2>
@@ -237,7 +237,7 @@
 	  
 	  {% if action != 'portlet' %}
 	  	{% if permissao %}
-	  	<div style="padding: 5px 5px 5px 10px; background-color: #ccc;"><a href="{% format_menu_portlets %}">Gerenciador de Portlets</a></div>
+	  	<div style="padding: 5px 5px 5px 10px; background-color: #ccc;"><a href="{% format_menu_portlets %}"> Gerenciador de Portlets</a></div>
 	  	{% endif %}
 	  {% endif %}
 	  

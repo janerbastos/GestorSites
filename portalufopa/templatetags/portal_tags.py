@@ -450,5 +450,10 @@ def has_permissao_by_site(context, **kwargs):
     
     return False
 
-
+@register.simple_tag(takes_context=True)
+def has_content_group_by_site(context, **kwargs):
+    permissoes = context.request.session['permissao']
+    if len(permissoes) > 1:
+        return True
     
+    return False

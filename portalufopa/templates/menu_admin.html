@@ -1,5 +1,8 @@
 {% load portal_tags %}
 
+{% has_content_group_by_site as is_grupo %}
+
+{% if is_grupo %}
 <nav class="navbar navbar-default" id="menu-admin">
   <div class="container">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -102,4 +105,5 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+{% endif %}
                            
