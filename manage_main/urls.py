@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^(?P<url>\w+)/groups/$', create_or_edit_permissao, name='create_edit_permissao'),
     ]
 
-#Metodo de atualização da base dados executado uma unica vez.
+#Metodo que atualiza a base dados executado na inicialização do sistema.
 def start():
     try:
         if ContentType.objects.count()==0:

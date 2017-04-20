@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from manage_main.models import GrupoPapel
+from portalufopa.comum.contents import get_site_url, get_site_url_id
 
 
 def __path_to__(request):
@@ -61,21 +62,23 @@ class permission_content(object):
     def __call__(self, f):
         def wrapped_f(request, *args, **kwargs):
             flag = False
+            
             user = request.user
             if user.is_superuser:
-                return f(request, *args, **kwargs) 
+                return f(request, *args, **kwargs)
             try:
+                site_url = get_site_url_id(request)
                 permissoes = request.session['permissao']
-                for key, _contents in permissoes.items():
-                    if self.content in _contents:
-                        papeis = GrupoPapel.objects.get(grupo__grupo_name=key).papeis.all()
-                        papel = papeis.get(content_type__tipo=self.content, cod_name=self.permissao)
-                        flag = True
-                        break
-                if flag:
-                    return f(request, *args, **kwargs)                
-                else:
-                    return redirect(self.login_url+__path_to__(request))
+                if permissoes['site']==site_url:
+                    for key, _contents in permissoes.items():
+                        if self.content in _contents:
+                            papeis = GrupoPapel.objects.get(grupo__grupo_name=key).papeis.all()
+                            papel = papeis.get(content_type__tipo=self.content, cod_name=self.permissao)
+                            flag = True
+                            break
+                    if flag:
+                        return f(request, *args, **kwargs)                
+                return redirect(self.login_url+__path_to__(request))
             except:
                 return redirect(self.login_url+__path_to__(request))
         return wrapped_f

@@ -23,7 +23,9 @@ def _login(request):
                 permissoes={}
                 try:
                     url_next = request.GET['next']
-                    permissao_contents = UserSite.objects.filter(site__url=url_next.strip('/').split('/')[0]).get(user=user)
+                    site_url = url_next.strip('/').split('/')[0]
+                    permissoes['site'] = site_url
+                    permissao_contents = UserSite.objects.filter(site__url=site_url).get(user=user)
                     permissao_contents = permissao_contents.grupo.all()
                     for g in permissao_contents:
                         grupo_papeis = GrupoPapel.objects.get(grupo=g)
@@ -31,7 +33,7 @@ def _login(request):
                         permissoes[g.grupo_name] = contents
                     request.session['permissao'] = permissoes
                 except:
-                    print 'deu erro'
+                    print 'Site não encontrado'
                     
                 return redirect(url_next)
             else:
