@@ -125,7 +125,12 @@
 	{% has_menu_horizontal %}
 {% endblock menu_horizontal %}
 
-{% if user.is_authenticated %}{% if action != 'create' and action != 'portlet' %}<br/>{% include 'menu_admin.html' %}{% endif %}{% endif %}
+{% if user.is_authenticated %}
+	{% has_permissao_by_site as permissao %}
+	{% if permissao %}
+	{% if action != 'create' and action != 'portlet' %}<br/>{% include 'menu_admin.html' %}{% endif %}
+	{% endif %}
+{% endif %}
 <!-- end menu principal horizontal -->
 
 <!-- Sessão de conteúdo Principal da pagina -->

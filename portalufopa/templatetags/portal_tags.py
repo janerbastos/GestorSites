@@ -428,3 +428,27 @@ def has_login(context, **kwargs):
         _result = format_html("<a href='/security/login/?next=%s'>Acessar</a>" % _url)
         
     return _result
+
+@register.simple_tag(takes_context=True)
+def has_permissao_by_site(context, **kwargs):
+    
+    if context.request.user.is_anonymous():
+        return False
+    if context.request.user.is_superuser:
+        return True
+    permissoes = context.request.session['permissao']
+    _site_url = get_site_url_id(context.request)
+    if _site_url.upper()==permissoes['site'].upper():
+        if 'permissao' in kwargs:
+            for key, _contents in permissoes.items():
+                if key.upper() == kwargs['permissao'].upper():
+                    return True
+                else:
+                    return False
+        else:
+            return True
+    
+    return False
+
+
+    

@@ -85,15 +85,18 @@
 		{% endif %}
 		
 		{% if action == 'sessions_manage' or action == 'index' %}
-			{% has_list_sessions_site as sessions %}
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Sessões: <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	          	{% for obj in sessions %}
-	          		<li><a href="{% format_menu_session obj.sessao %}">{{obj.titulo}}</a></li>
-	          	{% endfor%}
-	          </ul>
-	        </li>
+			{% has_permissao_by_site permissao='Administradores' as permissao %}
+			{% if permissao %}
+				{% has_list_sessions_site as sessions %}
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Sessões: <span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+		          	{% for obj in sessions %}
+		          		<li><a href="{% format_menu_session obj.sessao %}">{{obj.titulo}}</a></li>
+		          	{% endfor%}
+		          </ul>
+		        </li>
+		      	{% endif %}
 		{% endif %}
       </ul>
     </div><!-- /.navbar-collapse -->

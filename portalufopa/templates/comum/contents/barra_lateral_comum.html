@@ -7,13 +7,16 @@
 	  
 	  {% for i in portlets %}
 
+			{% has_permissao_by_site permissao='Administradores' as permissao %}
 	  		<!-- Padrão -->
 	  		{% if not i.layout %}
 			  	<h2 class="titulo">{{i.titulo}}</h2>
+				{% if permissao %}
 			  	<p class="pull-right">
 			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
 			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
 			  	</p>
+			  	{% endif %}
 				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
 				   	<div class="nano">
 						<ul class="nano-content">
@@ -43,11 +46,13 @@
 	     	
 	     	<!-- Sem Titulo -->
 	     	{% if i.layout == 'layout_01' %}
+	     		{% if permissao %}
 				<p class="pull-right">
 			  		<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
 			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
 			  	</p>
+			  	{% endif %}
 				{% with conteudos=i.conteudo.all %}
 					{% if conteudos %}
 						<div class="portlet-sem-titulo {{i.layout}} list-group">
@@ -95,11 +100,13 @@
 
 	     	{% if i.layout == 'layout_02' %}
 			  	<h2 class="titulo">{{i.titulo}}</h2>
+			  	{% if permissao %}
 			  	<p class="pull-right">
 			  		<a href="{% format_menu_portlets %}?portlet={{i.portlet}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 			  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
 			  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
 			  	</p>
+			  	{% endif %}
 				{% with conteudos=i.conteudo.all %}
 					{% if conteudos %}
 						<div class="portlet-destaque {{i.layout}} list-group">
@@ -150,10 +157,12 @@
 					  	<h2 class="titulo agenda-orgao">{{i.titulo}}</h2>
 					  	<h3 class="agenda-autoridade"></h3>
 					  	<span class="agenda-dia">{% data_atual '%d-%m-%Y' %}</span>
+					  	{% if permissao %}
 					  	<p class="pull-right">
 					  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
 					  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
 				  		</p>
+				  		{% endif %}
 					</div>
 				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
 				   	<div class="nano">
@@ -190,10 +199,12 @@
 					  	<h2 class="titulo agenda-orgao">{{i.titulo}}</h2>
 					  	<!-- <h3 class="agenda-autoridade"></h3>
 					  	<span class="agenda-dia">{% data_atual '%d-%m-%Y' %}</span> -->
+					  	{% if permissao %}
 					  	<p class="pull-right">
 					  		<a href="{% format_menu_portlets %}?edit={{i.portlet}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
 					  		<a href="{% format_menu_portlets %}?delete={{i.portlet}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
 				  		</p>
+				  		{% endif %}
 					<!-- </div> -->
 				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
 				   	<div class="nano">
@@ -225,7 +236,9 @@
 	  {% endfor %}
 	  
 	  {% if action != 'portlet' %}
+	  	{% if permissao %}
 	  	<div style="padding: 5px 5px 5px 10px; background-color: #ccc;"><a href="{% format_menu_portlets %}">Gerenciador de Portlets</a></div>
+	  	{% endif %}
 	  {% endif %}
 	  
 	</div> 
