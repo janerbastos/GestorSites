@@ -178,9 +178,11 @@ color:#3379B7;
   bottom: -45px;
 }
 .carousel-indicators li {
-  background-color: rgba(155,185,59, 0.8);
-  border: 1px solid #9BB93B;
+  background-color: rgba(83, 101, 107, 1);
+  border: 1px solid #53656B;
   border-radius: 10px;
+  margin: 0 5px;
+  display: inline-block;
 }
 .informes ul li{
     border-bottom: 1px dotted #ddd;
