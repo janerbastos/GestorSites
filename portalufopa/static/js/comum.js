@@ -41,20 +41,24 @@ $(document).ready(function () {
   });
 
   // menu hover
-
   if(screen.width > 767){  
     $('ul.nav li.dropdown').hover(function() {
       $(this).find('.dropdown-menu1').stop(true, true).delay(0).fadeIn(50);
         }, function() {
         $(this).find('.dropdown-menu1').stop(true, true).delay(0).fadeOut(50);
       });
-    // menu lateral fixo
-  $('#lateral').affix({
-    offset: {     
-      top: 605,
-      bottom:  $('#rodape').outerHeight(true)
+
+    // fix lateral comum
+    var alturaPaginas = document.getElementById('conteudo-paginas').clientHeight;
+    var alturaLateral = document.getElementById('lateral').clientHeight; 
+    if(alturaPaginas > alturaLateral){  
+      $('#lateral').affix({
+        offset: {     
+          top: 400,
+          bottom:  $('.rodape').outerHeight(true)
+        }
+      });
     }
-  });
   }
 
   // fim meunu hover
