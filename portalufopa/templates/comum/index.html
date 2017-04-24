@@ -14,12 +14,18 @@
     <!-- Sessão de banner rotativo destaque -->
     <div class="col-sm-9 destaque-padrao">
       <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+          </ol>
           <div class="carousel-inner" role="listbox">
           	{% if destaque_banner %}
           		{% for obj in destaque_banner %}
           			{% has_content_by_portal_catalog obj as banner %}
           			<div class="item {% if forloop.counter == 1 %}active{% endif %}">
+                <a href="{{ banner.link }}">
 	               	<img src="{{ banner.imagem.url }}" alt="{{ banner.descricao }}">
+                </a>
 	            	</div>
           		{% endfor %}
           	{% else %}
@@ -45,22 +51,22 @@
       <div class="row noticias-destaque-padrao" >
         <div class="titulo-barra titulo-padrao">
           <h2 class="titulo">NOTÍCIAS</h2>
-          <a class="mais pull-right" href="" title="mais noticias">mais notícias</a>
+          <a class="mais pull-right" href="comunica/noticias/" title="mais noticias">mais notícias</a>
         </div>
         <div class="row noticias-padrao">
           {% if paginas_destaques %}
            {% for p in paginas_destaques %}
             <div class="col-sm-4 noticia-padrao">
                 {% with noticia=p.get_content_object %}
-                <a href="{{portal_catalog.path_url}}" class=" ">
+                <a href="{{p.path_url}}" class=" ">
                   {% if noticia.imagem %}
                   <img src="{{noticia.imagem.url}}" alt="Foto:" width="265" height="125">
                   {% else %}
 
                   {% endif %}
                 </a>
-                <span class="data">{{p.data}}</span>
-                <a href=""><h3>{{p.titulo}} {{ p.tag}}</h3><p>{{p.descricao}}</p></a>
+                <span class="data">{{noticia.public_at}}</span>
+                <a href="{{p.path_url}}"><h3>{{p.titulo}} {{p.tag}}</h3><p>{{p.descricao}}</p></a>
                 {% endwith %}
             </div>
            {% endfor %}
