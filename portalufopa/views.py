@@ -230,12 +230,15 @@ def __view(request):
     except PortalCatalog.DoesNotExist:
         raise Http404('Pagina não encontrada.')
     
-    template = '%s/documents.html' % 'comum'
+    template = '%s/documents.html' % _site_url
     context = {
         'object' : _object,
         }
-    
-    return render(request, template, context)
+    try:
+        return render(request, template, context)
+    except:
+        template = '%s/documents.html' % 'comum'
+        return render(request, template, context)
 
 @login_required(login_url='/security/login/')
 def __organizador_content(request):
@@ -329,7 +332,8 @@ def __add_item_session(request):
     return render(request, template, context)
 
 def __search(request):
-    template = 'comum/search.html'
+    _site_url = get_site_url_id(request)
+    template = '%s/search.html' % _site_url
     _result = None
     request.session['action'] = 'search'
     if request.POST:
@@ -344,7 +348,11 @@ def __search(request):
     context = {
         'search' : _result
         }
-    return render(request, template, context)
+    try:
+        return render(request, template, context)
+    except:
+        template = 'comum/search.html'
+        return render(request, template, context)
 
 @login_required(login_url='/security/login/')
 def __portlet(request):
@@ -386,7 +394,7 @@ def index(request, url=None):
         }
     _site_url = get_site_url_id(request)
     
-    template = '%s/index-%s.html' % ('comum', _site_url)
+    template = '%s/index.html' % _site_url
     
     _fragment_url = fraguiment_url(request)
     
