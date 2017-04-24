@@ -205,14 +205,15 @@ color:#3379B7;
     color:#595959;
     text-decoration: none;
 }
-#conteudo .data{
+.data{
     color: #778D94;
     font-size: 12px;
     display: flex;
+    font-weight: 300;
 }
 .mais{
     color: #666;
-    font-size: 12px;
+    font-size: 11px;
     text-decoration: underline;
     display: inline-block;
     padding: 10px;
@@ -398,7 +399,7 @@ color:#3379B7;
   margin-right: -15px;
 }
 .noticia-padrao{
-    min-height: 260px;
+    min-height: 265px;
     padding: 0 15px 0 0;
     margin-bottom: 10px;
 }
@@ -406,6 +407,7 @@ color:#3379B7;
   color: #474747;
   font-size: 20px;
   font-weight: 400;
+  margin-top: 10px;
 }
 .listas-links 
 .saude {
