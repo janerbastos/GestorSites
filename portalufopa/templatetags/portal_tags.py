@@ -462,3 +462,19 @@ def has_content_group_by_site(context, **kwargs):
         return True
     
     return False
+
+@register.simple_tag()
+def has_bolhinas_banner_destaque(**kwargs):
+    total = kwargs['lista'].count()
+    _html = "<li data-target='#carousel-example-generic' data-slide-to='%s' %s></li>"
+    new_html = ""
+    if total > 0:
+        i = 0
+        while i < total:
+            if i == 0:
+                new_html += _html % (i, 'class="active"')
+            else:
+                new_html += _html % (i, '')
+            i += 1
+    return format_html(new_html)
+    

@@ -16,9 +16,7 @@
       <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
       	  {% if destaque_banner %}
           <ol class="carousel-indicators">
-          	{% for item in destaque_banner %}
-            <li data-target="#carousel-example-generic" data-slide-to="{{forloop.counter}}" {% if forloop.counter == 1 %}class="active"{% endif %}></li>
-            {% endfor %}
+          	{% has_bolhinas_banner_destaque lista=destaque_banner %}
           </ol>
           {% endif %}
           <div class="carousel-inner" role="listbox">
