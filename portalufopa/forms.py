@@ -5,7 +5,7 @@ from django.forms import models
 from .models import Arquivo, Evento, Agenda
 from .models import Site, Pagina, Noticia, Link, Imagem, Banner, \
     Pasta, Informe
-from portalufopa.models import Portlet, Tag
+from portalufopa.models import Portlet, Tag, Servico
 from django import forms
 
 
@@ -224,3 +224,19 @@ class PortletDestaqueForm(models.ModelForm):
             raise forms.ValidationError("Tipo de conteúdo é obrigatório.")
 
         return tipo
+
+class ServicoForm(models.ModelForm):
+        
+    class Meta:
+        model = Servico
+        fields = (
+            'titulo', 'descricao', 'requisito', 'quem_pode', 'prazo', 'tag'
+            )
+        labels = {
+            'titulo' : 'Título do Servico',
+            'descricao' : 'Sumário do serviço',
+            'requisito' : 'Requisitos',
+            'quem_pode' : 'Quem pode solicitar',
+            'como_solicitar' : 'Como solicitar',
+            'prazo' : 'Prazo de atendimento',
+            }

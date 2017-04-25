@@ -7,7 +7,7 @@ from django.utils.text import slugify
 OBJ_SERVICE = ('sessions_manage', 'createObject', 'folder_contents', 'content_status_modify',
                'select_default_page', 'organizer_content', 'image_browse_url', 'edit', '@@manage-portlets', 'delete')
 
-TYPE_NAME = ['pagina', 'noticia', 'link', 'imagem', 'banner', 'arquivo', 'agenda', 'evento', 'agenda', 'pasta', 'informe']
+TYPE_NAME = ['pagina', 'noticia', 'link', 'imagem', 'banner', 'arquivo', 'agenda', 'evento', 'agenda', 'pasta', 'informe', 'servico']
 
 WORKFLOW_ACTION = ['publicar', 'retirar', 'rejeitar', 'enviar_publicar']
 

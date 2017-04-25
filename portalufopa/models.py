@@ -252,5 +252,9 @@ class Agenda(Content):
     local = models.CharField(max_length=150)
     portlet = models.ManyToManyField('PortalCatalog', related_name='portlet_agenda')
 
-
-
+class Servico(Content):
+    requisito = models.TextField(default=None, null=True, blank=True)
+    quem_pode = models.CharField(max_length=150, null=True, blank=True)
+    como_solicitar = models.CharField(max_length=150, null=True, blank=True)
+    prazo = models.CharField(max_length=50, null=True, blank=True)
+    tag = models.CharField(max_length=50)

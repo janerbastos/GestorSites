@@ -33,7 +33,7 @@ def start():
         if ContentType.objects.count()==0:
             LISTA_CONTENTS = {'ATNoticia':'Noticia', 'ATPagina':'Pagina', 'ATPasta':'Pasta', 'ATArquivo':'Arquivo',
                           'ATEvento':'Evento', 'ATAgenda':'Agenda', 'ATImagem':'Imagem', 'ATBanner':'Banner',
-                          'ATInforme':'Informe', 'ATLink':'Link'}
+                          'ATInforme':'Informe', 'ATLink':'Link', 'ATServico':'Servico'}
             for key, value in LISTA_CONTENTS.iteritems():
                 content_type = ContentType(tipo=key, descricao=value)
                 content_type.save()

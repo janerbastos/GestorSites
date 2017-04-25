@@ -123,6 +123,11 @@ $( function() {
 				{% include 'comum/contents/barra_lateral_comum.html' %}
 			{% endif %}
 			
+			{% if object.tipo == 'ATServico' %}
+				{% include 'comum/contents/servicos.html' %}
+				{% include 'comum/contents/barra_lateral_comum.html' %}
+			{% endif %}
+			
 			
 		{% endif %}
 	

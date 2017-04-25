@@ -2,9 +2,10 @@
 
 from ..models import Pagina, Noticia, Imagem, Banner, Informe, Evento,\
     Agenda
+from portalufopa.models import Servico
 
 
-TYPE_NAME = ['pagina', 'noticia', 'link', 'imagem', 'banner', 'arquivo', 'agenda', 'evento', 'agenda', 'pasta', 'informe']
+TYPE_NAME = ['pagina', 'noticia', 'link', 'imagem', 'banner', 'arquivo', 'agenda', 'evento', 'agenda', 'pasta', 'informe', 'servico']
 
 ICONS = {
     'ATPasta' : '<i class=\"fa fa-folder-o\" aria-hidden=\"true\"></i>',
@@ -17,6 +18,7 @@ ICONS = {
     'ATEvento' : '<i class=\"fa fa-calendar-o\" aria-hidden=\"true\"></i>',
     'ATAgenda' : '<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>',
     'ATInforme' : '<i class=\"fa fa-tv\" aria-hidden=\"true\"></i>',
+    'ATServico' : '<i class=\"fa fa-fax\" aria-hidden=\"true\"></i>',
     }
 
 CONTENT_BY_TYPE = {
@@ -30,6 +32,7 @@ CONTENT_BY_TYPE = {
     'evento' : 'ATEvento',
     'agenda' : 'ATAgenda',
     'informe' : 'ATInforme',
+    'servico' : 'ATServico',
     }
 
 WORKFLOW_COLOR = {
@@ -49,6 +52,7 @@ MAIS_CONTENTS = {
     'evento' : 'mais eventos',
     'agenda' : 'mais agenda',
     'informe' : 'mais informes',
+    'servico' : 'mais servicos',
     }
 
 
@@ -77,6 +81,9 @@ def get_content_by_portal_catalog(_portal_catalog):
     if _portal_catalog.tipo == 'ATAgenda':
         _obj_select = Agenda.objects.filter(site=_portal_catalog.site).get(url=_portal_catalog.url)
     
+    if _portal_catalog.tipo == 'ATServico':
+        _obj_select = Servico.objects.filter(site=_portal_catalog.site).get(url=_portal_catalog.url)
+    
     return _obj_select
 
 def get_content_by_tipo(url_site, _id, tipo):
@@ -95,4 +102,6 @@ def get_content_by_tipo(url_site, _id, tipo):
         _object = Evento.objects.filter(site__url=url_site,).get(id=_id)
     if tipo== 'ATAgenda':
         _object = Agenda.objects.filter(site__url=url_site,).get(id=_id)
+    if tipo== 'ATServico':
+        _object = Servico.objects.filter(site__url=url_site,).get(id=_id)
     return _object

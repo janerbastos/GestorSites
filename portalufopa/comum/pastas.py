@@ -60,7 +60,6 @@ def workflow(request, portal_catalog, _workflow):
     _o = Pasta.objects.filter(site__url=_site_url).get(url=portal_catalog.url)
     _o.workflow = _workflow
     if _o.workflow == 'Publicado' and _o.public_at==None:
-        print _o.workflow
         _o.public_at = datetime.now()
     _o.save()
     save_in_portal_catalog(_o)

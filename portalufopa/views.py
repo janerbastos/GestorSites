@@ -15,7 +15,7 @@ from .models import PortalCatalog, Pasta, Sessao
 from .comum.contents import reescrever_url, get_url_id_content, get_site_url_id,\
     TYPE_NAME, WORKFLOW_ACTION, WORKFLOW
 from portalufopa.comum.contents import fraguiment_url
-from portalufopa.comum import portlets
+from portalufopa.comum import portlets, servicos
 from portalufopa.models import Imagem
 from django.contrib.auth.decorators import login_required
 from security.anotation import permission_group
@@ -62,6 +62,9 @@ def __workflowObject(request):
         
         if _p.tipo == 'ATInforme':
             informes.workflow(request, _p, WORKFLOW[_workflow])
+        
+        if _p.tipo == 'ATServico':
+            servicos.workflow(request, _p, WORKFLOW[_workflow])
             
     else:
         raise Http404('Operação não permitida.')
@@ -119,6 +122,9 @@ def __createObject(request):
         if type_name=='informe' and (_object.tipo in ['ATPasta', '']):
             return informes.create(request)
         
+        if type_name=='servico' and (_object.tipo in ['ATServico', '']):
+            return servicos.create(request)
+        
         raise Http404('Não é permitido esse tipo de operação.')
     else:
         raise Http404('Tipo de conteúdo não existe.')
@@ -163,6 +169,9 @@ def __updateObject(request):
         if _object.tipo == 'ATInforme':
             return informes.edit(request)
         
+        if _object.tipo == 'ATServico':
+            return servicos.edit(request)
+        
     except PortalCatalog.DoesNotExist:
         raise Http404('Página não encontrada.')
 
@@ -204,6 +213,9 @@ def __deleteObjec(request):
         
         if _object.tipo == 'ATInforme':
             return informes.delete(request, _object)
+        
+        if _object.tipo == 'ATServico':
+            return servicos.delete(request, _object)
         
     except PortalCatalog.DoesNotExist:
         raise Http404('Página não encontrada.')
