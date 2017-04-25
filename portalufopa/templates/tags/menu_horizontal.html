@@ -1,4 +1,8 @@
 {% load portal_tags %}
+
+{% if layout %}
+	{% include layout %}
+{% else %}
 <nav id="menu">
     <div class="navbar navbar-static-top" role="navigation">
       <div class="container navegacao">
@@ -71,3 +75,4 @@
       </div>
     </div>
 </nav>
+{% endif %}

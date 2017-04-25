@@ -221,7 +221,7 @@ def has_get_data(**kwargs):
         return "%s, %s de %s de %s" % (dia[data.weekday()], data.day, meses[data.month-1], data.year)
 
 @register.inclusion_tag('tags/menu_horizontal.html', takes_context=True)
-def has_menu_horizontal(context):
+def has_menu_horizontal(context, **kwargs):
     _site = context['site']
     _p = PortalCatalog.objects.filter(site__url=_site.url).order_by('ordenador')
     n_1 = _p.filter(path_url__startswith='/%s'%_site.url)
@@ -232,7 +232,11 @@ def has_menu_horizontal(context):
         if nivel == 2:
             menu.append(i)
             indice +=1
-    return {'menu':menu, 'site' : _site }
+    layout = None
+    if 'layout' in kwargs:
+        layout = "%s/%s" % (kwargs['layout'], 'menu_horizontal.html')
+        
+    return {'menu':menu, 'site' : _site, 'layout':layout }
 
 @register.simple_tag()
 def has_sub_menu(obj, posicao):
