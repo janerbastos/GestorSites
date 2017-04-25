@@ -37,7 +37,12 @@ def create(request):
         'editor' : True,
         }
     
-    return render(request, TEMPLATE, context)
+    _site_url = get_site_url_id(request)
+    template = '%s/documents.html' % _site_url
+    try:
+        return render(request, template, context)
+    except:
+        return render(request, TEMPLATE, context)
 
 @permission_content(tipo='ATInforme', permissao='update', login_url='/security/login/')
 def edit(request):
@@ -59,7 +64,11 @@ def edit(request):
         'editor' : True,
         }
     
-    return render(request, TEMPLATE, context)
+    template = '%s/documents.html' % _site_url
+    try:
+        return render(request, template, context)
+    except:
+        return render(request, TEMPLATE, context)
 
 @permission_content(tipo='ATInforme', permissao='delete', login_url='/security/login/')
 def delete(request, portal_catalog):

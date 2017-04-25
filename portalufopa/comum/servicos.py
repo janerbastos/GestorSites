@@ -34,7 +34,12 @@ def create(request):
         'form' : form,
         }
     
-    return render(request, TEMPLATE, context)
+    _site_url = get_site_url_id(request)
+    template = '%s/documents.html' % _site_url
+    try:
+        return render(request, template, context)
+    except:
+        return render(request, TEMPLATE, context)
 
 @permission_content(tipo='ATServico', permissao='update', login_url='/security/login/')
 def edit(request):
@@ -52,7 +57,12 @@ def edit(request):
     context = {
         'form' : form,
         }
-    return render(request, TEMPLATE, context)
+    
+    template = '%s/documents.html' % _site_url
+    try:
+        return render(request, template, context)
+    except:
+        return render(request, TEMPLATE, context)
 
 @permission_content(tipo='ATServico', permissao='delete', login_url='/security/login/')
 def delete(request, portal_catalog):

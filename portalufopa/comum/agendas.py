@@ -15,6 +15,8 @@ TEMPLATE = '%s/documents.html' % 'comum'
 
 @permission_content(tipo='ATAgenda', permissao='create', login_url='/security/login/')
 def create(request):
+    _site_url = get_site_url_id(request)
+    template = '%s/documents.html' % _site_url
     path_url = reescrever_url(request)
     form = AgendaForm(request.POST or None, request.FILES or None)
     site = get_site_url(request)
@@ -35,12 +37,15 @@ def create(request):
         'data_pick' : True,
         }
     
-    return render(request, TEMPLATE, context)
+    try:
+        return render(request, template, context)
+    except:
+        return render(request, TEMPLATE, context)
 
 @permission_content(tipo='ATAgenda', permissao='update', login_url='/security/login/')
 def edit(request):
-    _url = reescrever_url(request)
     _site_url = get_site_url_id(request)
+    _url = reescrever_url(request)
     _content_url = get_url_id_content(request)
     _object = Agenda.objects.filter(site__url=_site_url).get(url=_content_url)
     form = AgendaForm(request.POST or None, request.FILES or None, instance=_object)
@@ -54,8 +59,12 @@ def edit(request):
         'form' : form,
         'data_pick' : True,
         }
+    template = '%s/documents.html' % _site_url
     
-    return render(request, TEMPLATE, context)
+    try:
+        return render(request, template, context)
+    except:
+        return render(request, TEMPLATE, context)
 
 @permission_content(tipo='ATAgenda', permissao='delete', login_url='/security/login/')
 def delete(request, portal_catalog):
