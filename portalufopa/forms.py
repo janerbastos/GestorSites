@@ -230,7 +230,7 @@ class ServicoForm(models.ModelForm):
     class Meta:
         model = Servico
         fields = (
-            'titulo', 'descricao', 'requisito', 'quem_pode', 'prazo', 'tag'
+            'titulo', 'descricao', 'requisito', 'quem_pode', 'como_solicitar', 'prazo', 'tag'
             )
         labels = {
             'titulo' : 'Título do Servico',

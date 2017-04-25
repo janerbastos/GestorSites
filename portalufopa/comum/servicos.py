@@ -22,8 +22,8 @@ def create(request):
         model = form.save(commit=False)
         _url = save_indice_url(request, model.titulo)
         model.url = _url
-        model.tipo = 'ATServico'
         model.site = site
+        model.tipo = 'ATServico'
         model.dono = request.user
         model.save()
         path_url += _url + '/'

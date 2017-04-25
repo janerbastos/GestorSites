@@ -193,6 +193,8 @@ class PortalCatalog(Content):
             _object = Evento.objects.filter(site = self.site).get(id=self.content_id)
         if self.tipo == 'ATArquivo':
             _object = Arquivo.objects.filter(site = self.site).get(id=self.content_id)
+        if self.tipo == 'ATServico':
+            _object = Servico.objects.filter(site = self.site).get(id=self.content_id)
         return _object
 
 class Pagina(Content):
@@ -258,3 +260,4 @@ class Servico(Content):
     como_solicitar = models.CharField(max_length=150, null=True, blank=True)
     prazo = models.CharField(max_length=50, null=True, blank=True)
     tag = models.CharField(max_length=50)
+    portlet = models.ManyToManyField('Portlet', related_name='portlet_servico')
