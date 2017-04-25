@@ -15,8 +15,6 @@ TEMPLATE = '%s/documents.html' % 'comum'
 
 @permission_content(tipo='ATAgenda', permissao='create', login_url='/security/login/')
 def create(request):
-    _site_url = get_site_url_id(request)
-    template = '%s/documents.html' % _site_url
     path_url = reescrever_url(request)
     form = AgendaForm(request.POST or None, request.FILES or None)
     site = get_site_url(request)
@@ -37,6 +35,8 @@ def create(request):
         'data_pick' : True,
         }
     
+    _site_url = get_site_url_id(request)
+    template = '%s/documents.html' % _site_url
     try:
         return render(request, template, context)
     except:
