@@ -14,7 +14,8 @@ from ..comum.utils import CONTENT_BY_TYPE
 from ..models import Site, PortalCatalog, Sessao
 from portalufopa.comum.contents import get_site_url_id, reescrever_url,\
     fraguiment_url, get_site_url, get_url_id_content
-from portalufopa.models import Portlet, Agenda, Evento, Arquivo, Tag, Noticia
+from portalufopa.models import Portlet, Agenda, Evento, Arquivo, Tag, Noticia,\
+    Servico
 
 
 register = template.Library()
@@ -481,4 +482,17 @@ def has_bolhinas_banner_destaque(**kwargs):
                 new_html += _html % (i, '')
             i += 1
     return format_html(new_html)
+
+@register.simple_tag(takes_context=True)
+def has_service(context, **kwargs):
+    _result = None
+    _site_url = get_site_url_id(context.request)
+    if 'list' in kwargs:
+        _result = Servico.objects.filter(site__url=_site_url).values_list('tag', flat=True).distinct()
+        return _result
     
+    if 'tag' in kwargs:
+        _result = Servico.objects.filter(site__url=_site_url, tag=kwargs['tag'])
+        return _result
+    
+    return _result
