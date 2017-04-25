@@ -122,7 +122,7 @@ def __createObject(request):
         if type_name=='informe' and (_object.tipo in ['ATPasta', '']):
             return informes.create(request)
         
-        if type_name=='servico' and (_object.tipo in ['ATServico', '']):
+        if type_name=='servico' and (_object.tipo in ['ATPasta', '']):
             return servicos.create(request)
         
         raise Http404('Não é permitido esse tipo de operação.')
