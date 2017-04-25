@@ -223,11 +223,16 @@ def __deleteObjec(request):
 def __listObject(request):
     request.session['action'] = 'list'
     _url = reescrever_url(request)
-    template = '%s/documents.html' % 'comum'
+    _site_url = get_site_url_id(request)
+    template = '%s/documents.html' % _site_url
     context = {
         'url' : _url
         }
-    return render(request, template, context)
+    try:
+        return render(request, template, context)
+    except:
+        template = '%s/documents.html' % 'comum'
+        return render(request, template, context)
         
 def __view(request):
     request.session['action'] = 'view'
