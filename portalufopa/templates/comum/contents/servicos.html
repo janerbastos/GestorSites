@@ -1,0 +1,14 @@
+{% load portal_tags %}
+
+<div class="col-sm-9 conteudo-comum">
+	{% has_breadcrumbs %}
+	<div class="conteudo-comum-titulos"> 
+    	<h2 class="titulos-comum">{{object.titulo}}</h2>
+    </div>
+    {% if object.descricao %}<p class="descricao">{{object.descricao}}</p>{% endif %}
+	{% if object.requisito %}<p class="requisito">{{object.requisito}}</p>{% endif %}
+	{% if object.quem_pode %}<p class="quem_pode">{{object.quem_pode}}</p>{% endif %}
+	{% if object.como_solicitar %}<p class="quem_pode">{{object.como_solicitar}}</p>{% endif %}
+	{% if object.prazo %}<p class="quem_pode">{{object.prazo}}</p>{% endif %}
+	{% if object.tag %}<p class="quem_pode">{{object.tag}}</p>{% endif %}
+</div>
