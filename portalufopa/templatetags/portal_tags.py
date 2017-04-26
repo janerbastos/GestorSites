@@ -491,10 +491,13 @@ def has_bolhinas_banner_destaque(**kwargs):
 
 @register.simple_tag(takes_context=True)
 def has_service(context, **kwargs):
-    _result = None
+    _result = {}
     _site_url = get_site_url_id(context.request)
     if 'list' in kwargs:
-        _result = Servico.objects.filter(site__url=_site_url).values_list('tag', flat=True).distinct()
+        itens = Servico.objects.filter(site__url=_site_url).values_list('tag', flat=True)
+        
+        for s in itens:
+            _result[s] = s
         return _result
     
     if 'tag' in kwargs:
