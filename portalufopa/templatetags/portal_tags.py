@@ -329,8 +329,14 @@ def has_list_sessions_site(context):
     return _list_sessions
 
 @register.inclusion_tag('tags/menu_footer.html', takes_context=True)
-def has_menu_footer(context):
-    return has_menu_horizontal(context)
+def has_menu_footer(context, **kwargs):
+    layout = None
+    if 'layout' in kwargs:
+        layout = "%s/%s" % (kwargs['layout'], 'menu_footer.html')
+    
+    _result = has_menu_horizontal(context)
+    _result['layout'] = layout    
+    return _result
 
 @register.simple_tag()
 def has_select_item_menu(list_objects):

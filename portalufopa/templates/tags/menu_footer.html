@@ -1,5 +1,8 @@
 {% load portal_tags %}
 
+{% if layout %}
+	{% include layout %}
+{% else %}
 	{% has_select_item_menu menu as content_rais %}
 	
 	{% if content_rais %}
@@ -26,4 +29,4 @@
 			</div>
 		{% endif %}
 	{% endfor %}
-	
+{% endif %}
