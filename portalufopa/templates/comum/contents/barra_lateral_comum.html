@@ -55,7 +55,7 @@
 			  	{% endif %}
 				{% with conteudos=i.conteudo.all %}
 					{% if conteudos %}
-						<div class="portlet-sem-titulo {{i.layout}} list-group">
+						<div class="portlet-sem-titulo {{i.layout}} list-group portlet-{{i.layout}}-{{ site.url }}">
 							{% for p in conteudos %}
 							    {% if p.tipo == 'ATLink' %}
 									{% with link=p.get_content_object %}
@@ -109,7 +109,7 @@
 			  	{% endif %}
 				{% with conteudos=i.conteudo.all %}
 					{% if conteudos %}
-						<div class="portlet-destaque {{i.layout}} list-group">
+						<div class="portlet-destaque {{i.layout}} list-group portlet-{{i.layout}}-{{ site.url }}">
 							{% for p in conteudos %}
 							    {% if p.tipo == 'ATLink' %}
 									{% with link=p.get_content_object %}
@@ -165,7 +165,7 @@
 				  		{% endif %}
 					</div>
 				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
-				   	<div class="nano">
+				   	<div class="nano portlet-{{i.layout}}-{{ site.url }}">
 						<ul class="nano-content">
 							{% if list_objects %}
 								{% for obj in list_objects %}
@@ -207,7 +207,7 @@
 				  		{% endif %}
 					<!-- </div> -->
 				   	{% has_list_object_by_type i.tipo i.quantidade as list_objects %}
-				   	<div class="nano">
+				   	<div class="nano portlet-{{i.layout}}-{{ site.url }}">
 						<ul class="nano-content">
 							{% if list_objects %}
 								{% for obj in list_objects %}
