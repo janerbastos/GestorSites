@@ -5,7 +5,7 @@
 <div class="feed-post">
    <div class="feed-post-body">
 		{% has_content_by_portal_catalog obj as content %}
-		{% if obj.tipo == 'ATNoticia' %}
+		{% if obj.tipo == 'ATNoticia' or obj.tipo == 'ATInforme' %}
 			{% if content.imagem %}
 				<a href="{{obj.path_url}}" class="feed-post-figure-link ">
 				   <img src="{{content.imagem.url}}" alt="Foto:" width="260">
