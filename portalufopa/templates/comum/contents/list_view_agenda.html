@@ -2,7 +2,7 @@
 
 {% has_list_objects_agenda hoje='True' as contents %}
 {% if contents %}
- <ul class="list-compromissos">
+ <ul class="list-compromissos view-agenda-{{ site.url }}">
 	{% for obj in contents %}
 	<li class="item-compromisso"> 
 		<div class="agenda-horarios">

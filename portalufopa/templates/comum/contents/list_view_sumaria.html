@@ -2,7 +2,7 @@
 
 {% has_list_objects_pasta as contents %}
 {% for obj in contents %}
-<div class="feed-post">
+<div class="feed-post view-sumaria-{{ site.url }}">
    <div class="feed-post-body">
 		{% has_content_by_portal_catalog obj as content %}
 		{% if obj.tipo == 'ATNoticia' or obj.tipo == 'ATInforme' %}

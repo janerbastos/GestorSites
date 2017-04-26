@@ -4,7 +4,7 @@
 
 {% block container %}
 
-<section id="conteudo" class="container" >
+<section id="conteudo" class="container search-{{site.url}}" >
 	<h2>Resutado da busca no site</h2>
 	{% for item in search %}
 		<a href="{{item.path_url}}"><h3>{{item.titulo}}</h3></a>	

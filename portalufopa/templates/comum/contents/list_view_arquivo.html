@@ -1,7 +1,7 @@
 {% load portal_tags %}
 
 {% has_list_objects_arquivo as contents %}
-<div class="feed-post">
+<div class="feed-post view-arquivo-{{ site.url }}">
    <div class="feed-post-body">
    		{% if contents %}
         <ul class="list-group">

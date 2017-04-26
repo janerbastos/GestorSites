@@ -2,7 +2,7 @@
 
 {% has_list_objects_noticia as contents %}
 {% for content in contents %}
-<div class="feed-post">
+<div class="feed-post view-noticia-{{ site.url }}">
    <div class="feed-post-body">
 		{% has_portal_catalog_by_content content as portal_catalog %}
 		{% if content.imagem %}

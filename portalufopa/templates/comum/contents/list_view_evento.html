@@ -1,7 +1,7 @@
 {% load portal_tags %}
 
 {% has_list_objects_evento ordenador='hoje' as contents %}
-<div class="feed-post agenda">
+<div class="feed-post agenda view-evento-{{ site.url }}">
    <div class="feed-post-body">
    		{% if contents %}
    		<div class="nanoAgenda nano">
