@@ -429,11 +429,10 @@ def has_action_view_delete(context):
 def has_login(context, **kwargs):
     _result = None
     _url = None
-    if 'action' in kwargs:
-        action = kwargs['action']
-        if action == 'logout':
-            _url = get_site_url_id(context.request)
-            _result = format_html("<a href='/security/logout/?next=/%s/'>Sair</a>" % _url)
+    user = context.request.user
+    if user.is_authenticated():
+        _url = get_site_url_id(context.request)
+        _result = format_html("<a href='/security/logout/?next=/%s/'>Sair</a>" % _url)
     else:
         _url = context.request.path
         _result = format_html("<a href='/security/login/?next=%s'>Acessar</a>" % _url)
